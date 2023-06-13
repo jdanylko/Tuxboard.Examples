@@ -1,0 +1,22 @@
+﻿@model Tuxboard.Core.Domain.Entities.WidgetPlacement
+﻿
+@if (Model.UseTemplate)
+{
+    <!-- Widgets -->
+    <div class="card @(Model.Collapsed ? "collapsed" : string.Empty)"
+         data-id="Model.WidgetPlacementId" draggable="true">
+
+        <div class="card-header">
+            @Model.GetSettingValueByName("widgettitle")
+        </div>
+
+        <div class="card-body">
+            @await Component.InvokeAsync(Model.Widget.Name, Model)
+        </div>
+
+    </div>
+}
+else
+{
+    @await Component.InvokeAsync(Model.Widget.Name, Model)
+}

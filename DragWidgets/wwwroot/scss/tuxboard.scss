@@ -1,0 +1,65 @@
+@import 'theme.scss';
+
+/**************
+  Stock site.css
+**************/
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/**************
+  Tuxboard styles
+**************/
+
+.column {
+    background: $column-bg;
+    min-height: 200px;
+    float: left;
+    padding: 10px;
+
+    .placeholder {
+        border: 1px dashed $column-placeholder;
+        margin-bottom: 10px;
+        background: $column-placeholder;
+    }
+}
+
+.column.over {
+    border: 2px dashed $column-placeholder-hover;
+}
+
+.column {
+    .card {
+        .card-header {
+            padding: 0;
+            padding-left: 1rem;
+            padding-right: 0.5rem;
+            cursor: move;
+
+            nav.navbar {
+                padding-bottom: 0
+            }
+        }
+    }
+}
+
+.card-header.over {
+    opacity: .2;
+    outline: 2px dashed black;
+}
