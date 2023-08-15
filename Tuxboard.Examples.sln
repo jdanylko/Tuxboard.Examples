@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetsExample", "WidgetsEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragWidgets.Web", "DragWidgets\DragWidgets.Web\DragWidgets.Web.csproj", "{C976CB4A-BE2F-4378-AB80-1AADA66B217C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragWidgets.Api", "DragWidgets\DragWidgets.Api\DragWidgets.Api.csproj", "{6235A81E-1082-4B97-8DA3-12F6D20A81AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragWidgets.Api", "DragWidgets\DragWidgets.Api\DragWidgets.Api.csproj", "{6235A81E-1082-4B97-8DA3-12F6D20A81AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DragWidgets", "DragWidgets", "{14B1CCEB-E15D-471E-9A44-05AE76868678}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +40,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C} = {249457FF-9DEC-41F3-B2EC-AD5CDDF22175}
-		{6235A81E-1082-4B97-8DA3-12F6D20A81AC} = {249457FF-9DEC-41F3-B2EC-AD5CDDF22175}
+		{C976CB4A-BE2F-4378-AB80-1AADA66B217C} = {14B1CCEB-E15D-471E-9A44-05AE76868678}
+		{6235A81E-1082-4B97-8DA3-12F6D20A81AC} = {14B1CCEB-E15D-471E-9A44-05AE76868678}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E187164-92A5-48DA-BC84-E20EEB32E02C}
