@@ -33,7 +33,7 @@ var srcPaths = {
         }
     ],
     srcJs: [
-        path.resolve(basePath, 'src/tuxboard.js')
+        path.resolve(basePath, 'src/dashboard.js')
     ],
     srcSass: [
         path.resolve(basePath, 'scss/site.scss')
