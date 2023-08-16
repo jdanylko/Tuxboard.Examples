@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Tuxbar/Tuxbar.Api/Properties/launchSettings.json
+/Tuxbar/Tuxbar.Web/Properties/launchSettings.json
