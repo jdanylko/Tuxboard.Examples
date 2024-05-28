@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace TuxbarExample.Pages.Shared.Components.LayoutTemplate;
+namespace Tuxbar.Web.Pages.Shared.Components.LayoutTemplate;
 
 [ViewComponent(Name="layouttemplate")]
 public class LayoutTemplateViewComponent : ViewComponent

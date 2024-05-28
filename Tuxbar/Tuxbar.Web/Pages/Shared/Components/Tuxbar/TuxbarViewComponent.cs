@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TuxbarExample.Pages.Shared.Components.Tuxbar;
+namespace Tuxbar.Web.Pages.Shared.Components.Tuxbar;
 
 [ViewComponent(Name="tuxbar")]
 public class TuxbarViewComponent : ViewComponent

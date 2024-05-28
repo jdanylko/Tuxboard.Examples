@@ -1,6 +1,6 @@
 ﻿using Tuxboard.Core.Infrastructure.Models;
 
-namespace DragWidgets.Pages.Shared.Components.GeneralInfo;
+namespace DragWidgets.Web.Pages.Shared.Components.GeneralInfo;
 
 public class GeneralInfoModel : WidgetModel
 {

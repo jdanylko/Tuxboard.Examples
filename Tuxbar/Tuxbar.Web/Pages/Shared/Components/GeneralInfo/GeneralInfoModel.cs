@@ -1,6 +1,6 @@
 ﻿using Tuxboard.Core.Infrastructure.Models;
 
-namespace TuxbarExample.Pages.Shared.Components.GeneralInfo;
+namespace Tuxbar.Web.Pages.Shared.Components.GeneralInfo;
 
 public class GeneralInfoModel : WidgetModel
 {

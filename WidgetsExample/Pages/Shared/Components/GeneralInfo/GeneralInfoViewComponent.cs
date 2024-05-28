@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.UI;
 
 namespace WidgetsExample.Pages.Shared.Components.GeneralInfo;
 
@@ -16,6 +15,6 @@ public class GeneralInfoViewComponent : ViewComponent
             Icon = "fas fa-cogs fa-5x p-3"
         };
 
-        return this.WidgetView(infoViewModel);
+        return View("Default", infoViewModel);
     }
 }

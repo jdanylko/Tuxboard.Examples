@@ -1,8 +1,8 @@
 ﻿import { LayoutRowCollection } from "./layoutRowCollection";
-import { defaultLayoutRowSelector } from "../common";
 import { WidgetPlacement } from "../widget/widgetPlacement";
 import { LayoutRow } from "./layoutRow";
 import { Column } from "./column";
+import { defaultLayoutRowSelector } from "../common";
 
 export class Layout {
 

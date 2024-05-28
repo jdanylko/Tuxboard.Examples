@@ -1,4 +1,4 @@
-﻿namespace DragWidgets.Pages.Shared.Components.Table;
+﻿namespace DragWidgets.Web.Pages.Shared.Components.Table;
 
 public class Product
 {

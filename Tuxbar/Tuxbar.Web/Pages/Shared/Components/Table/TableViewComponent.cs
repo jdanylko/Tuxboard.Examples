@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.UI;
 
-namespace TuxbarExample.Pages.Shared.Components.Table;
+namespace Tuxbar.Web.Pages.Shared.Components.Table;
 
 [ViewComponent(Name = "table")]
 public class TableViewComponent : ViewComponent
@@ -28,6 +27,6 @@ public class TableViewComponent : ViewComponent
             }
         };
 
-        return this.WidgetView(model);
+        return View("Default", model);
     }
 }

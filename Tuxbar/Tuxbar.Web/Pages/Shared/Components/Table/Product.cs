@@ -1,4 +1,4 @@
-﻿namespace TuxbarExample.Pages.Shared.Components.Table;
+﻿namespace Tuxbar.Web.Pages.Shared.Components.Table;
 
 public class Product
 {

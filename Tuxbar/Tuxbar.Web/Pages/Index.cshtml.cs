@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
 
-namespace TuxbarExample.Pages;
+namespace Tuxbar.Web.Pages;
 
 public class IndexModel : PageModel
 {
