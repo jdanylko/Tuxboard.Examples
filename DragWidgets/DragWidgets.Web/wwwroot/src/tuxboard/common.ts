@@ -77,10 +77,10 @@ export const collapsedToggleSelector = "collapsed"
 
 
 // Common functions
-export function getDataId(elem: HTMLElement) { return elem.getAttribute(dataId) }
-export function isHidden(elem: HTMLElement) { return elem.hasAttribute("hidden") }
-export function isDisabled(elem: HTMLElement) { return elem.hasAttribute("disabled") }
-export function noPeriod(id: string) { return id.startsWith(".") ? id.replace(".", "") : id }
+export function getDataId(elem: HTMLElement)   { return elem.getAttribute(dataId) }
+export function isHidden(elem: HTMLElement)    { return elem.hasAttribute("hidden") }
+export function isDisabled(elem: HTMLElement)  { return elem.hasAttribute("disabled") }
+export function noPeriod(id: string)           { return id.startsWith(".") ? id.replace(".", "") : id }
 
 export function getDomWidget(id: string) {
     return document.querySelector<HTMLDivElement>(`[${dataId}='${id}']`)
@@ -177,7 +177,7 @@ export function createFromHtml(htmlString: string) {
     return Array.from(div.children);
 }
 
-export function createNodesFromHtml(htmlString: string) {
+export function createNodesFromHtml(htmlString: string) => {
     return document.createRange().createContextualFragment(htmlString);
 }
 
@@ -189,10 +189,5 @@ export function ready(fn) {
     }
 }
 
-export function hideElement(elem: Element) {
-    elem.setAttribute('hidden', '')
-}
-
-export function showElement(elem: Element) {
-    elem.removeAttribute('hidden')
-}
+export function hideElement(elem: Element) { elem.setAttribute('hidden', '') }
+export function showElement(elem: Element) { elem.removeAttribute('hidden') }
