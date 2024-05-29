@@ -12,7 +12,7 @@ The library is located [here](https://github.com/jdanylko/Tuxboard) and is avail
 
 ## Examples
 The repository contains the following examples:
-- **01-SimpleDashboard**<br/>The simplest way to create a static dashboard; VERY basic; no JavaScript with no features.<br/><br/>
-- **02-WidgetsExample**<br/>A simple dashboard with a simple widget<br/><br/>
+- **01-SimpleDashboard**<br/>The simplest way to create a static dashboard; VERY basic; no JavaScript with no features ([related post](https://www.danylkoweb.com/Blog/introducing-tuxboard-SY)) <br/><br/>
+- **02-WidgetsExample**<br/>A simple dashboard with a simple widget ([related post](https://www.danylkoweb.com/Blog/dashboard-modularity-TD))<br/><br/>
 - **03-DragWidgets.Web**<br/>Using TypeScript to move Widgets around on the dashboard<br/><br/>
 
