@@ -9,12 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-WidgetsExample", "02-Wid
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-DragWidgets.Web", "03-DragWidgets\03-DragWidgets.Web.csproj", "{C976CB4A-BE2F-4378-AB80-1AADA66B217C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tuxbar", "Tuxbar", "{5D6F5F60-09F7-40D5-9AF8-6BDE6363765C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tuxbar.Web", "Tuxbar\Tuxbar.Web\Tuxbar.Web.csproj", "{8501487C-B7F9-4990-8C69-C0663B0F563E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tuxbar.Api", "Tuxbar\Tuxbar.Api\Tuxbar.Api.csproj", "{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,22 +27,9 @@ Global
 		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8501487C-B7F9-4990-8C69-C0663B0F563E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8501487C-B7F9-4990-8C69-C0663B0F563E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8501487C-B7F9-4990-8C69-C0663B0F563E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8501487C-B7F9-4990-8C69-C0663B0F563E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C} = {14B1CCEB-E15D-471E-9A44-05AE76868678}
-		{8501487C-B7F9-4990-8C69-C0663B0F563E} = {5D6F5F60-09F7-40D5-9AF8-6BDE6363765C}
-		{AD9B9A35-1C33-4F7F-A6F4-92E1257DC6FE} = {5D6F5F60-09F7-40D5-9AF8-6BDE6363765C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E187164-92A5-48DA-BC84-E20EEB32E02C}
