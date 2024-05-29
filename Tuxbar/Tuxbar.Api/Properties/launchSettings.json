@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Tuxbar.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:56616;http://localhost:56617"
+    }
+  }
+}

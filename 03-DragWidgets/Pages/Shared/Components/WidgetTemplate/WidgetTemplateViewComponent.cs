@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace Tuxbar.Web.Pages.Shared.Components.WidgetTemplate;
+namespace DragWidgets.Web.Pages.Shared.Components.WidgetTemplate;
 
-[ViewComponent(Name="widgettemplate")]
+[ViewComponent(Name = "widgettemplate")]
 public class WidgetTemplateViewComponent : ViewComponent
 {
     public IViewComponentResult Invoke(WidgetPlacement placement)

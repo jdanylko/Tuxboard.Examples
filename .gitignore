@@ -361,5 +361,24 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Tuxbar/Tuxbar.Api/Properties/launchSettings.json
-/Tuxbar/Tuxbar.Web/Properties/launchSettings.json
+
+/Tuxbar/Tuxbar.Web/wwwroot/js/**/*
+/Tuxbar/Tuxbar.Web/wwwroot/css/**/*
+/Tuxbar/Tuxbar.Web/wwwroot/lib/**/*
+/Tuxbar/Tuxbar.Web/wwwroot/src/**/*.js
+
+/01-SimpleDashboard/wwwroot/js/**/*
+/01-SimpleDashboard/wwwroot/css/**/*
+/01-SimpleDashboard/wwwroot/lib/**/*
+/01-SimpleDashboard/wwwroot/src/**/*.js
+
+/02-WidgetsExample/wwwroot/js/**/*
+/02-WidgetsExample/wwwroot/css/**/*
+/02-WidgetsExample/wwwroot/lib/**/*
+/02-WidgetsExample/wwwroot/src/**/*.js
+
+/03-DragWidgets/wwwroot/js/**/*
+/03-DragWidgets/wwwroot/css/**/*
+/03-DragWidgets/wwwroot/lib/**/*
+/03-DragWidgets/wwwroot/src/**/*.js
+

@@ -1,4 +1,4 @@
-﻿namespace Tuxbar.Web.Pages.Shared.Components.Table;
+﻿namespace DragWidgets.Web.Pages.Shared.Components.Table;
 
 public class Product
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Tuxbar.Web.Pages
+namespace DragWidgets.Web.Pages
 {
     public class PrivacyModel : PageModel
     {

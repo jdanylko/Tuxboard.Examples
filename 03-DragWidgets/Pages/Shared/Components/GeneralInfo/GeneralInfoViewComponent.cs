@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace Tuxbar.Web.Pages.Shared.Components.GeneralInfo;
+namespace DragWidgets.Web.Pages.Shared.Components.GeneralInfo;
 
 [ViewComponent(Name = "generalinfo")]
 public class GeneralInfoViewComponent : ViewComponent

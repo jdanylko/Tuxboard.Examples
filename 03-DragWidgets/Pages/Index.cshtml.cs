@@ -4,7 +4,7 @@ using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
 
-namespace Tuxbar.Web.Pages;
+namespace DragWidgets.Web.Pages;
 
 public class IndexModel : PageModel
 {

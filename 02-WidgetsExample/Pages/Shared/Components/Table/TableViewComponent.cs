@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace Tuxbar.Web.Pages.Shared.Components.Table;
+namespace WidgetsExample.Pages.Shared.Components.Table;
 
 [ViewComponent(Name = "table")]
 public class TableViewComponent : ViewComponent
@@ -19,12 +19,12 @@ public class TableViewComponent : ViewComponent
         var model = new TableModel
         {
             Placement = placement,
-            Products = new List<Product>
-            {
-                new() {Id = 1, Title = "Product1", Price = new decimal(15.00)},
-                new() {Id = 2, Title = "Product2", Price = new decimal(45.00)},
-                new() {Id = 3, Title = "Product3", Price = new decimal(120.00)}
-            }
+            Products =
+            [
+                new() { Id = 1, Title = "Product1", Price = new decimal(15.00) },
+                new() { Id = 2, Title = "Product2", Price = new decimal(45.00) },
+                new() { Id = 3, Title = "Product3", Price = new decimal(120.00) }
+            ]
         };
 
         return View("Default", model);
