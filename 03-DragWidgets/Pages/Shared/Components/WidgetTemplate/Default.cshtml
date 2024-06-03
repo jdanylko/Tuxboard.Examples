@@ -4,7 +4,7 @@
 {
     <!-- Widgets -->
     <div class="card @(Model.Collapsed ? "collapsed" : string.Empty)"
-         data-id="Model.WidgetPlacementId" draggable="true">
+         data-id="@Model.WidgetPlacementId" draggable="true">
 
         <div class="card-header">
             @Model.GetSettingValueByName("widgettitle")

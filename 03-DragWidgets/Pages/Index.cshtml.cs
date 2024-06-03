@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
+using System.Net;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
+using Tuxboard.Core.Infrastructure.Models;
 
 namespace DragWidgets.Web.Pages;
 
@@ -27,5 +30,18 @@ public class IndexModel : PageModel
     public async Task OnGet()
     {
         Dashboard = await _service.GetDashboardAsync(_config);
+    }
+
+    public async Task<IActionResult> OnPostSaveWidgetPosition([FromBody] PlacementParameter model)
+    {
+        var placement = await _service.SaveWidgetPlacementAsync(model);
+
+        if (placement == null)
+        {
+            return StatusCode((int)HttpStatusCode.InternalServerError,
+                $"Widget Placement (id:{model.PlacementId}) was NOT saved.");
+        }
+
+        return new OkObjectResult("Widget Placement was saved.");
     }
 }

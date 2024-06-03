@@ -9,10 +9,10 @@ using Tuxboard.Core.Data.Context;
 
 #nullable disable
 
-namespace DragWidgets.Migrations
+namespace _03DragWidgets.Migrations
 {
     [DbContext(typeof(TuxDbContext))]
-    [Migration("20230612113317_Initial")]
+    [Migration("20240601191452_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace DragWidgets.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
