@@ -386,3 +386,9 @@ FodyWeavers.xsd
 /03-DragWidgets/wwwroot/src/**/*.js
 /03-DragWidgets/Properties/launchSettings.json
 
+/04-Tuxbar/wwwroot/js/**/*
+/04-Tuxbar/wwwroot/css/**/*
+/04-Tuxbar/wwwroot/lib/**/*
+/04-Tuxbar/wwwroot/src/**/*.js
+/04-Tuxbar/Properties/launchSettings.json
+
