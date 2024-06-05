@@ -16,14 +16,17 @@ import { DragWidgetInfo } from "./dto/dragWidgetInfo";
 import { Column } from "./models/Column";
 import { LayoutRow } from "./models/LayoutRow";
 import { Tab } from "./models/tab";
+import { TuxboardService } from "./services/TuxboardService";
 import { WidgetCollection } from "./widget/widgetCollection";
 
 export class Tuxboard {
 
-    private dragInfo: DragWidgetInfo
+    private dragInfo: DragWidgetInfo;
 
-    private selector = defaultDashboardSelector
-    private dashboard = document.querySelector<HTMLDivElement>(this.selector)
+    private selector = defaultDashboardSelector;
+    private dashboard = document.querySelector<HTMLDivElement>(this.selector);
+
+    private service: TuxboardService = new TuxboardService();
 
     getDashboardId = (): string => getDataId(this.dashboard);
 
@@ -50,7 +53,7 @@ export class Tuxboard {
     }
 
     getLayoutRowCollection = (tab: Tab = null): LayoutRow[] => {
-        const currentTab = tab || this.getTab()
+        const currentTab = tab || this.getTab();
         return Array.from(currentTab.getLayoutRows())
     }
 
@@ -64,13 +67,13 @@ export class Tuxboard {
                     .map((column: Column, index: number) => {
                         const layoutRowId = layoutRowItem.getLayoutRowId();
                         const widgetList = new WidgetCollection(column.getDom(), index, layoutRowId)
-                            .getWidgets()
+                            .getWidgets();
                         if (widgetList.length > 0) {
-                            widgets.push(widgetList)
+                            widgets.push(widgetList);
                         }
                     })
             })
-        return widgets
+        return widgets;
     }
 
 
@@ -79,112 +82,115 @@ export class Tuxboard {
     ////////////////////
 
     attachDragAndDropEvents = () => {
-        const columns = this.getAllColumns(this.getTab())
+        const columns = this.getAllColumns(this.getTab());
         for (const column of columns) {
             column.getDom().addEventListener("dragstart", (ev: DragEvent) => {
                 this.dragStart(ev, column)
-            }, false)
-            column.getDom().addEventListener("dragover", this.dragover, false)
-            column.getDom().addEventListener("dragenter", this.dragenter, false)
-            column.getDom().addEventListener("dragleave", this.dragLeave, false)
-            column.getDom().addEventListener("drop", (ev: DragEvent) => { this.drop(ev) }, false)
-            column.getDom().addEventListener("dragend", (ev: DragEvent) => { this.dragEnd(ev); }, false)
+            }, false);
+            column.getDom().addEventListener("dragover", this.dragover, false);
+            column.getDom().addEventListener("dragenter", this.dragenter, false);
+            column.getDom().addEventListener("dragleave", this.dragLeave, false);
+            column.getDom().addEventListener("drop", (ev: DragEvent) => { this.drop(ev) }, false);
+            column.getDom().addEventListener("dragend", (ev: DragEvent) => { this.dragEnd(ev); }, false);
         }
     }
 
     dragStart = (ev: DragEvent, column: Column) => {
 
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.stopPropagation) ev.stopPropagation();
 
-        ev.dataTransfer.effectAllowed = 'move'
+        ev.dataTransfer.effectAllowed = 'move';
 
-        const elem = ev.target as HTMLElement
+        const elem = ev.target as HTMLElement;
 
         this.dragInfo = new DragWidgetInfo(
             elem.getAttribute(dataId),
             column.getIndex(),
             column.layoutRowId,
             column.getIndex(),
-            column.layoutRowId)
+            column.layoutRowId);
 
-        ev.dataTransfer.setData('text', JSON.stringify(this.dragInfo))
+        ev.dataTransfer.setData('text', JSON.stringify(this.dragInfo));
     }
 
     dragover = (ev: DragEvent) => {
-        if (ev.preventDefault) ev.preventDefault()
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.preventDefault) ev.preventDefault();
+        if (ev.stopPropagation) ev.stopPropagation();
 
-        ev.dataTransfer.dropEffect = 'move'
+        ev.dataTransfer.dropEffect = 'move';
 
-        const target = ev.target as HTMLElement
+        const target = ev.target as HTMLElement;
 
-        return isWidgetOrColumn(target)
+        return isWidgetOrColumn(target);
     }
 
     dragenter = (ev: DragEvent) => {
-        if (ev.preventDefault) ev.preventDefault()
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.preventDefault) ev.preventDefault();
+        if (ev.stopPropagation) ev.stopPropagation();
 
-        const target = ev.target as HTMLElement
-        if (isWidgetOrColumn(target)) target.classList.add('over')
+        const target = ev.target as HTMLElement;
+        if (isWidgetOrColumn(target)) target.classList.add('over');
     }
 
     dragLeave = (ev: DragEvent) => {
-        if (ev.preventDefault) ev.preventDefault()
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.preventDefault) ev.preventDefault();
+        if (ev.stopPropagation) ev.stopPropagation();
 
-        const target = ev.target as HTMLElement
-        if (isWidgetOrColumn(target)) target.classList.remove("over")
+        const target = ev.target as HTMLElement;
+        if (isWidgetOrColumn(target)) target.classList.remove("over");
     }
 
     drop = (ev: DragEvent) => {
-        if (ev.preventDefault) ev.preventDefault()
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.preventDefault) ev.preventDefault();
+        if (ev.stopPropagation) ev.stopPropagation();
 
-        const targetElement = ev.target as HTMLElement // .column or .card-header
+        const targetElement = ev.target as HTMLElement; // .column or .card-header
 
-        this.dragInfo = JSON.parse(ev.dataTransfer.getData("text"))
+        this.dragInfo = JSON.parse(ev.dataTransfer.getData("text"));
 
-        const draggedWidget = document.querySelector(`[${dataId}='${this.dragInfo.placementId}'`)
+        const draggedWidget = document.querySelector(`[${dataId}='${this.dragInfo.placementId}'`);
 
         if (isWidget(targetElement)) {
-            const widget = getClosestByClass(targetElement, noPeriod(defaultWidgetSelector))
-            const column = getClosestByClass(targetElement, noPeriod(defaultColumnSelector))
+            const widget = getClosestByClass(targetElement, noPeriod(defaultWidgetSelector));
+            const column = getClosestByClass(targetElement, noPeriod(defaultColumnSelector));
             if (column && widget) {
-                column.insertBefore(draggedWidget, widget)
+                column.insertBefore(draggedWidget, widget);
             }
         }
         else if (targetElement.classList.contains(defaultColumnSelector.substr(1))) {
             const closestWidget = getClosestByClass(targetElement,
-                defaultWidgetSelector)
+                defaultWidgetSelector);
             if (closestWidget) {
-                targetElement.insertBefore(draggedWidget, closestWidget)
+                targetElement.insertBefore(draggedWidget, closestWidget);
             } else {
-                targetElement.append(draggedWidget)
+                targetElement.append(draggedWidget);
             }
         }
     }
 
     dragEnd = (ev: DragEvent) => {
-        if (ev.preventDefault) ev.preventDefault()
-        if (ev.stopPropagation) ev.stopPropagation()
+        if (ev.preventDefault) ev.preventDefault();
+        if (ev.stopPropagation) ev.stopPropagation();
 
         this.dashboard.querySelectorAll(defaultColumnSelector)
-            .forEach((elem: HTMLElement) => elem.classList.remove("over"))
+            .forEach((elem: HTMLElement) => elem.classList.remove("over"));
         this.dashboard.querySelectorAll(defaultWidgetHeaderSelector)
-            .forEach((elem: HTMLElement) => elem.classList.remove("over"))
+            .forEach((elem: HTMLElement) => elem.classList.remove("over"));
 
-        const id = this.dragInfo.placementId
+        const id = this.dragInfo.placementId;
 
-        this.dragInfo.placementList = getWidgetSnapshot(this.dragInfo, this.getTab())
+        this.dragInfo.placementList = getWidgetSnapshot(this.dragInfo, this.getTab());
 
         const selected = this.dragInfo.placementList
-            .filter((elem: PlacementItem) => elem.placementId === id)
+            .filter((elem: PlacementItem) => elem.placementId === id);
         if (selected && selected.length > 0) {
-            this.dragInfo.currentLayoutRowId = selected[0].layoutRowId
-            this.dragInfo.currentColumnIndex = selected[0].columnIndex
+            this.dragInfo.currentLayoutRowId = selected[0].layoutRowId;
+            this.dragInfo.currentColumnIndex = selected[0].columnIndex;
         }
 
-        ev.dataTransfer.clearData()
+        this.service.saveWidgetPlacement(ev, this.dragInfo)
+            .then((result) => console.log("Saved."));
+
+        ev.dataTransfer.clearData();
     }
 }

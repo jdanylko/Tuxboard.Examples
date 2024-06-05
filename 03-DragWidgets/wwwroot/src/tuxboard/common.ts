@@ -1,25 +1,25 @@
-﻿import { PlacementItem } from "./dto/PlacementItem"
-import { DragWidgetInfo } from "./dto/dragWidgetInfo"
-import { Tab } from "./models/tab"
+﻿import { PlacementItem } from "./dto/PlacementItem";
+import { DragWidgetInfo } from "./dto/dragWidgetInfo";
+import { Tab } from "./models/tab";
 
 // Default selectors
-export const defaultDashboardSelector = ".dashboard"
+export const defaultDashboardSelector = ".dashboard";
 
-export const defaultTabSelector = ".dashboard-tab"
-export const defaultLayoutRowSelector = ".layout-row"
-export const defaultColumnSelector = ".column"
+export const defaultTabSelector = ".dashboard-tab";
+export const defaultLayoutRowSelector = ".layout-row";
+export const defaultColumnSelector = ".column";
 
-export const defaultWidgetSelector = ".card"
-export const defaultWidgetHeaderSelector = ".card-header"
-export const defaultWidgetTitleSelector = ".card-title"
-export const defaultWidgetBodySelector = ".card-body"
-export const defaultGeneralOverlaySelector = ".overlay"
-export const defaultLoadingSelector = ".loading-status"
+export const defaultWidgetSelector = ".card";
+export const defaultWidgetHeaderSelector = ".card-header";
+export const defaultWidgetTitleSelector = ".card-title";
+export const defaultWidgetBodySelector = ".card-body";
+export const defaultGeneralOverlaySelector = ".overlay";
+export const defaultLoadingSelector = ".loading-status";
 
-export const defaultWidgetSettingsSelector = ".widget-settings"
-export const defaultWidgetSettingsCancelButtonSelector = ".settings-cancel"
-export const defaultWidgetSettingsSaveButtonSelector = ".settings-save"
-export const defaultWidgetSettingInputsSelector = ".setting-value"
+export const defaultWidgetSettingsSelector = ".widget-settings";
+export const defaultWidgetSettingsCancelButtonSelector = ".settings-cancel";
+export const defaultWidgetSettingsSaveButtonSelector = ".settings-save";
+export const defaultWidgetSettingInputsSelector = ".setting-value";
 
 /* Widget toolbar */
 export const defaultWidgetToolbarSelector = ".card-tools";
@@ -31,49 +31,49 @@ export const defaultWidgetRemoveWidgetSelector = ".remove-widget";
 
 
 // Tuxbar selectors (comment out if you don't want a tuxbar)
-export const defaultTuxbarSelector = ".tuxbar"
+export const defaultTuxbarSelector = ".tuxbar";
 
 // Buttons
-export const defaultRefreshButton = "#refresh-button"
+export const defaultRefreshButton = "#refresh-button";
 
 ///////////////// Dialogs (comment out what you don't want to use) /////////////////////
 // Add Widget Dialog
-export const defaultAddWidgetButton = "#widget-button"
+export const defaultAddWidgetButton = "#widget-button";
 
-export const defaultAddWidgetDialogSelector = "#widget-dialog"
-export const defaultWidgetTabGroupSelector = ".widget-tabs"
-export const defaultWidgetListItemSelector = "a.widget-item"
-export const defaultAddWidgetButtonSelector = ".add-widget"
-export const defaultWidgetSelectionSelector = ".selected"
+export const defaultAddWidgetDialogSelector = "#widget-dialog";
+export const defaultWidgetTabGroupSelector = ".widget-tabs";
+export const defaultWidgetListItemSelector = "a.widget-item";
+export const defaultAddWidgetButtonSelector = ".add-widget";
+export const defaultWidgetSelectionSelector = ".selected";
 
 // Change Layout Dialog
-export const defaultChangeLayoutButton = "#layout-button"
+export const defaultChangeLayoutButton = "#layout-button";
 
-export const defaultChangeLayoutDialogSelector = "#layout-dialog"
-export const defaultLayoutListSelector = ".layout-list"
-export const defaultLayoutItemSelector = "li"
-export const defaultSaveLayoutButtonSelector = ".save-layout"
+export const defaultChangeLayoutDialogSelector = "#layout-dialog";
+export const defaultLayoutListSelector = ".layout-list";
+export const defaultLayoutItemSelector = "li";
+export const defaultSaveLayoutButtonSelector = ".save-layout";
 
 
 // Change Row Layout Dialog
-export const defaultChangeRowLayoutButton = "#row-layout-button"
+export const defaultChangeRowLayoutButton = "#row-layout-button";
 
-export const defaultChangeRowLayoutDialogSelector = "#row-layout-dialog"
-export const defaultDeleteRowLayoutButtonSelector = ".row-layout-delete-button"
-export const defaultLayoutRowListSelector = ".row-layout-list"
-export const defaultLayoutRowItemSelector = ".row-layout-item"
-export const defaultLayoutRowPlaceholderSelector = ".placeholder"
-export const defaultDropdownLayoutTypesSelector = ".row-layout-types"
-export const defaultLayoutRowTypeSelector = ".row-layout-types option"
-export const defaultLayoutRowItemHandleSelector = ".handle"
-export const defaultLayoutRowMessageSelector = "#row-layout-message"
-export const defaultSaveRowLayoutButtonSelector = ".save-row-layout"
+export const defaultChangeRowLayoutDialogSelector = "#row-layout-dialog";
+export const defaultDeleteRowLayoutButtonSelector = ".row-layout-delete-button";
+export const defaultLayoutRowListSelector = ".row-layout-list";
+export const defaultLayoutRowItemSelector = ".row-layout-item";
+export const defaultLayoutRowPlaceholderSelector = ".placeholder";
+export const defaultDropdownLayoutTypesSelector = ".row-layout-types";
+export const defaultLayoutRowTypeSelector = ".row-layout-types option";
+export const defaultLayoutRowItemHandleSelector = ".handle";
+export const defaultLayoutRowMessageSelector = "#row-layout-message";
+export const defaultSaveRowLayoutButtonSelector = ".save-row-layout";
 
 
 // Default attributes
-export const dataId = "data-id"
-export const isStaticAttribute = "data-static"
-export const collapsedToggleSelector = "collapsed"
+export const dataId = "data-id";
+export const isStaticAttribute = "data-static";
+export const collapsedToggleSelector = "collapsed";
 
 
 // Common functions
@@ -83,19 +83,19 @@ export function isDisabled(elem: HTMLElement)  { return elem.hasAttribute("disab
 export function noPeriod(id: string)           { return id.startsWith(".") ? id.replace(".", "") : id }
 
 export function getDomWidget(id: string) {
-    return document.querySelector<HTMLDivElement>(`[${dataId}='${id}']`)
+    return document.querySelector<HTMLDivElement>(`[${dataId}='${id}']`);
 }
 
 export function getParent(element: HTMLElement, classToSearch: string) {
-    return getClosestByClass(element, classToSearch)
+    return getClosestByClass(element, classToSearch);
 }
 
 export function getClosestByClass(element: HTMLElement, classToSearch: string) {
     while (element) {
         if (element.classList.contains(classToSearch)) {
-            return element
+            return element;
         }
-        element = element.parentElement
+        element = element.parentElement;
     }
 }
 
@@ -177,7 +177,7 @@ export function createFromHtml(htmlString: string) {
     return Array.from(div.children);
 }
 
-export function createNodesFromHtml(htmlString: string) => {
+export function createNodesFromHtml(htmlString: string) {
     return document.createRange().createContextualFragment(htmlString);
 }
 

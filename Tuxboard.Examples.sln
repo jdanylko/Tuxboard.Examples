@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-SimpleDashboard", "01-Si
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-WidgetsExample", "02-WidgetsExample\02-WidgetsExample.csproj", "{EDD07A84-573D-45E1-84D5-5FBA09BE065A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-DragWidgets.Web", "03-DragWidgets\03-DragWidgets.Web.csproj", "{C976CB4A-BE2F-4378-AB80-1AADA66B217C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-DragWidgets.Web", "03-DragWidgets\03-DragWidgets.csproj", "{9C4CD33F-2299-47DD-A14F-901CEC976AEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{EDD07A84-573D-45E1-84D5-5FBA09BE065A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD07A84-573D-45E1-84D5-5FBA09BE065A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD07A84-573D-45E1-84D5-5FBA09BE065A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C976CB4A-BE2F-4378-AB80-1AADA66B217C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4CD33F-2299-47DD-A14F-901CEC976AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4CD33F-2299-47DD-A14F-901CEC976AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4CD33F-2299-47DD-A14F-901CEC976AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4CD33F-2299-47DD-A14F-901CEC976AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

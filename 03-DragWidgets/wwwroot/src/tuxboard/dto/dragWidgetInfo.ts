@@ -9,6 +9,6 @@ export class DragWidgetInfo {
         public currentColumnIndex: number,
         public currentLayoutRowId: string,
         public previousColumnIndex: number,
-        public previousLayoutRowId: string,
+        public previousLayoutRowId: string
     ) { }
 }

@@ -8,7 +8,7 @@ using Tuxboard.Core.Data.Context;
 
 #nullable disable
 
-namespace DragWidgets.Migrations
+namespace _03DragWidgets.Migrations
 {
     [DbContext(typeof(TuxDbContext))]
     partial class TuxDbContextModelSnapshot : ModelSnapshot
@@ -18,7 +18,7 @@ namespace DragWidgets.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

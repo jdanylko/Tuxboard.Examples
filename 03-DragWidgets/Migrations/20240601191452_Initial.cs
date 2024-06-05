@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DragWidgets.Migrations
+namespace _03DragWidgets.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
