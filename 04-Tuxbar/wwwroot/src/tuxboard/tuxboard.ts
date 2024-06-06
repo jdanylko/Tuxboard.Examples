@@ -78,7 +78,19 @@ export class Tuxboard {
 
     getService = () => this.service;
 
-    refresh = () => {  }
+    refresh = () => {
+        this.service.refresh()
+            .then((data:string) => {
+                this.updateDashboard(data);
+            })
+    }
+
+    updateDashboard = (data: string) => {
+        if (data) {
+            document.querySelector(defaultDashboardSelector).innerHTML = data;
+            this.attachDragAndDropEvents();
+        }
+    }
 
     ////////////////////
     // Drag and Drop

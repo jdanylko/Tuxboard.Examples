@@ -1,6 +1,6 @@
 ﻿@model Tuxboard.Core.Domain.Entities.Dashboard
 
-<div class="tuxbar btn-toolbar border border-1 bg-light p-1 mb-3" role="toolbar" aria-label="Tuxbar for Tuxboard">
+<div class="tuxbar btn-toolbar border border-1 bg-light p-1 mb-3 justify-content-between" role="toolbar" aria-label="Tuxbar for Tuxboard">
     <form>
         <div class="btn-group btn-group-sm">
             <button type="button" id="refresh-button" title="Refresh" class="btn btn-outline-secondary">
@@ -11,4 +11,7 @@
             <span id="tuxbar-status"></span>
         </div>
     </form>
+    <div class="input-group mx-3">
+        <span id="tuxbar-spinner" hidden><i class="fa-solid fa-sync fa-spin"></i></span>
+    </div>
 </div>

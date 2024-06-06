@@ -44,4 +44,11 @@ public class IndexModel : PageModel
 
         return new OkObjectResult("Widget Placement was saved.");
     }
+
+    public async Task<IActionResult> OnPostRefresh()
+    {
+        var dashboard = await _service.GetDashboardAsync(_config);
+
+        return ViewComponent("tuxboardtemplate", dashboard);
+    }
 }

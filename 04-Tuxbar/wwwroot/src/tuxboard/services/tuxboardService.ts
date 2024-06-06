@@ -4,12 +4,13 @@ import { BaseService } from "./BaseService";
 export class TuxboardService extends BaseService {
 
     private tuxWidgetPlacementUrl: string = "?handler=SaveWidgetPosition";
+    //private tuxRefreshUrl: string = "?handler=Refresh";
 
     constructor(debugParam: boolean = false) {
         super(debugParam);
     }
 
-    public saveWidgetPlacement(ev: Event, dragInfo: DragWidgetInfo) {
+    public saveWidgetPlacement = (ev: Event, dragInfo: DragWidgetInfo) => {
 
         const postData = {
             Column: dragInfo.currentColumnIndex,
@@ -34,4 +35,23 @@ export class TuxboardService extends BaseService {
             .then(this.validateResponse)
             .catch(this.logError);
     }
+
+    private tuxRefreshUrl: string = "?handler=Refresh";
+    public refresh = () => {
+
+        const request = new Request(this.tuxRefreshUrl,
+            {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText)
+            .catch(this.logError);
+    }
+
 }

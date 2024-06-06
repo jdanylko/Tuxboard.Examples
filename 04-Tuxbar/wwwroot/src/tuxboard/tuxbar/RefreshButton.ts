@@ -1,7 +1,7 @@
 ﻿import { TuxbarButton } from "./TuxbarButton";
 import { Tuxbar } from "./Tuxbar";
-import { defaultTuxbarMessageSelector } from "../common";
-import { TuxbarMessage } from "./TuxbarMessage";
+import { TuxbarSpinner } from "./TuxbarSpinner";
+import { defaultTuxbarSpinnerSelector } from "../common";
 
 export class RefreshButton extends TuxbarButton {
 
@@ -10,18 +10,24 @@ export class RefreshButton extends TuxbarButton {
         super(tb, sel);
 
         const element = this.getDom();
-        if (element) {
-            element.removeEventListener("click", this.onClick, false);
-            element.addEventListener("click", this.onClick, false);
-        }
+        element?.removeEventListener("click", this.onClick, false);
+        element?.addEventListener("click", this.onClick, false);
     }
 
     onClick = (ev: MouseEvent) => {
-        const message = this.tuxBar.get(defaultTuxbarMessageSelector) as TuxbarMessage;
-        if (message) {
-            message.setMessage("It's clicked.", false);
+
+        const spinner = this.tuxBar.get(defaultTuxbarSpinnerSelector) as TuxbarSpinner;
+        spinner?.show();
+
+        try
+        {
+            this.tuxBar.getTuxboard().refresh();
         }
-    };
+        finally
+        {
+            spinner?.hide();
+        }
+    }
 
     getDom = () => this.tuxBar.getDom().querySelector(this.selector);
 }

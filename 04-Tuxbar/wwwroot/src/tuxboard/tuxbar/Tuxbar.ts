@@ -1,9 +1,9 @@
-﻿import { defaultTuxbarMessageSelector, defaultTuxbarRefreshButton } from "../common";
+﻿import { defaultTuxbarMessageSelector, defaultTuxbarRefreshButton, defaultTuxbarSpinnerSelector } from "../common";
 import { Tuxboard } from "../tuxboard";
 import { ITuxbarControl } from "./ITuxbarControl";
 import { RefreshButton } from "./RefreshButton";
-import { TuxbarControl } from "./TuxbarControl";
 import { TuxbarMessage } from "./TuxbarMessage";
+import { TuxbarSpinner } from "./TuxbarSpinner";
 
 export class Tuxbar {
 
@@ -17,13 +17,14 @@ export class Tuxbar {
 
     public getTuxboardService = () => this.getTuxboard().getService();
 
-    public initialize = () => {
-        this.controls.push(new RefreshButton(this, defaultTuxbarRefreshButton));
-        this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
-    }
-
     public get = (selector: string) => {
         return this.controls.find(ctl => ctl.selector === selector);
+    }
+
+    public initialize = () => {
+        this.controls.push(new TuxbarSpinner(this, defaultTuxbarSpinnerSelector));
+        this.controls.push(new RefreshButton(this, defaultTuxbarRefreshButton));
+        this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
     }
 }
 

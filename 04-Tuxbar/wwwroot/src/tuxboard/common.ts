@@ -36,6 +36,7 @@ export const defaultTuxbarSelector = ".tuxbar";
 // Tuxbar Controls
 export const defaultTuxbarRefreshButton = "#refresh-button";
 export const defaultTuxbarMessageSelector = "#tuxbar-status";
+export const defaultTuxbarSpinnerSelector = "#tuxbar-spinner";
 
 
 ///////////////// Dialogs (comment out what you don't want to use) /////////////////////
