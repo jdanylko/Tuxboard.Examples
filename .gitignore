@@ -392,3 +392,8 @@ FodyWeavers.xsd
 /04-Tuxbar/wwwroot/src/**/*.js
 /04-Tuxbar/Properties/launchSettings.json
 
+/05-Layout-1/wwwroot/js/**/*
+/05-Layout-1/wwwroot/css/**/*
+/05-Layout-1/wwwroot/lib/**/*
+/05-Layout-1/wwwroot/src/**/*.js
+/05-Layout-1/Properties/launchSettings.json
