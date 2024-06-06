@@ -1,0 +1,30 @@
+﻿import { defaultTuxbarMessageSelector, defaultTuxbarRefreshButton, defaultTuxbarSpinnerSelector } from "../common";
+import { Tuxboard } from "../tuxboard";
+import { ITuxbarControl } from "./ITuxbarControl";
+import { RefreshButton } from "./RefreshButton";
+import { TuxbarMessage } from "./TuxbarMessage";
+import { TuxbarSpinner } from "./TuxbarSpinner";
+
+export class Tuxbar {
+
+    private controls: ITuxbarControl[] = [];
+
+    constructor(private readonly tuxboard: Tuxboard, private readonly selector: string) { }
+
+    public getDom = () => document.querySelector(this.selector) as HTMLDivElement;
+
+    public getTuxboard = () => this.tuxboard;
+
+    public getTuxboardService = () => this.getTuxboard().getService();
+
+    public get = (selector: string) => {
+        return this.controls.find(ctl => ctl.selector === selector);
+    }
+
+    public initialize = () => {
+        this.controls.push(new TuxbarSpinner(this, defaultTuxbarSpinnerSelector));
+        this.controls.push(new RefreshButton(this, defaultTuxbarRefreshButton));
+        this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
+    }
+}
+
