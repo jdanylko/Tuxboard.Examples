@@ -1,0 +1,19 @@
+﻿@model SimpleLayoutModel
+
+<p condition="Model?.Layouts == null" class="text-center">Layouts not available.</p>
+<ul condition="Model?.Layouts != null" class="layout-list">
+    @foreach (var layoutType in Model!.Layouts)
+    {
+        <li data-id="@layoutType.Id" class="text-center @(layoutType.Selected ? " selected": "")">
+            <div class="layout-header">@layoutType.Title</div>
+            <div class="preview-table">
+                <div class="preview-row">
+                    @foreach (var column in layoutType.Layout.Split('/'))
+                    {
+                        <div class="@column">&nbsp;</div>
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>

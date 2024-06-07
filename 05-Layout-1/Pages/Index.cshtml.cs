@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Net;
+using Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
@@ -50,5 +51,41 @@ public class IndexModel : PageModel
         var dashboard = await _service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
+    }
+
+    /* Dialogs */
+    public async Task<IActionResult> OnPostSimpleLayoutDialog()
+    {
+        var dashboard = await _service.GetDashboardAsync(_config);
+        var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
+        var currentLayoutType = layouts.LayoutRows.FirstOrDefault().LayoutType;
+        
+        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutType = layoutTypes.FirstOrDefault(e => e.LayoutTypeId.Equals(currentLayoutType.LayoutTypeId));
+        if (layoutType != null)
+        {
+            // layoutType.
+        }
+
+        return ViewComponent("simplelayoutdialog", layoutTypes);
+    }
+
+    public async Task<IActionResult> OnPostSaveSimpleLayout([FromBody] string newLayoutId)
+    {
+        var dashboard = await _service.GetDashboardAsync(_config);
+
+        var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
+        var currentLayoutType = layouts.LayoutRows.FirstOrDefault().LayoutType;
+
+        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutTypesDto = layoutTypes.Select(e => e.ToDto()).ToList();
+        
+        var layoutType = layoutTypesDto.FirstOrDefault(e => e.Id.Equals(currentLayoutType.LayoutTypeId));
+        if (layoutType != null)
+        {
+            layoutType.Selected = true;
+        }
+
+        return ViewComponent("simplelayoutdialog", layoutTypesDto);
     }
 }

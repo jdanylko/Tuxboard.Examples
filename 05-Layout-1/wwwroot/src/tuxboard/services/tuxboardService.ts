@@ -3,8 +3,9 @@ import { BaseService } from "./BaseService";
 
 export class TuxboardService extends BaseService {
 
-    private tuxWidgetPlacementUrl: string = "?handler=SaveWidgetPosition";
-    //private tuxRefreshUrl: string = "?handler=Refresh";
+    private tuxWidgetPlacementUrl: string    = "?handler=SaveWidgetPosition";
+    private tuxRefreshUrl: string            = "?handler=Refresh";
+    private tuxSimpleLayoutDialogUrl: string = "?handler=SimpleLayoutDialog";
 
     constructor(debugParam: boolean = false) {
         super(debugParam);
@@ -36,10 +37,26 @@ export class TuxboardService extends BaseService {
             .catch(this.logError);
     }
 
-    private tuxRefreshUrl: string = "?handler=Refresh";
     public refresh = () => {
 
         const request = new Request(this.tuxRefreshUrl,
+            {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText)
+            .catch(this.logError);
+    }
+
+    public getSimpleLayoutDialog = () => {
+
+        const request = new Request(this.tuxSimpleLayoutDialogUrl,
             {
                 method: "post",
                 headers: {

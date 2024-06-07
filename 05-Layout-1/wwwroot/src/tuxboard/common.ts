@@ -50,9 +50,9 @@ export const defaultAddWidgetButtonSelector = ".add-widget";
 export const defaultWidgetSelectionSelector = ".selected";
 
 // Change Layout Dialog
-export const defaultChangeLayoutButton = "#layout-button";
+export const defaultSimpleLayoutButton = "#layout-button";
 
-export const defaultChangeLayoutDialogSelector = "#layout-dialog";
+export const defaultSimpleLayoutDialogSelector = "#layout-dialog";
 export const defaultLayoutListSelector = ".layout-list";
 export const defaultLayoutItemSelector = "li";
 export const defaultSaveLayoutButtonSelector = ".save-layout";
