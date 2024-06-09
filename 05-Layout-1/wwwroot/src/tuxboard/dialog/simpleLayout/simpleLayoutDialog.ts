@@ -3,17 +3,44 @@ import { Tuxboard } from "../../tuxboard";
 import { BaseDialog } from "../BaseDialog";
 
 export class SimpleLayoutDialog extends BaseDialog {
-
-    public resultMessage;
-
-    constructor(private tuxboard: Tuxboard) {
-        super(defaultSimpleLayoutDialogSelector);
+    constructor(
+        selector: string,
+        private selected: string,
+        private tuxboard: Tuxboard)
+    {
+        super(selector);
+        this.initialize();
     }
+
+    initialize = () => {
+        this.getDom().addEventListener('shown.bs.modal',
+            () => this.loadDialog());
+    }
+
+    getService = () => this.tuxboard.getService();
 
     public getSaveLayoutButton = () => this.getDom().querySelector(defaultSaveLayoutButtonSelector) as HTMLButtonElement;
     public layoutListExists = () => !!this.getDom().querySelector(defaultLayoutListSelector);
     public getLayoutList = () => this.getDom().querySelector(defaultLayoutListSelector);
     public getLayoutItems = () => this.getLayoutList().querySelectorAll(defaultLayoutItemSelector);
+
+    private loadDialog = () => {
+        this.getService().getSimpleLayoutDialog()
+            .then((data:string) => {
+                this.getDom().querySelector('.modal-body').innerHTML = data;
+            });
+    }
+
+    //selectLayout = (ev: Event) => {
+    //    const item = ev.target as HTMLLIElement;
+    //    const id = item.getAttribute('data-id');
+    //    this.selected = id;
+    //    this.getService().selectGeneralTerm(specId, id)
+    //        .then(data => {
+    //            this.selected = new SelectedGeneralTerm(data.title, data.template);
+    //            dialog.hide();
+    //        });
+    //}
 
     public getSelected = () => this.getDom().querySelector("li.selected");
     public getSelectedId = () => this.getSelected().getAttribute('data-id');
@@ -24,19 +51,18 @@ export class SimpleLayoutDialog extends BaseDialog {
         return layoutRows[0].getLayoutRowId();
     }
 
-    public setLayoutDialog = (layoutData) => {
-        if (!layoutData) return;
+    //public setLayoutDialog = (layoutData) => {
+    //    if (!layoutData) return;
 
-        const body: Node = createNodesFromHtml(layoutData);
-        const modalBody: HTMLElement = this.getDom().querySelector(this.dialogBodySelector);
-        if (modalBody) {
-            clearNodes(modalBody);
-            modalBody.appendChild(body);
-            if (this.layoutListExists()) {
-                this.attachEvents();
-            }
-        }
-    };
+    //    const modalBody: HTMLElement = this.getDom().querySelector(this.dialogBodySelector);
+    //    if (modalBody) {
+    //        clearNodes(modalBody);
+    //        modalBody.appendChild(body);
+    //        if (this.layoutListExists()) {
+    //            this.attachEvents();
+    //        }
+    //    }
+    //};
 
     public clearSelected = () => {
         Array.from(this.getLayoutItems()).forEach((item: HTMLLIElement) => {
@@ -62,10 +88,14 @@ export class SimpleLayoutDialog extends BaseDialog {
 
     private saveLayout = () => {
         const layoutRowId = this.getLayoutRowId();
-        this._service.saveLayoutType(layoutRowId, this.getSelectedId())
+        this.getService().saveSimpleLayout(layoutRowId, this.getSelectedId())
             .then((data) => {
-                this.resultMessage = data;
+                // this.resultMessage = data;
                 this.hideDialog();
             })
     }
+
+
+    showDialog = () => this.getDialogInstance().show();
+    hideDialog = () => this.getDialogInstance().hide();
 }

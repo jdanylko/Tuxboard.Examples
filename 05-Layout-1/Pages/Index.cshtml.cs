@@ -58,16 +58,12 @@ public class IndexModel : PageModel
     {
         var dashboard = await _service.GetDashboardAsync(_config);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
-        var currentLayoutType = layouts.LayoutRows.FirstOrDefault().LayoutType;
-        
-        var layoutTypes = await _service.GetLayoutTypesAsync();
-        var layoutType = layoutTypes.FirstOrDefault(e => e.LayoutTypeId.Equals(currentLayoutType.LayoutTypeId));
-        if (layoutType != null)
-        {
-            // layoutType.
-        }
+        var currentLayoutType = layouts?.LayoutRows?.FirstOrDefault()?.LayoutTypeId;
 
-        return ViewComponent("simplelayoutdialog", layoutTypes);
+        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var result = layoutTypes.Select(e => e.ToDto(currentLayoutType)).ToList();
+
+        return ViewComponent("simplelayoutdialog", result);
     }
 
     public async Task<IActionResult> OnPostSaveSimpleLayout([FromBody] string newLayoutId)
@@ -75,17 +71,11 @@ public class IndexModel : PageModel
         var dashboard = await _service.GetDashboardAsync(_config);
 
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
-        var currentLayoutType = layouts.LayoutRows.FirstOrDefault().LayoutType;
+        var currentLayoutType = layouts?.LayoutRows?.FirstOrDefault()?.LayoutTypeId;
 
         var layoutTypes = await _service.GetLayoutTypesAsync();
-        var layoutTypesDto = layoutTypes.Select(e => e.ToDto()).ToList();
+        var result = layoutTypes.Select(e => e.ToDto(currentLayoutType)).ToList();
         
-        var layoutType = layoutTypesDto.FirstOrDefault(e => e.Id.Equals(currentLayoutType.LayoutTypeId));
-        if (layoutType != null)
-        {
-            layoutType.Selected = true;
-        }
-
-        return ViewComponent("simplelayoutdialog", layoutTypesDto);
+        return ViewComponent("simplelayoutdialog", result);
     }
 }

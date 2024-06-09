@@ -49,7 +49,7 @@ export const defaultWidgetListItemSelector = "a.widget-item";
 export const defaultAddWidgetButtonSelector = ".add-widget";
 export const defaultWidgetSelectionSelector = ".selected";
 
-// Change Layout Dialog
+// Simple Layout Dialog
 export const defaultSimpleLayoutButton = "#layout-button";
 
 export const defaultSimpleLayoutDialogSelector = "#layout-dialog";

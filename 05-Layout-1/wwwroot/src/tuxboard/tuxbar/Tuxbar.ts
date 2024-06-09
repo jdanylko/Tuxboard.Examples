@@ -1,9 +1,10 @@
-﻿import { defaultTuxbarMessageSelector, defaultTuxbarRefreshButton, defaultTuxbarSpinnerSelector } from "../common";
+﻿import { defaultSimpleLayoutButton, defaultTuxbarMessageSelector, defaultTuxbarRefreshButton, defaultTuxbarSpinnerSelector } from "../common";
 import { Tuxboard } from "../tuxboard";
 import { ITuxbarControl } from "./ITuxbarControl";
 import { RefreshButton } from "./RefreshButton";
 import { TuxbarMessage } from "./TuxbarMessage";
 import { TuxbarSpinner } from "./TuxbarSpinner";
+import { SimpleLayoutButton } from "./simpleLayoutButton";
 
 export class Tuxbar {
 
@@ -25,6 +26,7 @@ export class Tuxbar {
         this.controls.push(new TuxbarSpinner(this, defaultTuxbarSpinnerSelector));
         this.controls.push(new RefreshButton(this, defaultTuxbarRefreshButton));
         this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
+        this.controls.push(new SimpleLayoutButton(this, defaultSimpleLayoutButton));
     }
 }
 

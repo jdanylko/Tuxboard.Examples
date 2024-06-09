@@ -6,6 +6,7 @@ export class TuxboardService extends BaseService {
     private tuxWidgetPlacementUrl: string    = "?handler=SaveWidgetPosition";
     private tuxRefreshUrl: string            = "?handler=Refresh";
     private tuxSimpleLayoutDialogUrl: string = "?handler=SimpleLayoutDialog";
+    private tuxSaveSimpleLayoutUrl: string   = "?handler=SaveSimpleLayout";
 
     constructor(debugParam: boolean = false) {
         super(debugParam);
@@ -55,6 +56,23 @@ export class TuxboardService extends BaseService {
     }
 
     public getSimpleLayoutDialog = () => {
+
+        const request = new Request(this.tuxSimpleLayoutDialogUrl,
+            {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText)
+            .catch(this.logError);
+    }
+
+    public saveSimpleLayout = (oldLayoutId:string, newLayoutId) => {
 
         const request = new Request(this.tuxSimpleLayoutDialogUrl,
             {
