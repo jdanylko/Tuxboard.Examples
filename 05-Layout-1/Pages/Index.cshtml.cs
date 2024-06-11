@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Net;
 using Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
+using Microsoft.Identity.Client;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
+using Models;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using Tuxboard.Core.Data.Context;
 
 namespace Layout_1.Pages;
 
@@ -58,24 +62,32 @@ public class IndexModel : PageModel
     {
         var dashboard = await _service.GetDashboardAsync(_config);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
-        var currentLayoutType = layouts?.LayoutRows?.FirstOrDefault()?.LayoutTypeId;
+        var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
         var layoutTypes = await _service.GetLayoutTypesAsync();
-        var result = layoutTypes.Select(e => e.ToDto(currentLayoutType)).ToList();
+        var result = layoutTypes.Select(e => e.ToDto(currentLayout.LayoutTypeId)).ToList();
 
         return ViewComponent("simplelayoutdialog", result);
     }
 
-    public async Task<IActionResult> OnPostSaveSimpleLayout([FromBody] string newLayoutId)
+    public async Task<IActionResult> OnPostSaveSimpleLayoutAsync([FromBody] SimpleLayoutRequest request)
     {
         var dashboard = await _service.GetDashboardAsync(_config);
 
-        var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
-        var currentLayoutType = layouts?.LayoutRows?.FirstOrDefault()?.LayoutTypeId;
-
-        var layoutTypes = await _service.GetLayoutTypesAsync();
-        var result = layoutTypes.Select(e => e.ToDto(currentLayoutType)).ToList();
+        // Since we only have a single layout for this example, we can grab the first one.
+        var tab = dashboard.GetCurrentTab();
+        var layouts = tab.GetLayouts().FirstOrDefault();
         
-        return ViewComponent("simplelayoutdialog", result);
+        // LayoutRows have a LayoutType. If we change the LayoutType, the LayoutRow will update on next reload.
+        var currentLayoutRow = layouts?.LayoutRows?.FirstOrDefault();
+        if (currentLayoutRow != null)
+        {
+            await _service.ChangeLayoutRowToAsync(currentLayoutRow, request.LayoutTypeId);
+        }
+
+        // Refresh
+        dashboard = await _service.GetDashboardAsync(_config);
+
+        return ViewComponent("tuxboardtemplate", dashboard);
     }
 }

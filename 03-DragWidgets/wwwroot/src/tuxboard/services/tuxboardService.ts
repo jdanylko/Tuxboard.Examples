@@ -12,11 +12,11 @@ export class TuxboardService extends BaseService {
     public saveWidgetPlacement(ev: Event, dragInfo: DragWidgetInfo) {
 
         const postData = {
-            Column: dragInfo.currentColumnIndex,
-            LayoutRowId: dragInfo.currentLayoutRowId,
-            PreviousColumn: dragInfo.previousColumnIndex,
-            PreviousLayout: dragInfo.previousLayoutRowId,
             PlacementId: dragInfo.placementId,
+            PreviousLayoutRowId: dragInfo.previousLayoutRowId,
+            PreviousColumn: dragInfo.previousColumnIndex,
+            CurrentLayoutRowId: dragInfo.currentLayoutRowId,
+            CurrentColumn: dragInfo.currentColumnIndex,
             PlacementList: dragInfo.placementList,
         };
 

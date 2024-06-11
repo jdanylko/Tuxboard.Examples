@@ -4,7 +4,7 @@ namespace Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
 
 public static class LayoutTypeExtension
 {
-    public static LayoutTypeDto ToDto(this LayoutType type, string defaultValue) =>
+    public static LayoutTypeDto ToDto(this LayoutType type, int defaultValue) =>
         new()
         {
             Id = type.LayoutTypeId,

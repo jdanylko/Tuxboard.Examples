@@ -28,6 +28,7 @@ export class SimpleLayoutDialog extends BaseDialog {
         this.getService().getSimpleLayoutDialog()
             .then((data:string) => {
                 this.getDom().querySelector('.modal-body').innerHTML = data;
+                this.attachEvents();
             });
     }
 
@@ -50,19 +51,6 @@ export class SimpleLayoutDialog extends BaseDialog {
         const layoutRows = this.tuxboard.getLayoutRowCollection(tab);
         return layoutRows[0].getLayoutRowId();
     }
-
-    //public setLayoutDialog = (layoutData) => {
-    //    if (!layoutData) return;
-
-    //    const modalBody: HTMLElement = this.getDom().querySelector(this.dialogBodySelector);
-    //    if (modalBody) {
-    //        clearNodes(modalBody);
-    //        modalBody.appendChild(body);
-    //        if (this.layoutListExists()) {
-    //            this.attachEvents();
-    //        }
-    //    }
-    //};
 
     public clearSelected = () => {
         Array.from(this.getLayoutItems()).forEach((item: HTMLLIElement) => {

@@ -2,7 +2,7 @@
 
 public record struct LayoutTypeDto
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Title { get; set; }
     public string Layout { get; set; }
     public bool Selected { get; set; }

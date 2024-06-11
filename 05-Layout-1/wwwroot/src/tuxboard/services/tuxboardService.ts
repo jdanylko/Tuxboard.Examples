@@ -15,11 +15,11 @@ export class TuxboardService extends BaseService {
     public saveWidgetPlacement = (ev: Event, dragInfo: DragWidgetInfo) => {
 
         const postData = {
-            Column: dragInfo.currentColumnIndex,
-            LayoutRowId: dragInfo.currentLayoutRowId,
-            PreviousColumn: dragInfo.previousColumnIndex,
-            PreviousLayout: dragInfo.previousLayoutRowId,
             PlacementId: dragInfo.placementId,
+            PreviousLayoutRowId: dragInfo.previousLayoutRowId,
+            PreviousColumn: dragInfo.previousColumnIndex,
+            CurrentLayoutRowId: dragInfo.currentLayoutRowId,
+            CurrentColumn: dragInfo.currentColumnIndex,
             PlacementList: dragInfo.placementList,
         };
 
@@ -72,11 +72,16 @@ export class TuxboardService extends BaseService {
             .catch(this.logError);
     }
 
-    public saveSimpleLayout = (oldLayoutId:string, newLayoutId) => {
+    public saveSimpleLayout = (layoutRowId:string, newLayoutTypeId) => {
 
-        const request = new Request(this.tuxSimpleLayoutDialogUrl,
+        const postData = {
+            LayoutRowId: layoutRowId,
+            LayoutTypeId: newLayoutTypeId
+        };
+        const request = new Request(this.tuxSaveSimpleLayoutUrl,
             {
                 method: "post",
+                body: JSON.stringify(postData),
                 headers: {
                     'Content-Type': 'application/json',
                     'RequestVerificationToken': this.getToken(),

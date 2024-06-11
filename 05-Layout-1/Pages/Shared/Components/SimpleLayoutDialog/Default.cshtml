@@ -4,8 +4,9 @@
 <ul condition="Model?.Layouts != null" class="layout-list">
     @foreach (var layoutType in Model!.Layouts)
     {
-        <li data-id="@layoutType.Id" class="text-center @(layoutType.Selected ? " selected": "")">
-            <div class="layout-header">@layoutType.Title</div>
+        <li data-id="@layoutType.Id" class="text-center @(layoutType.Selected ? "selected": "")">
+            <div condition="layoutType.Selected" class="layout-header"><strong>@layoutType.Title</strong></div>
+            <div condition="!layoutType.Selected" class="layout-header">@layoutType.Title</div>
             <div class="preview-table">
                 <div class="preview-row">
                     @foreach (var column in layoutType.Layout.Split('/'))

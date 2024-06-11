@@ -16,7 +16,7 @@ builder.Configuration
 builder.Services.AddDbContext<TuxDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
-        x => x.MigrationsAssembly("SimpleDashboard"));
+        x => x.MigrationsAssembly("01-SimpleDashboard"));
 });
 
 // Add services to the container.
