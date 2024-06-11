@@ -18,11 +18,18 @@ export class SimpleLayoutButton extends TuxbarButton {
 
         const dialog = new SimpleLayoutDialog(
             defaultSimpleLayoutDialogSelector,
-            '',
             this.tuxBar.getTuxboard());
 
-        if (dialog)
+        if (dialog) {
+            dialog.getDom().removeEventListener("hide.bs.modal", () => this.hideSimpleLayout(dialog), false);
+            dialog.getDom().addEventListener("hide.bs.modal", () => this.hideSimpleLayout(dialog), false);
+
             dialog.showDialog();
+        }
+    }
+
+    hideSimpleLayout = (dialog: SimpleLayoutDialog) => {
+        this.tuxBar.getTuxboard().updateDashboard(dialog.dashboardData);
     }
 
     getDom = () => this.tuxBar.getDom().querySelector(this.selector);

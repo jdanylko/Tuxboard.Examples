@@ -3,9 +3,11 @@ import { Tuxboard } from "../../tuxboard";
 import { BaseDialog } from "../BaseDialog";
 
 export class SimpleLayoutDialog extends BaseDialog {
+
+    dashboardData: string;
+
     constructor(
         selector: string,
-        private selected: string,
         private tuxboard: Tuxboard)
     {
         super(selector);
@@ -31,17 +33,6 @@ export class SimpleLayoutDialog extends BaseDialog {
                 this.attachEvents();
             });
     }
-
-    //selectLayout = (ev: Event) => {
-    //    const item = ev.target as HTMLLIElement;
-    //    const id = item.getAttribute('data-id');
-    //    this.selected = id;
-    //    this.getService().selectGeneralTerm(specId, id)
-    //        .then(data => {
-    //            this.selected = new SelectedGeneralTerm(data.title, data.template);
-    //            dialog.hide();
-    //        });
-    //}
 
     public getSelected = () => this.getDom().querySelector("li.selected");
     public getSelectedId = () => this.getSelected().getAttribute('data-id');
@@ -77,8 +68,8 @@ export class SimpleLayoutDialog extends BaseDialog {
     private saveLayout = () => {
         const layoutRowId = this.getLayoutRowId();
         this.getService().saveSimpleLayout(layoutRowId, this.getSelectedId())
-            .then((data) => {
-                // this.resultMessage = data;
+            .then((data:string) => {
+                this.dashboardData = data;
                 this.hideDialog();
             })
     }
