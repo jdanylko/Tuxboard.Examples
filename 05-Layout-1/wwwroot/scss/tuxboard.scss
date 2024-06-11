@@ -1,0 +1,122 @@
+@import 'theme.scss';
+
+/**************
+  Stock site.css
+**************/
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/**************
+  Tuxboard styles
+**************/
+
+.column {
+    background: $column-bg;
+    min-height: 200px;
+    float: left;
+    padding: 10px;
+
+    .placeholder {
+        border: 1px dashed $column-placeholder;
+        margin-bottom: 10px;
+        background: $column-placeholder;
+    }
+}
+
+.column.over {
+    border: 2px dashed $column-placeholder-hover;
+}
+
+.column {
+    .card {
+        .card-header {
+            padding: 0;
+            padding-left: 1rem;
+            padding-right: 0.5rem;
+            cursor: move;
+
+            nav.navbar {
+                padding-bottom: 0
+            }
+        }
+    }
+}
+
+.card-header.over {
+    opacity: .2;
+    outline: 2px dashed black;
+}
+
+/* Tuxbar */
+
+.tuxbar {
+    margin-bottom: 15px;
+    margin-top: 15px
+}
+
+/* Simple Layout Dialog */
+
+.layout-list * {
+    margin: 0;
+    padding: 0;
+}
+
+.layout-list {
+
+    li {
+        margin-bottom: 10px;
+        list-style: none;
+        display: inline;
+        float: left;
+        margin-right: 15px;
+        font-size: 10px;
+        padding: 10px;
+        border: 1px solid #DDD;
+
+        &:hover {
+            background-color: #EDEDED;
+            cursor: pointer
+        }
+
+        &.selected {
+            background-color: #D1E8FC
+        }
+
+        > .preview-table {
+            display: table;
+            width: 125px;
+            border-collapse: collapse;
+            margin: 0 auto;
+
+            > .preview-row {
+                border: 1px solid #777;
+                display: table-row-group;
+
+                div {
+                    background-color: #999;
+                    height: 80px;
+                    color: #FFF;
+                    display: table-cell;
+                    border: 1px solid #CCC;
+                }
+            }
+        }
+    }
+}
