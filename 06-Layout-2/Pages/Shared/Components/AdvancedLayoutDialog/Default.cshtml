@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Layout_2.Pages.Shared.Components.AdvancedLayoutDialog.AdvancedLayoutModel
+
+<div class="row">
+    <form>
+        <div class="offset-1 col-10 my-3">
+            <select class="form-select form-select-sm row-layout-types" aria-label=".form-select-sm example">
+                <option value="0" selected>Select a Row to Add</option>
+                @foreach (var layoutType in Model.LayoutTypes)
+                {
+                    <option value="@layoutType.LayoutTypeId">
+                        @Html.Raw(layoutType.Title)
+                    </option>
+                }
+            </select>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+
+    <div class="offset-1 col-10">
+        <div class="row-layout-columns">
+            <ul class="row-layout-list list-unstyled">
+                @foreach (var row in Model.LayoutRows.OrderBy(t => t.RowIndex))
+                {
+                    @await Component.InvokeAsync("advancedlayoutrow", row)
+                }
+            </ul>
+        </div>
+    </div>
+</div>
