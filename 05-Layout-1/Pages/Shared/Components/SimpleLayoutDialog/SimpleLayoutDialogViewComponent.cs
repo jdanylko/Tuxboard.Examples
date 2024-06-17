@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tuxboard.Core.Domain.Entities;
 
 namespace Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
 

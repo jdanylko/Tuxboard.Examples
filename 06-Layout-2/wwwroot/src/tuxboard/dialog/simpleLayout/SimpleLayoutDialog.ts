@@ -1,4 +1,4 @@
-﻿import { defaultLayoutItemSelector, defaultLayoutListSelector, defaultSaveLayoutButtonSelector, defaultSimpleLayoutDialogSelector } from "../../common";
+﻿import { defaultLayoutItemSelector, defaultLayoutListSelector, defaultSaveLayoutButtonSelector } from "../../common";
 import { Tuxboard } from "../../tuxboard";
 import { BaseDialog } from "../BaseDialog";
 
@@ -8,8 +8,7 @@ export class SimpleLayoutDialog extends BaseDialog {
 
     constructor(
         selector: string,
-        private tuxboard: Tuxboard)
-    {
+        private tuxboard: Tuxboard) {
         super(selector);
         this.initialize();
     }
@@ -22,13 +21,12 @@ export class SimpleLayoutDialog extends BaseDialog {
     getService = () => this.tuxboard.getService();
 
     public getSaveLayoutButton = () => this.getDom().querySelector(defaultSaveLayoutButtonSelector) as HTMLButtonElement;
-    public layoutListExists = () => !!this.getDom().querySelector(defaultLayoutListSelector);
     public getLayoutList = () => this.getDom().querySelector(defaultLayoutListSelector);
     public getLayoutItems = () => this.getLayoutList().querySelectorAll(defaultLayoutItemSelector);
 
     private loadDialog = () => {
         this.getService().getSimpleLayoutDialog()
-            .then((data:string) => {
+            .then((data: string) => {
                 this.getDom().querySelector('.modal-body').innerHTML = data;
                 this.attachEvents();
             });
@@ -52,29 +50,31 @@ export class SimpleLayoutDialog extends BaseDialog {
     public attachEvents = () => {
         const items = this.getLayoutItems();
         Array.from(items).forEach((item: HTMLLIElement) => {
-            item.onclick = () => {
-                this.clearSelected();
-                item.classList.add("selected");
-            }
+            item?.removeEventListener('click', () => { this.listItemOnClick(item); });
+            item?.addEventListener('click', () => { this.listItemOnClick(item); });
         })
 
         const saveButton = this.getSaveLayoutButton();
-        saveButton?.addEventListener("click", (ev: Event) => {
-            ev.preventDefault();
-            this.saveLayout();
-        });
+        saveButton?.removeEventListener("click", this.saveLayoutClick);
+        saveButton?.addEventListener("click", this.saveLayoutClick);
+    }
+
+    public listItemOnClick = (item: HTMLLIElement) => {
+        this.clearSelected();
+        item.classList.add("selected");
+    }
+
+    public saveLayoutClick = (ev: Event) => {
+        ev.preventDefault();
+        this.saveLayout();
     }
 
     private saveLayout = () => {
         const layoutRowId = this.getLayoutRowId();
         this.getService().saveSimpleLayout(layoutRowId, this.getSelectedId())
-            .then((data:string) => {
+            .then((data: string) => {
                 this.dashboardData = data;
                 this.hideDialog();
             })
     }
-
-
-    showDialog = () => this.getDialogInstance().show();
-    hideDialog = () => this.getDialogInstance().hide();
 }
