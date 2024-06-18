@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-Layout-1", "05-Layout-1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06-Layout-2", "06-Layout-2\06-Layout-2.csproj", "{9FB31952-7B31-4148-8DC3-2B96CAE3AEF8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07-Add-Widgets", "07-Add-Widgets\07-Add-Widgets.csproj", "{F01A3E72-DEA1-4E67-B626-79CF2162CF95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9FB31952-7B31-4148-8DC3-2B96CAE3AEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB31952-7B31-4148-8DC3-2B96CAE3AEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FB31952-7B31-4148-8DC3-2B96CAE3AEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F01A3E72-DEA1-4E67-B626-79CF2162CF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F01A3E72-DEA1-4E67-B626-79CF2162CF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F01A3E72-DEA1-4E67-B626-79CF2162CF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F01A3E72-DEA1-4E67-B626-79CF2162CF95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

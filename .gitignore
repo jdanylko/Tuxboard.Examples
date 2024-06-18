@@ -403,3 +403,9 @@ FodyWeavers.xsd
 /06-Layout-2/wwwroot/lib/**/*
 /06-Layout-2/wwwroot/src/**/*.js
 /06-Layout-2/Properties/launchSettings.json
+
+/07-Add-Widgets/wwwroot/js/**/*
+/07-Add-Widgets/wwwroot/css/**/*
+/07-Add-Widgets/wwwroot/lib/**/*
+/07-Add-Widgets/wwwroot/src/**/*.js
+/07-Add-Widgets/Properties/launchSettings.json
