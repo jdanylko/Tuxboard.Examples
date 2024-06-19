@@ -15,6 +15,9 @@ export class TuxboardService extends BaseService {
     private tuxSaveAdvancedLayoutUrl: string = "?handler=SaveAdvancedLayout";
     private tuxCanDeleteLayoutRowUrl: string = "?handler=CanDeleteLayoutRow";
 
+    private tuxAddWidgetDialogUrl: string = "?handler=AddWidgetsDialog";
+    private tuxAddWidgetUrl: string = "?handler=AddWidget";
+
     constructor(debugParam: boolean = false) {
         super(debugParam);
     }
@@ -183,6 +186,45 @@ export class TuxboardService extends BaseService {
             });
 
         return fetch(request);
+    }
+
+    public getAddWidgetDialog = () => {
+
+        const request = new Request(this.tuxAddWidgetDialogUrl,
+            {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText)
+            .catch(this.logError);
+    }
+
+    public addWidget = (widgetId:string) => {
+
+        var postData = {
+            WidgetId: widgetId
+        };
+
+        const request = new Request(this.tuxAddWidgetUrl,
+            {
+                method: "post",
+                body: JSON.stringify(postData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText)
+            .catch(this.logError);
     }
 
 }

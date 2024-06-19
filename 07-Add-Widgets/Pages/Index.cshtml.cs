@@ -56,6 +56,8 @@ public class IndexModel : PageModel
     }
 
     /* Dialogs */
+
+    /* Simple Layout Dialog */
     public async Task<IActionResult> OnPostSimpleLayoutDialog()
     {
         var dashboard = await _service.GetDashboardAsync(_config);
@@ -89,6 +91,7 @@ public class IndexModel : PageModel
         return ViewComponent("tuxboardtemplate", dashboard);
     }
 
+    /* Advanced Layout Dialog */
     public async Task<IActionResult> OnPostAdvancedLayoutDialog()
     {
         var layoutRows = new List<LayoutRow>();
@@ -153,4 +156,36 @@ public class IndexModel : PageModel
             : new ConflictObjectResult(new CanDeleteResponse(request.LayoutRowId,
                 "Cannot delete Layout Row. Row contains widgets."));
     }
+
+    /* Add Widget Dialog */
+
+    public async Task<IActionResult> OnPostAddWidgetsDialog()
+    {
+        var widgets = (await _service.GetWidgetsAsync())
+            .Select(r=> r.ToDto())
+            .ToList();
+
+        return ViewComponent("addwidgetdialog", new AddWidgetModel { Widgets = widgets });
+    }
+
+    public async Task<IActionResult> OnPostAddWidgetAsync([FromBody] AddWidgetRequest request)
+    {
+        var dashboard = await _service.GetDashboardAsync(_config);
+
+        var baseWidget = await _service.GetWidgetAsync(request.WidgetId);
+        
+        // TODO: GetFirstLayoutRow() and GetLayoutRowByIndex(int) from dashboard instance.
+        var layoutRow = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault()?.LayoutRows.FirstOrDefault();
+        if (layoutRow != null)
+        {
+            // TODO: CreateFromWidget(Widget) for a LayoutRow.
+            // TODO: AddWidgetPlacement
+            var placement = layoutRow.CreateFromWidget(baseWidget);
+            await _service.AddWidgetPlacement(placement);
+        }
+
+        return ViewComponent("addwidgetdialog", new AddWidgetModel { Widgets = widgets });
+    }
+
+
 }

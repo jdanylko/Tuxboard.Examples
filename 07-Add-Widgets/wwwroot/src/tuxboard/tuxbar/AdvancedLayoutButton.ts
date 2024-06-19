@@ -1,6 +1,6 @@
 ﻿import { TuxbarButton } from "./TuxbarButton";
 import { Tuxbar } from "./Tuxbar";
-import { defaultAdvancedLayoutDialogSelector, defaultSimpleLayoutDialogSelector } from "../common";
+import { defaultAdvancedLayoutDialogSelector } from "../common";
 import { AdvancedLayoutDialog } from "../dialog/advancedLayout/AdvancedLayoutDialog";
 
 export class AdvancedLayoutButton extends TuxbarButton {
@@ -34,3 +34,5 @@ export class AdvancedLayoutButton extends TuxbarButton {
 
     getDom = () => this.tuxBar.getDom().querySelector(this.selector);
 }
+
+

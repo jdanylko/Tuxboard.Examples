@@ -40,14 +40,15 @@ export const defaultTuxbarSpinnerSelector = "#tuxbar-spinner";
 
 
 ///////////////// Dialogs (comment out what you don't want to use) /////////////////////
-// Add Widget Dialog
-export const defaultAddWidgetButton = "#widget-button";
 
-export const defaultAddWidgetDialogSelector = "#widget-dialog";
-export const defaultWidgetTabGroupSelector = ".widget-tabs";
-export const defaultWidgetListItemSelector = "a.widget-item";
-export const defaultAddWidgetButtonSelector = ".add-widget";
-export const defaultWidgetSelectionSelector = ".selected";
+// Add Widget Dialog
+export const defaultAddWidgetButton = "#add-widget-button";
+
+export const defaultAddWidgetDialogSelector = "#add-widget-dialog";
+export const defaultWidgetTabGroupSelector = "button.nav-link";
+export const defaultWidgetListItemSelector = "li.list-group-item";
+export const defaultAddButtonSelector = ".add-widget";
+export const defaultWidgetSelectionSelector = ".active";
 
 // Simple Layout Dialog
 export const defaultSimpleLayoutButton = "#layout-button";
