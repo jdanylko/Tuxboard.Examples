@@ -1,8 +1,10 @@
-﻿import { dataIdAttribute, defaultLayoutItemSelector, defaultLayoutListSelector, defaultSaveLayoutButtonSelector, defaultWidgetListItemSelector, defaultWidgetSelectionSelector, noPeriod } from "../../common";
+﻿import { dataIdAttribute, defaultAddButtonSelector, defaultLayoutItemSelector, defaultLayoutListSelector, defaultSaveLayoutButtonSelector, defaultWidgetListItemSelector, defaultWidgetSelectionSelector, noPeriod } from "../../common";
 import { Tuxboard } from "../../tuxboard";
 import { BaseDialog } from "../BaseDialog";
 
 export class AddWidgetDialog extends BaseDialog {
+
+    allowRefresh: boolean = false;
 
     constructor(
         selector: string,
@@ -18,7 +20,7 @@ export class AddWidgetDialog extends BaseDialog {
 
     getService = () => this.tuxboard.getService();
 
-    public getAddWidgetButton = () => this.getDom().querySelector(defaultSaveLayoutButtonSelector) as HTMLButtonElement;
+    public getAddWidgetButton = () => this.getDom().querySelector(defaultAddButtonSelector) as HTMLButtonElement;
     public getWidgetItems = () => this.getDom().querySelectorAll(defaultWidgetListItemSelector);
 
     private loadDialog = () => {
@@ -62,8 +64,8 @@ export class AddWidgetDialog extends BaseDialog {
 
     private addWidgetToLayout = () => {
         this.getService().addWidget(this.getSelectedId())
-            .then((data: string) => {
-                // this.dashboardData = data;
+            .then( () => {
+                this.allowRefresh = true;
                 this.hideDialog();
             })
     }

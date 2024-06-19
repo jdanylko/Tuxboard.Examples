@@ -21,15 +21,17 @@ export class AddWidgetButton extends TuxbarButton {
             this.tuxBar.getTuxboard());
 
         if (dialog) {
-            dialog.getDom().removeEventListener("hide.bs.modal", () => this.refresh(), false);
-            dialog.getDom().addEventListener("hide.bs.modal", () => this.refresh(), false);
+            dialog.getDom().removeEventListener("hide.bs.modal", () => this.refresh(dialog), false);
+            dialog.getDom().addEventListener("hide.bs.modal", () => this.refresh(dialog), false);
 
             dialog.showDialog();
         }
     };
 
-    refresh = () => {
-        this.tuxBar.getTuxboard().refresh();
+    refresh = (dialog: AddWidgetDialog) => {
+        if (dialog.allowRefresh) {
+            this.tuxBar.getTuxboard().refresh();
+        }
     };
 
     getDom = () => this.tuxBar.getDom().querySelector(this.selector);

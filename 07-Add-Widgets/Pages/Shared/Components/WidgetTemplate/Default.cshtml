@@ -3,7 +3,7 @@
 @if (Model.UseTemplate)
 {
     <!-- Widgets -->
-    <div class="card @(Model.Collapsed ? "collapsed" : string.Empty)"
+    <div class="card mb-3@(Model.Collapsed ? " collapsed" : string.Empty)"
          data-id="@Model.WidgetPlacementId" draggable="true">
 
         <div class="card-header">

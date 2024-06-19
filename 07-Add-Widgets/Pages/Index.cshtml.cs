@@ -173,18 +173,15 @@ public class IndexModel : PageModel
         var dashboard = await _service.GetDashboardAsync(_config);
 
         var baseWidget = await _service.GetWidgetAsync(request.WidgetId);
-        
-        // TODO: GetFirstLayoutRow() and GetLayoutRowByIndex(int) from dashboard instance.
-        var layoutRow = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault()?.LayoutRows.FirstOrDefault();
+
+        var layoutRow = dashboard.GetFirstLayoutRow();
         if (layoutRow != null)
         {
-            // TODO: CreateFromWidget(Widget) for a LayoutRow.
-            // TODO: AddWidgetPlacement
             var placement = layoutRow.CreateFromWidget(baseWidget);
-            await _service.AddWidgetPlacement(placement);
+            await _service.AddWidgetPlacementAsync(placement);
         }
 
-        return ViewComponent("addwidgetdialog", new AddWidgetModel { Widgets = widgets });
+        return new OkResult();
     }
 
 
