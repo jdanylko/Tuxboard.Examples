@@ -43,13 +43,13 @@ export class AddWidgetDialog extends BaseDialog {
     public attachEvents = () => {
         const items = this.getWidgetItems();
         Array.from(items).forEach((item: HTMLLIElement) => {
-            item?.removeEventListener('click', () => { this.listItemOnClick(item); });
-            item?.addEventListener('click', () => { this.listItemOnClick(item); });
+            item.removeEventListener('click', () => { this.listItemOnClick(item); });
+            item.addEventListener('click', () => { this.listItemOnClick(item); });
         })
 
-        const saveButton = this.getAddWidgetButton();
-        saveButton?.removeEventListener("click", this.saveLayoutClick);
-        saveButton?.addEventListener("click", this.saveLayoutClick);
+        const addButton = this.getAddWidgetButton();
+        addButton.removeEventListener("click", this.addWidgetToLayout, false);
+        addButton.addEventListener("click", this.addWidgetToLayout, false);
     }
 
     public listItemOnClick = (item: HTMLLIElement) => {
@@ -57,12 +57,9 @@ export class AddWidgetDialog extends BaseDialog {
         item.classList.add(noPeriod(defaultWidgetSelectionSelector));
     }
 
-    public saveLayoutClick = (ev: Event) => {
+    private addWidgetToLayout = (ev: Event) => {
         ev.preventDefault();
-        this.addWidgetToLayout();
-    }
-
-    private addWidgetToLayout = () => {
+        ev.stopImmediatePropagation();
         this.getService().addWidget(this.getSelectedId())
             .then( () => {
                 this.allowRefresh = true;
