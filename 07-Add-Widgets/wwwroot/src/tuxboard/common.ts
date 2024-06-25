@@ -72,7 +72,6 @@ export const defaultLayoutRowListSelector = ".row-layout-list";
 export const defaultLayoutRowItemHandleSelector = ".handle";
 export const defaultLayoutRowItemSelector = ".row-layout-item";
 export const defaultLayoutRowPlaceholderSelector = ".placeholder";
-// export const defaultLayoutRowMessageSelector = "#row-layout-message";
 
 export const defaultDeleteRowLayoutButtonSelector = ".row-layout-delete-button";
 export const defaultSaveAdvancedLayoutButtonSelector = ".save-advanced-layout";

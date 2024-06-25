@@ -6,9 +6,7 @@ export class AddWidgetDialog extends BaseDialog {
 
     allowRefresh: boolean = false;
 
-    constructor(
-        selector: string,
-        private tuxboard: Tuxboard) {
+    constructor(selector: string, private tuxboard: Tuxboard) {
         super(selector);
         this.initialize();
     }
@@ -48,8 +46,8 @@ export class AddWidgetDialog extends BaseDialog {
         })
 
         const addButton = this.getAddWidgetButton();
-        addButton.removeEventListener("click", this.addWidgetToLayout, false);
-        addButton.addEventListener("click", this.addWidgetToLayout, false);
+        addButton?.removeEventListener("click", this.addWidgetToLayout, false);
+        addButton?.addEventListener("click", this.addWidgetToLayout, false);
     }
 
     public listItemOnClick = (item: HTMLLIElement) => {
