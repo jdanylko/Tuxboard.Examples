@@ -26,12 +26,15 @@ export class Tuxbar {
     }
 
     public initialize = () => {
-        this.controls.push(new TuxbarSpinner(this, defaultTuxbarSpinnerSelector));
         this.controls.push(new RefreshButton(this, defaultTuxbarRefreshButton));
         this.controls.push(new AddWidgetButton(this, defaultAddWidgetButton));
-        this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
+
         this.controls.push(new SimpleLayoutButton(this, defaultSimpleLayoutButton));
         this.controls.push(new AdvancedLayoutButton(this, defaultAdvancedLayoutButton));
+
+        this.controls.push(new TuxbarMessage(this, defaultTuxbarMessageSelector));
+
+        this.controls.push(new TuxbarSpinner(this, defaultTuxbarSpinnerSelector));
     }
 }
 

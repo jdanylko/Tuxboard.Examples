@@ -37,8 +37,6 @@ export class AdvancedLayoutDialog extends BaseDialog {
     }
 
     getService = () => this.tuxboard.getService();
-    showDialog = () => this.getDialogInstance().show();
-    hideDialog = () => this.getDialogInstance().hide();
 
     public getDropdownTypes          = () => this.getDialog().querySelector(defaultDropdownLayoutTypesSelector);
     public getDropdownItems          = () => this.getLayoutList().querySelectorAll(defaultDropdownLayoutRowTypeSelector);
@@ -91,7 +89,6 @@ export class AdvancedLayoutDialog extends BaseDialog {
 
     private saveLayout = () => {
         const model = this.getLayoutModel();
-
         this.getService().saveAdvancedLayout(model)
             .then((data:string) => {
                 this.tuxboard.updateDashboard(data);

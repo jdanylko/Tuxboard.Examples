@@ -92,6 +92,7 @@ public class IndexModel : PageModel
     }
 
     /* Advanced Layout Dialog */
+
     public async Task<IActionResult> OnPostAdvancedLayoutDialog()
     {
         var layoutRows = new List<LayoutRow>();
@@ -100,8 +101,7 @@ public class IndexModel : PageModel
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         if (layouts != null)
         {
-            // There should ALWAYS be at least one LayoutRow.
-            layoutRows = layouts.LayoutRows.ToList();
+            layoutRows.AddRange(layouts.LayoutRows.ToList());
         }
 
         var layoutTypes = await _service.GetLayoutTypesAsync();
