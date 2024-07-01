@@ -178,6 +178,8 @@ public class IndexModel : PageModel
         if (layoutRow != null)
         {
             var placement = layoutRow.CreateFromWidget(baseWidget);
+            // placement object can be set to any other layout row chosen;
+            // default is first layout row, first column.
             await _service.AddWidgetPlacementAsync(placement);
         }
 

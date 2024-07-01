@@ -34,7 +34,7 @@ export class AddWidgetDialog extends BaseDialog {
 
     public clearSelected = () => {
         Array.from(this.getWidgetItems()).forEach((item: HTMLLIElement) => {
-            item.classList.remove("active");
+            item.classList.remove(noPeriod(defaultWidgetSelectionSelector));
         })
     }
 
