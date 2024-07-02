@@ -99,10 +99,9 @@ export class Tuxboard {
     /* Widget Toolbar Events */
 
     attachWidgetToolbarEvents = () => {
-        // Delete Widget events
+
         this.dashboard.querySelectorAll(defaultWidgetRemoveWidgetSelector)
             .forEach((item: HTMLButtonElement, index: number) => {
-                item.removeEventListener('click', (ev: Event) => this.removeWidget(ev))
                 item.addEventListener('click', (ev: Event) => this.removeWidget(ev))
             });
     }
