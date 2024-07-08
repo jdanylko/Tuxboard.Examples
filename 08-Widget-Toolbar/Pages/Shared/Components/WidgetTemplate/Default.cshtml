@@ -9,9 +9,22 @@
         <div class="card-header d-flex">
             <small>@Model.GetSettingValueByName("widgettitle")</small>
             <div class="widget-toolbar d-flex ms-auto">
+                @*
+                <!-- Approach 1 -->
                 <button type="button" class="btn btn-sm remove-widget p-0">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
+                *@
+                <!-- Approach 2 -->
+                <div class="dropdown">
+                    <button class="btn btn-sm p-0 dropdown-toggle" role="button" data-bs-toggle="dropdown" 
+                            type="button" aria-expanded="false">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><button class="dropdown-item remove-widget" type="button">Remove</button></li>
+                    </ul>
+                </div>
             </div>
         </div>
 

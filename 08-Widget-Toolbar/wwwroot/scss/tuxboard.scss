@@ -201,3 +201,8 @@ $rowLayoutDialog-placeholder-color: #eacece;
         }
     }
 }
+
+/* Remove dropdown caret */
+.card-header .dropdown-toggle::after {
+    content: none;
+} 

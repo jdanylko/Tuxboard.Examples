@@ -1,4 +1,4 @@
-﻿import * as bootstrap from "bootstrap";
+﻿import * as Bootstrap from "bootstrap";
 
 export class BaseDialog {
 
@@ -6,7 +6,7 @@ export class BaseDialog {
 
     constructor(protected selector: string) { }
 
-    public getDialogInstance = () => bootstrap.Modal.getOrCreateInstance(this.getDialog());
+    public getDialogInstance = () => Bootstrap.Modal.getOrCreateInstance(this.getDialog());
     public getDom = () => this.getDialog();
     public getDialog = () => document.querySelector(this.selector);
 

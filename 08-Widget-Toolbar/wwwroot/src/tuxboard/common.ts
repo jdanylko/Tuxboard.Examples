@@ -23,10 +23,12 @@ export const defaultWidgetSettingInputsSelector = ".setting-value";
 
 /* Widget toolbar */
 export const defaultWidgetToolbarSelector = ".widget-toolbar";
+export const defaultWidgetDropdownSelector = ".dropdown-toggle";
+export const defaultDropdownInWidgetHeaderSelector = `${defaultWidgetHeaderSelector} ${defaultWidgetDropdownSelector}`;
 
     /* Widget toolbar buttons */
     export const defaultWidgetRemoveWidgetSelector = ".remove-widget";
-
+    
 
 
 

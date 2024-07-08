@@ -1,8 +1,10 @@
-﻿import {
+﻿import * as bootstrap from 'bootstrap';
+import {
     closestByClass,
     dataIdAttribute,
     defaultColumnSelector,
     defaultDashboardSelector,
+    defaultDropdownInWidgetHeaderSelector,
     defaultWidgetHeaderSelector,
     defaultWidgetRemoveWidgetSelector,
     defaultWidgetSelector,
@@ -101,9 +103,13 @@ export class Tuxboard {
     attachWidgetToolbarEvents = () => {
 
         this.dashboard.querySelectorAll(defaultWidgetRemoveWidgetSelector)
-            .forEach((item: HTMLButtonElement, index: number) => {
+            .forEach((item: HTMLButtonElement) => {
                 item.addEventListener('click', (ev: Event) => this.removeWidget(ev))
             });
+
+        // Grab all dropdown-toggles from inside a widget's header and build them.
+        const dropdowns = Array.from(document.querySelectorAll(defaultDropdownInWidgetHeaderSelector));
+        [...dropdowns].map(element => new bootstrap.Dropdown(element));
     }
 
     removeWidget = (ev: Event) => {
