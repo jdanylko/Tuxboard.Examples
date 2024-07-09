@@ -108,10 +108,10 @@ export class Tuxboard {
             });
 
         // Grab all dropdown-toggles from inside a widget's header and build them.
-        const dropdowns = Array.from(document.querySelectorAll(defaultDropdownInWidgetHeaderSelector));
-        dropdowns.forEach((item: HTMLButtonElement) => {
+        Array.from(document.querySelectorAll(defaultDropdownInWidgetHeaderSelector))
+            .forEach((item: HTMLButtonElement) => {
             item.addEventListener('click', () => bootstrap.Dropdown.getOrCreateInstance(item).toggle());
-        })
+        });
     }
 
     removeWidget = (ev: Event) => {
