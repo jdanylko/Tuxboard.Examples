@@ -56,6 +56,22 @@ body {
                 padding-bottom: 0
             }
         }
+
+        .card-body {
+            /*            visibility: visible;
+            opacity: 1;
+            transition: opacity .1s linear;
+*/
+        }
+
+        &.collapsed .card-body {
+            
+            /*           
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s .1s, opacity .1s linear, height .5s;
+*/
+        }
     }
 }
 
@@ -205,4 +221,6 @@ $rowLayoutDialog-placeholder-color: #eacece;
 /* Remove dropdown caret */
 .card-header .dropdown-toggle::after {
     content: none;
-} 
+}
+
+

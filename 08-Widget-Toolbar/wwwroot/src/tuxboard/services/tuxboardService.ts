@@ -19,6 +19,8 @@ export class TuxboardService extends BaseService {
     private tuxAddWidgetUrl: string = "?handler=AddWidget";
     private tuxRemoveWidgetUrl: string = "?handler=RemoveWidget";
 
+    private tuxSetWidgetStateUrl: string = "?handler=SetWidgetState";
+
     constructor(debugParam: boolean = false) {
         super(debugParam);
     }
@@ -247,4 +249,23 @@ export class TuxboardService extends BaseService {
         return fetch(request)
     }
 
+    public setWidgetState = (widgetPlacementId: string, collapsed: boolean) => {
+
+        var postData = {
+            WidgetPlacementId: widgetPlacementId,
+            Collapsed: collapsed
+        };
+
+        const request = new Request(this.tuxSetWidgetStateUrl,
+            {
+                method: "post",
+                body: JSON.stringify(postData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return fetch(request)
+    }
 }

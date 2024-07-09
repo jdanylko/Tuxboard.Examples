@@ -6,6 +6,7 @@ import {
     defaultDashboardSelector,
     defaultDropdownInWidgetHeaderSelector,
     defaultWidgetHeaderSelector,
+    defaultWidgetStateSelector,
     defaultWidgetRemoveWidgetSelector,
     defaultWidgetSelector,
     getClosestByClass,
@@ -13,7 +14,9 @@ import {
     getWidgetSnapshot,
     isWidget,
     isWidgetOrColumn,
-    noPeriod
+    noPeriod,
+    collapsedToggleSelector,
+    defaultWidgetBodySelector
 } from "./common";
 import { PlacementItem } from "./dto/PlacementItem";
 import { DragWidgetInfo } from "./dto/dragWidgetInfo";
@@ -85,7 +88,7 @@ export class Tuxboard {
 
     refresh = () => {
         this.service.refresh()
-            .then((data:string) => {
+            .then((data: string) => {
                 this.updateDashboard(data);
             })
     }
@@ -108,10 +111,59 @@ export class Tuxboard {
             });
 
         // Grab all dropdown-toggles from inside a widget's header and build them.
-        Array.from(document.querySelectorAll(defaultDropdownInWidgetHeaderSelector))
+        document.querySelectorAll(defaultDropdownInWidgetHeaderSelector)
             .forEach((item: HTMLButtonElement) => {
-            item.addEventListener('click', () => bootstrap.Dropdown.getOrCreateInstance(item).toggle());
-        });
+                item.addEventListener('click', () => bootstrap.Dropdown.getOrCreateInstance(item).toggle());
+            });
+
+        // Grab all mimimize/maximize buttons and assign onClicks
+        document.querySelectorAll(defaultWidgetStateSelector)
+            .forEach((item: HTMLButtonElement) => {
+                item.addEventListener('click', (ev: Event) => { this.setWidgetState(ev) });
+            });
+    }
+
+    getWidget = (id: string) => document.querySelector(`${defaultWidgetSelector}[${dataIdAttribute}='${id}']`) as HTMLDivElement;
+
+    isCollapsed = (widget: HTMLDivElement) => widget.classList.contains(collapsedToggleSelector);
+
+    setWidgetState = (ev: Event) => {
+        const target = ev.target as HTMLButtonElement;
+        const widget = getClosestByClass(target, noPeriod(defaultWidgetSelector)) as HTMLDivElement;
+        const widgetState = this.getWidgetState(widget);
+        widgetState.collapsed = !widgetState.collapsed;
+        this.service.setWidgetState(widgetState.id, widgetState.collapsed)
+            .then(response => {
+                if (response.ok) {
+                    this.updateWidgetState(widgetState.id, widgetState.collapsed);
+                }
+                return response;
+            });
+    }
+
+    updateWidgetState = (id: string, collapse: boolean) => {
+        const widget = this.getWidget(id);
+        const widgetStateButton = widget.querySelector(defaultWidgetStateSelector) as HTMLButtonElement;
+        const i = widgetStateButton.querySelector('i');
+        const body = widget.querySelector(defaultWidgetBodySelector);
+        if (this.isCollapsed(widget)) {
+            widget.classList.remove(collapsedToggleSelector);
+            widgetStateButton.setAttribute('title', 'Minimize');
+            i.setAttribute('class', 'fa-solid fa-window-minimize');
+            // body.setAttribute('style', 'display: block');
+        } else {
+            widget.classList.add(collapsedToggleSelector);
+            widgetStateButton.setAttribute('title', 'Restore');
+            i.setAttribute('class', 'fa-regular fa-window-maximize');
+            // body.setAttribute('style', 'display: none');
+        }
+    }
+
+    getWidgetState = (widget: HTMLDivElement) => {
+        return {
+            id: widget.getAttribute(dataIdAttribute),
+            collapsed: widget.classList.contains(collapsedToggleSelector)
+        }
     }
 
     removeWidget = (ev: Event) => {

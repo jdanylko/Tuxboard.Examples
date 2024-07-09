@@ -71,6 +71,14 @@ public class IndexModel : PageModel
         return new OkResult();
     }
 
+    public async Task<IActionResult> OnPostSetWidgetStateAsync([FromBody] WidgetStateRequest request)
+    {
+        var widget = await _service.UpdateCollapsedAsync(request.WidgetPlacementId, request.Collapsed);
+        return widget != null 
+            ? new OkResult() 
+            : new NotFoundResult();
+    }
+
 
     /* Dialogs */
 
@@ -202,6 +210,5 @@ public class IndexModel : PageModel
 
         return new OkResult();
     }
-
 
 }

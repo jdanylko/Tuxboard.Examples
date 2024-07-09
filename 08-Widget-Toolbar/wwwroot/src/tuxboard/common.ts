@@ -28,6 +28,7 @@ export const defaultDropdownInWidgetHeaderSelector = `${defaultWidgetHeaderSelec
 
     /* Widget toolbar buttons */
     export const defaultWidgetRemoveWidgetSelector = ".remove-widget";
+    export const defaultWidgetStateSelector = ".widget-state";
     
 
 
