@@ -19,3 +19,4 @@ The repository contains the following examples:
 - **05-Layout-1**<br/>Create a simple layout dialog so users can adjust how their dashboard is structured ([related post](https://www.danylkoweb.com/Blog/managing-layouts-in-tuxboard-simple-layout-dialog-U2))<br/><br/>
 - **06-Layout-2**<br/>Create an advanced layout dialog for more complex layouts ([related post](https://www.danylkoweb.com/Blog/managing-layouts-in-tuxboard-advanced-layout-dialog-U3))<br/><br/>
 - **07-Add-Widgets**<br/>Create an Add Widget dialog ([related post](https://www.danylkoweb.com/Blog/adding-widgets-with-a-tuxboard-dialog-U4))<br/><br/>
+- **08-Widget-Toolbar**<br/>Adding buttons and dropdown to a widget's header (Post coming...)<br/><br/>
