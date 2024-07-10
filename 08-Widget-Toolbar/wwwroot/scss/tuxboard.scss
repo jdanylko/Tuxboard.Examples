@@ -56,23 +56,25 @@ body {
                 padding-bottom: 0
             }
         }
-
-        .card-body {
-            /*            visibility: visible;
-            opacity: 1;
-            transition: opacity .1s linear;
-*/
-        }
-
-        &.collapsed .card-body {
-            
-            /*           
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s .1s, opacity .1s linear, height .5s;
-*/
-        }
     }
+}
+
+.card-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows .3s ease-in-out, opacity .1s, padding .1s;
+    opacity: 1;
+}
+
+.card.collapsed > .card-body {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    padding: 0;
+    transition: grid-template-rows .3s ease-in-out, opacity .1s, padding .1s;
+}
+
+.card-body > div {
+    overflow: hidden;
 }
 
 .card-header.over {

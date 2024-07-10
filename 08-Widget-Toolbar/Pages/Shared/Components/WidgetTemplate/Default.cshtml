@@ -7,11 +7,11 @@
     <div class="card-header d-flex">
         <small>@Model.GetSettingValueByName("widgettitle")</small>
         <div class="widget-toolbar d-flex ms-auto">
-            <button condition="!Model.Collapsed" type="button" 
+            <button condition="!Model.Collapsed" type="button"
                     class="btn btn-sm widget-state p-0" title="Minimize">
                 <i class="fa-solid fa-window-minimize"></i>
             </button>
-            <button condition="Model.Collapsed" type="button" 
+            <button condition="Model.Collapsed" type="button"
                     class="btn btn-sm widget-state p-0" title="Restore">
                 <i class="fa-regular fa-window-maximize"></i>
             </button>
@@ -39,7 +39,9 @@
     </div>
 
     <div class="card-body">
+        <div>
         @await Component.InvokeAsync(Model.Widget.Name, Model)
+        </div>
     </div>
 
 </div>
