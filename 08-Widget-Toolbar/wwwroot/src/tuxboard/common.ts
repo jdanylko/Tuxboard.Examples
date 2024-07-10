@@ -9,6 +9,7 @@ export const defaultTabSelector = ".dashboard-tab";
 export const defaultLayoutRowSelector = ".layout-row";
 export const defaultColumnSelector = ".column";
 
+// Widgets
 export const defaultWidgetSelector = ".card";
 export const defaultWidgetHeaderSelector = ".card-header";
 export const defaultWidgetTitleSelector = ".card-title";
@@ -16,6 +17,7 @@ export const defaultWidgetBodySelector = ".card-body";
 export const defaultGeneralOverlaySelector = ".overlay";
 export const defaultLoadingSelector = ".loading-status";
 
+// Widget Settings
 export const defaultWidgetSettingsSelector = ".widget-settings";
 export const defaultWidgetSettingsCancelButtonSelector = ".settings-cancel";
 export const defaultWidgetSettingsSaveButtonSelector = ".settings-save";
@@ -60,7 +62,6 @@ export const defaultSimpleLayoutDialogSelector = "#layout-dialog";
 export const defaultLayoutListSelector = ".layout-list";
 export const defaultLayoutItemSelector = "li";
 export const defaultSaveLayoutButtonSelector = ".save-layout";
-
 
 // Advanced Layout Dialog
 export const defaultAdvancedLayoutButton = "#advanced-layout-button";
@@ -142,15 +143,6 @@ export function getWidgetSnapshot(dragInfo: DragWidgetInfo, tab: Tab) {
             isStatic(elem)
         )
     });
-}
-
-export function closestByClass(element: HTMLElement, classToSearch: string) {
-    while (element) {
-        if (element.classList.contains(classToSearch)) {
-            return element;
-        }
-        element = element.parentElement;
-    }
 }
 
 export function isBefore(el1: HTMLElement, el2: HTMLElement) {

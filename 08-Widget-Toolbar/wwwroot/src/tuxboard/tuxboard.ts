@@ -41,6 +41,8 @@ export class Tuxboard {
 
     getColumns = (layoutRow: LayoutRow) => layoutRow.getColumns();
 
+    getWidget = (id: string) => document.querySelector(`${defaultWidgetSelector}[${dataIdAttribute}='${id}']`) as HTMLDivElement;
+
     public initialize = () => {
         this.attachWidgetToolbarEvents();
         this.attachDragAndDropEvents();
@@ -123,10 +125,6 @@ export class Tuxboard {
             });
     }
 
-    getWidget = (id: string) => document.querySelector(`${defaultWidgetSelector}[${dataIdAttribute}='${id}']`) as HTMLDivElement;
-
-    isCollapsed = (widget: HTMLDivElement) => widget.classList.contains(collapsedToggleSelector);
-
     setWidgetState = (ev: Event) => {
         const target = ev.target as HTMLButtonElement;
         const widget = getClosestByClass(target, noPeriod(defaultWidgetSelector)) as HTMLDivElement;
@@ -145,17 +143,14 @@ export class Tuxboard {
         const widget = this.getWidget(id);
         const widgetStateButton = widget.querySelector(defaultWidgetStateSelector) as HTMLButtonElement;
         const i = widgetStateButton.querySelector('i');
-        const body = widget.querySelector(defaultWidgetBodySelector);
-        if (this.isCollapsed(widget)) {
+        if (collapse) {
             widget.classList.remove(collapsedToggleSelector);
             widgetStateButton.setAttribute('title', 'Minimize');
             i.setAttribute('class', 'fa-solid fa-window-minimize');
-            // body.setAttribute('style', 'display: block');
         } else {
             widget.classList.add(collapsedToggleSelector);
             widgetStateButton.setAttribute('title', 'Restore');
             i.setAttribute('class', 'fa-regular fa-window-maximize');
-            // body.setAttribute('style', 'display: none');
         }
     }
 
