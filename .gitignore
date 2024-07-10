@@ -409,3 +409,9 @@ FodyWeavers.xsd
 /07-Add-Widgets/wwwroot/lib/**/*
 /07-Add-Widgets/wwwroot/src/**/*.js
 /07-Add-Widgets/Properties/launchSettings.json
+
+/08-Widget-Toolbar/wwwroot/js/**/*
+/08-Widget-Toolbar/wwwroot/css/**/*
+/08-Widget-Toolbar/wwwroot/lib/**/*
+/08-Widget-Toolbar/wwwroot/src/**/*.js
+/08-Widget-Toolbar/Properties/launchSettings.json

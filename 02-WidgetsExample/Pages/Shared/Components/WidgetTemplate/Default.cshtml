@@ -3,8 +3,7 @@
 @if (Model.UseTemplate)
 {
     <!-- Widgets -->
-    <div class="card mb-3@(Model.Collapsed ? " collapsed" : string.Empty)"
-         data-id="Model.WidgetPlacementId">
+    <div class="card mb-3" data-id="Model.WidgetPlacementId">
 
         <div class="card-header">
             @Model.GetSettingValueByName("widgettitle")
