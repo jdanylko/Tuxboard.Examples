@@ -1,6 +1,5 @@
 ﻿import * as bootstrap from 'bootstrap';
 import {
-    closestByClass,
     dataIdAttribute,
     defaultColumnSelector,
     defaultDashboardSelector,
@@ -164,7 +163,7 @@ export class Tuxboard {
     removeWidget = (ev: Event) => {
         ev.preventDefault();
         const target = ev.target as HTMLElement;
-        const widget = closestByClass(target, noPeriod(defaultWidgetSelector)) as HTMLDivElement;
+        const widget = getClosestByClass(target, noPeriod(defaultWidgetSelector)) as HTMLDivElement;
         const widgetId = widget.getAttribute(dataIdAttribute);
         this.service.removeWidget(widgetId)
             .then(response => {
