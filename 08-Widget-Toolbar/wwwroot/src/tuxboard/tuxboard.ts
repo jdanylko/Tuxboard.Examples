@@ -138,18 +138,18 @@ export class Tuxboard {
             });
     }
 
-    updateWidgetState = (id: string, collapse: boolean) => {
+    updateWidgetState = (id: string, collapsed: boolean) => {
         const widget = this.getWidget(id);
         const widgetStateButton = widget.querySelector(defaultWidgetStateSelector) as HTMLButtonElement;
         const i = widgetStateButton.querySelector('i');
-        if (collapse) {
-            widget.classList.remove(collapsedToggleSelector);
-            widgetStateButton.setAttribute('title', 'Minimize');
-            i.setAttribute('class', 'fa-solid fa-window-minimize');
-        } else {
+        if (collapsed) {
             widget.classList.add(collapsedToggleSelector);
             widgetStateButton.setAttribute('title', 'Restore');
             i.setAttribute('class', 'fa-regular fa-window-maximize');
+        } else {
+            widget.classList.remove(collapsedToggleSelector);
+            widgetStateButton.setAttribute('title', 'Minimize');
+            i.setAttribute('class', 'fa-solid fa-window-minimize');
         }
     }
 
