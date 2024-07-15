@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
 

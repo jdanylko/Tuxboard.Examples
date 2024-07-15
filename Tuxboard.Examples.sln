@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07-Add-Widgets", "07-Add-Wi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08-Widget-Toolbar", "08-Widget-Toolbar\08-Widget-Toolbar.csproj", "{9B542AD6-820D-46F0-970C-6AAF4BEDCF8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09-User-Dashboard", "09-User-Dashboard\09-User-Dashboard.csproj", "{CEC6CA33-46FC-411A-AC30-157DB7D83A1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{9B542AD6-820D-46F0-970C-6AAF4BEDCF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B542AD6-820D-46F0-970C-6AAF4BEDCF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B542AD6-820D-46F0-970C-6AAF4BEDCF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC6CA33-46FC-411A-AC30-157DB7D83A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC6CA33-46FC-411A-AC30-157DB7D83A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC6CA33-46FC-411A-AC30-157DB7D83A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC6CA33-46FC-411A-AC30-157DB7D83A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@ using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
 using Models;
 using WidgetToolbar.Pages.Shared.Components.AdvancedLayoutDialog;
-using WidgetToolbar.Pages.Shared.Components.SimpleLayoutDialog;
+using Extensions;
 
 namespace WidgetToolbar.Pages;
 

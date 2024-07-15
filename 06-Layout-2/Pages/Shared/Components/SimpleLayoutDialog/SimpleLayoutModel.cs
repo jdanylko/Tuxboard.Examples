@@ -1,4 +1,6 @@
-﻿namespace Layout_2.Pages.Shared.Components.SimpleLayoutDialog;
+﻿using Dto;
+
+namespace Layout_2.Pages.Shared.Components.SimpleLayoutDialog;
 
 public class SimpleLayoutModel
 {
