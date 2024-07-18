@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dto;
+using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
 namespace Layout_2.Pages.Shared.Components.SimpleLayoutDialog;

@@ -1,4 +1,6 @@
-﻿namespace WidgetToolbar.Pages.Shared.Components.SimpleLayoutDialog;
+﻿using Dto;
+
+namespace WidgetToolbar.Pages.Shared.Components.SimpleLayoutDialog;
 
 public class SimpleLayoutModel
 {

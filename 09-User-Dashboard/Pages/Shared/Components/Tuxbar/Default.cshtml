@@ -1,0 +1,28 @@
+﻿@model Tuxboard.Core.Domain.Entities.Dashboard
+
+<div class="tuxbar btn-toolbar border border-1 bg-light p-1 mb-3 justify-content-between" role="toolbar" aria-label="Tuxbar for Tuxboard">
+    <form>
+        <div class="btn-group btn-group-sm">
+            <button type="button" id="refresh-button" title="Refresh" class="btn btn-outline-secondary">
+                <i class="fa fa-arrows-rotate"></i>
+            </button>
+            <button type="button" id="add-widget-button" title="Add Widget" class="btn btn-outline-secondary">
+                <i class="fa-regular fa-square-plus"></i>
+            </button>
+        </div>
+        <div class="btn-group btn-group-sm">
+            <button type="button" id="layout-button" title="Change Layout (simple)" class="btn btn-outline-secondary">
+                <i class="fa fa-table-columns"></i>
+            </button>
+            <button type="button" id="advanced-layout-button" title="Change Layout (advanced)" class="btn btn-outline-secondary">
+                <i class="fa fa-table-list"></i>
+            </button>
+        </div>
+        <div class="btn-group btn-group-sm mx-2">
+            <span id="tuxbar-status"></span>
+        </div>
+    </form>
+    <div class="input-group mx-3">
+        <span id="tuxbar-spinner" hidden><i class="fa-solid fa-sync fa-spin"></i></span>
+    </div>
+</div>

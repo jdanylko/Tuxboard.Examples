@@ -415,3 +415,9 @@ FodyWeavers.xsd
 /08-Widget-Toolbar/wwwroot/lib/**/*
 /08-Widget-Toolbar/wwwroot/src/**/*.js
 /08-Widget-Toolbar/Properties/launchSettings.json
+
+/09-User-Dashboard/wwwroot/js/**/*
+/09-User-Dashboard/wwwroot/css/**/*
+/09-User-Dashboard/wwwroot/lib/**/*
+/09-User-Dashboard/wwwroot/src/**/*.js
+/09-User-Dashboard/Properties/launchSettings.json

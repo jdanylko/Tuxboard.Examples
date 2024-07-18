@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Net;
-using Layout_1.Pages.Shared.Components.SimpleLayoutDialog;
 using Microsoft.Identity.Client;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
@@ -11,6 +10,7 @@ using Tuxboard.Core.Infrastructure.Models;
 using Models;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using Tuxboard.Core.Data.Context;
+using Extensions;
 
 namespace Layout_1.Pages;
 
