@@ -1,6 +1,6 @@
 # Tuxboard Examples
 
-Tuxboard is a dashboard library specifically for the ASP.NET Core platform. It was meant to be a Lego-style way to build dashboards.
+Tuxboard is a lightweight dashboard library specifically for the ASP.NET Core platform. It was meant to be a Lego-style way to build dashboards.
 
 I'm continually adding more examples through the articles on my [blog](https://www.danylkoweb.com/tuxboard) and using this repository for the "dropzone." (don't worry...there's more coming)
 
