@@ -1,4 +1,6 @@
+using DefaultDashboards.Context;
 using DefaultDashboards.Data;
+using DefaultDashboards.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Configuration;
@@ -33,7 +35,8 @@ builder.Services.AddRazorPages();
 
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService, DashboardService>();
-builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
+builder.Services.AddTransient<ITuxDbContext, RoleTuxboardContext>();
+builder.Services.AddTransient<IRoleTuxboardContext, RoleTuxboardContext>();
 
 var app = builder.Build();
 
