@@ -1,4 +1,6 @@
+using DefaultDashboards.Context;
 using DefaultDashboards.Data;
+using DefaultDashboards.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Configuration;
@@ -23,12 +25,12 @@ builder.Services.AddDbContext<TuxDbContext>(options =>
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<DashboardIdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<DashboardUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DashboardIdentityDbContext>();
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
