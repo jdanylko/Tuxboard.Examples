@@ -14,7 +14,8 @@ import {
     isWidget,
     isWidgetOrColumn,
     noPeriod,
-    collapsedToggleSelector
+    collapsedToggleSelector,
+    defaultWidgetBodySelector
 } from "./common";
 import { PlacementItem } from "./dto/PlacementItem";
 import { DragWidgetInfo } from "./dto/dragWidgetInfo";

@@ -1,7 +1,8 @@
-using DefaultDashboards.Context;
-using DefaultDashboards.Identity;
+using DefaultDashboards.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Configuration;
+using Tuxboard.Core.Data.Context;
 using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Services;
 
@@ -13,27 +14,26 @@ builder.Configuration
     .GetSection(nameof(TuxboardConfig))
     .Bind(appConfig);
 
-// Role-based Tuxboard DbContext to add RoleDashboard relationships
-builder.Services.AddDbContext<RoleTuxboardContext>(options =>
+// Tuxboard DbContext
+builder.Services.AddDbContext<TuxDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
         x => x.MigrationsAssembly("10-Default-Dashboards"));
 });
 
-builder.Services.AddDbContext<DashboardIdentityContext>(options =>
-    options.UseSqlServer(appConfig.ConnectionString,
-        x => x.MigrationsAssembly("10-Default-Dashboards")));
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<DashboardIdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<DashboardIdentityContext>();
-
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService, DashboardService>();
-// builder.Services.AddTransient<ITuxDbContext, RoleTuxboardContext>();
-builder.Services.AddTransient<IRoleTuxboardContext, RoleTuxboardContext>();
+builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
 
 var app = builder.Build();
 
