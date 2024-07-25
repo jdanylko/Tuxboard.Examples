@@ -1,9 +1,12 @@
 using System.Net;
 using System.Security.Claims;
+using DefaultDashboards.Context;
 using DefaultDashboards.Extensions;
+using DefaultDashboards.Identity;
 using DefaultDashboards.Models;
 using DefaultDashboards.Pages.Shared.Components.AddWidgetDialog;
 using DefaultDashboards.Pages.Shared.Components.AdvancedLayoutDialog;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
@@ -18,6 +21,8 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService _service;
+    private readonly IRoleDashboardService _roleDashboardService;
+    private readonly UserManager<DashboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
     public Dashboard Dashboard { get; set; } = null!;
@@ -26,10 +31,14 @@ public class IndexModel : PageModel
     public IndexModel(
         ILogger<IndexModel> logger,
         IDashboardService service,
+        IRoleDashboardService roleDashboardService,
+        UserManager<DashboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;
         _service = service;
+        _roleDashboardService = roleDashboardService;
+        _userManager = userManager;
         _config = options.Value;
     }
 
@@ -38,8 +47,28 @@ public class IndexModel : PageModel
         var id = GetIdentity();
         if (id != Guid.Empty)
         {
-            Dashboard = await _service.GetDashboardForAsync(_config, id);
+            if (await _roleDashboardService.DashboardExistsForAsync(id))
+            {
+                Dashboard = await _service.GetDashboardForAsync(_config, id);
+            }
+            else
+            {
+                Dashboard = await GetDashboardByRole(id);
+            }
         }
+    }
+
+    private async Task<Dashboard> GetDashboardByRole(Guid id)
+    {
+        var user = await _userManager.FindByIdAsync(id.ToString());
+        // If we can't find the user, load the default dashboard.
+        if (user == null) 
+            return await _service.GetDashboardAsync(_config);
+
+        var template = await _roleDashboardService.GetDashboardTemplateByRoleAsync(user);
+        await _service.CreateDashboardFromAsync(template, id);
+            
+        return await _service.GetDashboardForAsync(_config, id);
     }
 
     private Guid GetIdentity()
@@ -49,6 +78,8 @@ public class IndexModel : PageModel
             ? new Guid(claim.Value) 
             : Guid.Empty;
     }
+    
+    /* Postbacks */
 
     public async Task<IActionResult> OnPostSaveWidgetPosition([FromBody] PlacementParameter model)
     {

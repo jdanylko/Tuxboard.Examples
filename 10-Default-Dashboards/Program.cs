@@ -23,19 +23,35 @@ builder.Services.AddDbContext<TuxDbContext>(options =>
         x => x.MigrationsAssembly("10-Default-Dashboards"));
 });
 
+// the NEW Tuxboard DbContext
+builder.Services.AddDbContext<TuxboardRoleDbContext>(options =>
+{
+    options.UseSqlServer(appConfig.ConnectionString,
+        x => x.MigrationsAssembly("10-Default-Dashboards"));
+});
+
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<DashboardIdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<DashboardUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<DashboardIdentityDbContext>();
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
+builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
+builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
+
+builder.Services.AddTransient<DashboardRoleManager>();
+builder.Services.AddTransient<DashboardUserManager>();
+builder.Services.AddTransient<IUserStore<DashboardUser>, DashboardUserStore>();
+builder.Services.AddTransient<IRoleStore<DashboardRole>, DashboardRoleStore>();
 
 var app = builder.Build();
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DefaultDashboards.Data.Migrations.Identity
 {
     [DbContext(typeof(DashboardIdentityDbContext))]
-    [Migration("20240724152806_Initial")]
+    [Migration("20240725175631_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
