@@ -1,5 +1,4 @@
 using DefaultDashboards.Context;
-using DefaultDashboards.Data;
 using DefaultDashboards.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

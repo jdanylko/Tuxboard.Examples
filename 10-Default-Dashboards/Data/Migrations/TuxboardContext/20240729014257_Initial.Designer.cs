@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DefaultDashboards.Data.Migrations.TuxboardContext
 {
     [DbContext(typeof(TuxboardRoleDbContext))]
-    [Migration("20240725180002_Initial")]
+    [Migration("20240729014257_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using DefaultDashboards.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -31,23 +30,6 @@ public class RoleDefaultDashboard
 public interface ITuxboardRoleDbContext: ITuxDbContext
 {
     DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
-}
-
-public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
-{
-    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext> options, IConfiguration config) 
-        : base(options, config)
-    {
-    }
-
-    public DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-
-        modelBuilder.ApplyConfiguration(new RoleDefaultDashboardConfiguration());
-    }
 }
 
 public class RoleDefaultDashboardConfiguration: IEntityTypeConfiguration<RoleDefaultDashboard>
