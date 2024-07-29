@@ -49,6 +49,7 @@ builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
 
 builder.Services.AddTransient<DashboardRoleManager>();
 builder.Services.AddTransient<DashboardUserManager>();
+builder.Services.AddTransient<DashboardSignInManager>();
 builder.Services.AddTransient<IUserStore<DashboardUser>, DashboardUserStore>();
 builder.Services.AddTransient<IRoleStore<DashboardRole>, DashboardRoleStore>();
 
