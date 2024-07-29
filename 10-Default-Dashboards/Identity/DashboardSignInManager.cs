@@ -9,7 +9,7 @@ public class DashboardSignInManager(
     IHttpContextAccessor contextAccessor,
     IUserClaimsPrincipalFactory<DashboardUser> claimsFactory,
     IOptions<IdentityOptions> optionsAccessor,
-    ILogger<SignInManager<DashboardUser>> logger,
+    ILogger<DashboardSignInManager> logger,
     IAuthenticationSchemeProvider schemes,
     IUserConfirmation<DashboardUser> confirmation)
     : SignInManager<DashboardUser>(userManager, contextAccessor, claimsFactory,

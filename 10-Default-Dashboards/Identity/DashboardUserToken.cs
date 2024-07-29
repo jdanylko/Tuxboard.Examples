@@ -2,4 +2,7 @@
 
 namespace DefaultDashboards.Identity;
 
-public class DashboardUserToken: IdentityUserToken<Guid> { }
+public class DashboardUserToken : IdentityUserToken<Guid>
+{
+    public virtual DashboardUser User { get; set; }
+}

@@ -2,4 +2,7 @@
 
 namespace DefaultDashboards.Identity;
 
-public class DashboardUserLogin: IdentityUserLogin<Guid> { }
+public class DashboardUserLogin : IdentityUserLogin<Guid>
+{
+    public virtual DashboardUser User { get; set; }
+}

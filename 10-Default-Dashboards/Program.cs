@@ -1,4 +1,4 @@
-using DefaultDashboards.Context;
+using DefaultDashboards.Data.Context;
 using DefaultDashboards.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +35,9 @@ builder.Services.AddDbContext<DashboardIdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<DashboardUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<DashboardIdentityDbContext>();
+    .AddEntityFrameworkStores<DashboardIdentityDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -49,7 +51,11 @@ builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
 
 builder.Services.AddTransient<DashboardRoleManager>();
 builder.Services.AddTransient<DashboardUserManager>();
+
+builder.Services.AddTransient<RoleManager<DashboardRole>, DashboardRoleManager>();
+builder.Services.AddTransient<UserManager<DashboardUser>, DashboardUserManager>();
 builder.Services.AddTransient<DashboardSignInManager>();
+
 builder.Services.AddTransient<IUserStore<DashboardUser>, DashboardUserStore>();
 builder.Services.AddTransient<IRoleStore<DashboardRole>, DashboardRoleStore>();
 

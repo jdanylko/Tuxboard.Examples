@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace DefaultDashboards.Identity;
 
-[Table("AspNetUserClaims")]
-public class DashboardUserClaim: IdentityUserClaim<Guid> { }
+public class DashboardUserClaim : IdentityUserClaim<Guid>
+{
+    public virtual DashboardUser User { get; set; }
+}

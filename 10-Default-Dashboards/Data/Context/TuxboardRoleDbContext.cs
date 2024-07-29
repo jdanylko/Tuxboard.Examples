@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Data.Context;
 
-namespace DefaultDashboards.Context;
+namespace DefaultDashboards.Data.Context;
 
 public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
 {
-    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext> options, IConfiguration config) 
+    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext> options, IConfiguration config)
         : base(options, config)
     {
     }

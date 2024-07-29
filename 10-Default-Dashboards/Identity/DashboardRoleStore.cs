@@ -1,12 +1,9 @@
-﻿using DefaultDashboards.Context;
+﻿using DefaultDashboards.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DefaultDashboards.Identity;
 
-public class DashboardRoleStore: RoleStore<DashboardRole, DashboardIdentityDbContext, Guid>
-{
-    public DashboardRoleStore(DashboardIdentityDbContext context, IdentityErrorDescriber? describer = null) : base(context, describer)
-    {
-    }
-}
+public class DashboardRoleStore(DashboardIdentityDbContext context, IdentityErrorDescriber? describer = null)
+    : RoleStore<DashboardRole, DashboardIdentityDbContext, Guid, DashboardUserRole, DashboardRoleClaim>(context,
+        describer);

@@ -1,6 +1,6 @@
 using System.Net;
 using System.Security.Claims;
-using DefaultDashboards.Context;
+using DefaultDashboards.Data.Context;
 using DefaultDashboards.Extensions;
 using DefaultDashboards.Identity;
 using DefaultDashboards.Models;
@@ -142,7 +142,7 @@ public class IndexModel : PageModel
         var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
         var layoutTypes = await _service.GetLayoutTypesAsync();
-        var result = layoutTypes.Select(e => e.ToDto(currentLayout.LayoutTypeId)).ToList();
+        var result = layoutTypes.Select(e => e.ToDto(currentLayout!.LayoutTypeId)).ToList();
 
         return ViewComponent("simplelayoutdialog", result);
     }
