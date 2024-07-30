@@ -47,7 +47,7 @@ public class IndexModel : PageModel
         var id = GetIdentity();
         if (id != Guid.Empty)
         {
-            if (await _roleDashboardService.DashboardExistsForAsync(id))
+            if (await _service.DashboardExistsForAsync(id))
             {
                 Dashboard = await _service.GetDashboardForAsync(_config, id);
             }
