@@ -4,5 +4,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DefaultDashboards.Identity;
 
-public class DashboardUserStore(DashboardIdentityDbContext context, IdentityErrorDescriber? describer = null)
-    : UserStore<DashboardUser, DashboardRole, DashboardIdentityDbContext, Guid>(context, describer);
+public class DashboardUserStore: 
+    UserStore<DashboardUser, DashboardRole, TuxboardRoleDbContext, Guid, 
+        DashboardUserClaim, DashboardUserRole, DashboardUserLogin, 
+        DashboardUserToken, DashboardRoleClaim>
+{
+    public DashboardUserStore(TuxboardRoleDbContext context, IdentityErrorDescriber? describer = null) : base(context, describer)
+    {
+    }
+}

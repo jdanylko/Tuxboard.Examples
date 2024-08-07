@@ -21,7 +21,7 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService _service;
-    private readonly IRoleDashboardService _roleDashboardService;
+    // private readonly IRoleDashboardService _roleDashboardService;
     private readonly UserManager<DashboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
@@ -31,13 +31,13 @@ public class IndexModel : PageModel
     public IndexModel(
         ILogger<IndexModel> logger,
         IDashboardService service,
-        IRoleDashboardService roleDashboardService,
+        // IRoleDashboardService roleDashboardService,
         UserManager<DashboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;
         _service = service;
-        _roleDashboardService = roleDashboardService;
+        // _roleDashboardService = roleDashboardService;
         _userManager = userManager;
         _config = options.Value;
     }
@@ -47,26 +47,22 @@ public class IndexModel : PageModel
         var id = GetIdentity();
         if (id != Guid.Empty)
         {
-            if (await _service.DashboardExistsForAsync(id))
-            {
-                Dashboard = await _service.GetDashboardForAsync(_config, id);
-            }
-            else
-            {
-                Dashboard = await GetDashboardByRole(id);
-            }
+            Dashboard = await _service.DashboardExistsForAsync(id)
+                ? await _service.GetDashboardForAsync(_config, id)
+                : await GetDashboardByRole(id);
         }
     }
 
     private async Task<Dashboard> GetDashboardByRole(Guid id)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
+
         // If we can't find the user, load the default dashboard.
         if (user == null) 
             return await _service.GetDashboardAsync(_config);
 
-        var template = await _roleDashboardService.GetDashboardTemplateByRoleAsync(user);
-        await _service.CreateDashboardFromAsync(template, id);
+        //var template = await _roleDashboardService.GetDashboardTemplateByRoleAsync(user);
+        //await _service.CreateDashboardFromAsync(template, id);
             
         return await _service.GetDashboardForAsync(_config, id);
     }

@@ -1,7 +1,7 @@
 ﻿@using DefaultDashboards.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@inject DashboardSignInManager SignInManager
-@inject DashboardUserManager UserManager
+@inject SignInManager<DashboardUser> SignInManager
+@inject UserManager<DashboardUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

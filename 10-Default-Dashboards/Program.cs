@@ -15,49 +15,41 @@ builder.Configuration
     .GetSection(nameof(TuxboardConfig))
     .Bind(appConfig);
 
-// Tuxboard DbContext
+builder.Services.Configure<TuxboardConfig>(builder.Configuration.GetSection(nameof(TuxboardConfig)));
+
+// Base DbContext
 builder.Services.AddDbContext<TuxDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
         x => x.MigrationsAssembly("10-Default-Dashboards"));
 });
 
-// the NEW Tuxboard DbContext
+// Inherited...the NEW Tuxboard DbContext
 builder.Services.AddDbContext<TuxboardRoleDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
         x => x.MigrationsAssembly("10-Default-Dashboards"));
 });
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<DashboardIdentityDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<DashboardUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<DashboardIdentityDbContext>()
+// Attach Identity to the new Tuxboard Context
+builder.Services.AddIdentity<DashboardUser, DashboardRole>()
+    .AddEntityFrameworkStores<TuxboardRoleDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
 builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
-builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
-
-builder.Services.AddTransient<DashboardRoleManager>();
-builder.Services.AddTransient<DashboardUserManager>();
-
-builder.Services.AddTransient<RoleManager<DashboardRole>, DashboardRoleManager>();
-builder.Services.AddTransient<UserManager<DashboardUser>, DashboardUserManager>();
-builder.Services.AddTransient<DashboardSignInManager>();
-
-builder.Services.AddTransient<IUserStore<DashboardUser>, DashboardUserStore>();
-builder.Services.AddTransient<IRoleStore<DashboardRole>, DashboardRoleStore>();
+builder.Services.AddTransient<ISecurityStampValidator, SecurityStampValidator<DashboardUser>>();
+builder.Services.AddTransient<IUserClaimsPrincipalFactory<DashboardUser>, UserClaimsPrincipalFactory<DashboardUser>>();
+builder.Services.AddTransient<ITwoFactorSecurityStampValidator, TwoFactorSecurityStampValidator<DashboardUser>>();
+builder.Services.AddTransient<SignInManager<DashboardUser>>();
+builder.Services.AddTransient<DashboardUserStore>();
+builder.Services.AddTransient<UserManager<DashboardUser>>();
 
 var app = builder.Build();
 
