@@ -214,7 +214,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUserClaim", "dbo");
+                    b.ToTable("DashboardUserClaims", "dbo");
 
                     b.HasDiscriminator().HasValue("IdentityUserClaim<Guid>");
 
@@ -558,7 +558,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                             WidgetId = new Guid("1885170c-7c48-4557-abc7-bc06d3fc51ee"),
                             CanDelete = false,
                             Description = "Display General Information",
-                            GroupName = "",
+                            GroupName = "General",
                             ImageUrl = "",
                             Moveable = false,
                             Name = "generalinfo",
@@ -572,7 +572,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                             WidgetId = new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"),
                             CanDelete = true,
                             Description = "A Simple Hello World Widget",
-                            GroupName = "",
+                            GroupName = "Example",
                             ImageUrl = "",
                             Moveable = true,
                             Name = "helloworld",
@@ -586,7 +586,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                             WidgetId = new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"),
                             CanDelete = true,
                             Description = "Demonstration of data table",
-                            GroupName = "",
+                            GroupName = "General",
                             ImageUrl = "",
                             Moveable = true,
                             Name = "table",

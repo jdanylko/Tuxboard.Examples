@@ -167,6 +167,30 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 });
 
             migrationBuilder.CreateTable(
+                name: "DashboardUserClaims",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DashboardUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DashboardUserClaims_DashboardUser_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "dbo",
+                        principalTable: "DashboardUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DashboardUserLogin",
                 schema: "dbo",
                 columns: table => new
@@ -230,30 +254,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     table.PrimaryKey("PK_DashboardUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         name: "FK_DashboardUserToken_DashboardUser_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "DashboardUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityUserClaim",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserClaim", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_IdentityUserClaim_DashboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "DashboardUser",
@@ -550,9 +550,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 columns: new[] { "WidgetId", "CanDelete", "Description", "GroupName", "ImageUrl", "Moveable", "Name", "Permission", "Title", "UseSettings", "UseTemplate" },
                 values: new object[,]
                 {
-                    { new Guid("1885170c-7c48-4557-abc7-bc06d3fc51ee"), false, "Display General Information", "", "", false, "generalinfo", 0, "General Info", false, false },
-                    { new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), true, "A Simple Hello World Widget", "", "", true, "helloworld", 0, "Hello World", true, true },
-                    { new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), true, "Demonstration of data table", "", "", true, "table", 0, "Sample Table", true, true }
+                    { new Guid("1885170c-7c48-4557-abc7-bc06d3fc51ee"), false, "Display General Information", "General", "", false, "generalinfo", 0, "General Info", false, false },
+                    { new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), true, "A Simple Hello World Widget", "Example", "", true, "helloworld", 0, "Hello World", true, true },
+                    { new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), true, "Demonstration of data table", "General", "", true, "table", 0, "Sample Table", true, true }
                 });
 
             migrationBuilder.InsertData(
@@ -626,6 +626,12 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 column: "DashboardId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DashboardUserClaims_UserId",
+                schema: "dbo",
+                table: "DashboardUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DashboardUserLogin_UserId",
                 schema: "dbo",
                 table: "DashboardUserLogin",
@@ -636,12 +642,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo",
                 table: "DashboardUserRole",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IdentityUserClaim_UserId",
-                schema: "dbo",
-                table: "IdentityUserClaim",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Layout_TabId",
@@ -722,6 +722,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo");
 
             migrationBuilder.DropTable(
+                name: "DashboardUserClaims",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
                 name: "DashboardUserLogin",
                 schema: "dbo");
 
@@ -731,10 +735,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
             migrationBuilder.DropTable(
                 name: "DashboardUserToken",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "IdentityUserClaim",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

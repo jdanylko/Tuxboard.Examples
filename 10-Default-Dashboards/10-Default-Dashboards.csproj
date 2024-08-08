@@ -19,7 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
-    <PackageReference Include="Tuxboard.Core" Version="1.6.5" />
+    <PackageReference Include="Tuxboard.Core" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>

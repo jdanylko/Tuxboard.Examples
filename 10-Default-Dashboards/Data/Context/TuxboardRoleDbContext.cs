@@ -24,7 +24,7 @@ public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
     public DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
     
     // REF: https://github.com/dotnet/aspnetcore/issues/5793
-    public DbSet<IdentityUserClaim<Guid>> IdentityUserClaim { get; set; }
+    public DbSet<IdentityUserClaim<Guid>> DashboardUserClaims { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
