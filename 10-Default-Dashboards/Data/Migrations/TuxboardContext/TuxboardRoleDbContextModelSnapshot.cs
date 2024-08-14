@@ -23,21 +23,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DefaultDashboards.Data.Context.RoleDefaultDashboard", b =>
-                {
-                    b.Property<Guid>("DefaultDashboardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DefaultDashboardId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RoleDefaultDashboards", "dbo");
-                });
-
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardRole", b =>
                 {
                     b.Property<Guid>("Id")
@@ -56,6 +41,22 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.HasKey("Id");
 
                     b.ToTable("DashboardRole", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"),
+                            ConcurrencyStamp = "e76958ed-f385-4818-a9d6-a2713c6d1f59",
+                            Name = "Basic",
+                            NormalizedName = "BASIC"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"),
+                            ConcurrencyStamp = "7fe36a66-3dc5-4cac-8d99-bd77d6729240",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardRoleClaim", b =>
@@ -135,6 +136,30 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.ToTable("DashboardUser", "dbo");
                 });
 
+            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DashboardUserClaim", "dbo");
+                });
+
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
@@ -190,35 +215,31 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.ToTable("DashboardUserToken", "dbo");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("DefaultDashboards.Models.RoleDefaultDashboard", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(34)
-                        .HasColumnType("nvarchar(34)");
-
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("DefaultDashboardId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("DashboardUserClaims", "dbo");
+                    b.HasKey("DefaultDashboardId", "RoleId");
 
-                    b.HasDiscriminator().HasValue("IdentityUserClaim<Guid>");
+                    b.HasIndex("RoleId");
 
-                    b.UseTphMappingStrategy();
+                    b.ToTable("RoleDefaultDashboards", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            DefaultDashboardId = new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"),
+                            RoleId = new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250")
+                        },
+                        new
+                        {
+                            DefaultDashboardId = new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"),
+                            RoleId = new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1")
+                        });
                 });
 
             modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Dashboard", b =>
@@ -273,6 +294,11 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         {
                             DefaultId = new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"),
                             LayoutId = new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e")
+                        },
+                        new
+                        {
+                            DefaultId = new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"),
+                            LayoutId = new Guid("239c89ed-3310-40d8-9104-237659415392")
                         });
                 });
 
@@ -325,6 +351,15 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                             LayoutRowId = new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"),
                             WidgetId = new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"),
                             WidgetIndex = 0
+                        },
+                        new
+                        {
+                            DefaultWidgetId = new Guid("277f2ae4-3a29-45df-9db8-ea713a93a58a"),
+                            ColumnIndex = 1,
+                            DashboardDefaultId = new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"),
+                            LayoutRowId = new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"),
+                            WidgetId = new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"),
+                            WidgetIndex = 1
                         });
                 });
 
@@ -386,6 +421,11 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         {
                             LayoutId = new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"),
                             LayoutIndex = 1
+                        },
+                        new
+                        {
+                            LayoutId = new Guid("239c89ed-3310-40d8-9104-237659415392"),
+                            LayoutIndex = 1
                         });
                 });
 
@@ -422,6 +462,13 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         {
                             LayoutRowId = new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"),
                             LayoutId = new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"),
+                            LayoutTypeId = 4,
+                            RowIndex = 0
+                        },
+                        new
+                        {
+                            LayoutRowId = new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"),
+                            LayoutId = new Guid("239c89ed-3310-40d8-9104-237659415392"),
                             LayoutTypeId = 4,
                             RowIndex = 0
                         });
@@ -791,34 +838,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.ToTable("WidgetPlan", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>");
-
-                    b.HasIndex("UserId");
-
-                    b.HasDiscriminator().HasValue("DashboardUserClaim");
-                });
-
-            modelBuilder.Entity("DefaultDashboards.Data.Context.RoleDefaultDashboard", b =>
-                {
-                    b.HasOne("Tuxboard.Core.Domain.Entities.DashboardDefault", "DefaultDashboard")
-                        .WithMany()
-                        .HasForeignKey("DefaultDashboardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DefaultDashboard");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardRoleClaim", b =>
                 {
                     b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
@@ -828,6 +847,17 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
+                {
+                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserLogin", b =>
@@ -869,6 +899,25 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DefaultDashboards.Models.RoleDefaultDashboard", b =>
+                {
+                    b.HasOne("Tuxboard.Core.Domain.Entities.DashboardDefault", "DefaultDashboard")
+                        .WithMany()
+                        .HasForeignKey("DefaultDashboardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DefaultDashboard");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Tuxboard.Core.Domain.Entities.DashboardDefault", b =>
@@ -1028,17 +1077,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .HasForeignKey("WidgetId")
                         .IsRequired()
                         .HasConstraintName("FK_WidgetPlan_Widget");
-                });
-
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
-                {
-                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
-                        .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DefaultDashboards.Identity.DashboardRole", b =>

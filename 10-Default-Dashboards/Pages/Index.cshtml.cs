@@ -1,11 +1,11 @@
 using System.Net;
 using System.Security.Claims;
-using DefaultDashboards.Data.Context;
 using DefaultDashboards.Extensions;
 using DefaultDashboards.Identity;
 using DefaultDashboards.Models;
 using DefaultDashboards.Pages.Shared.Components.AddWidgetDialog;
 using DefaultDashboards.Pages.Shared.Components.AdvancedLayoutDialog;
+using DefaultDashboards.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,7 +21,7 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService _service;
-    // private readonly IRoleDashboardService _roleDashboardService;
+    private readonly IRoleDashboardService _roleDashboardService;
     private readonly UserManager<DashboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
@@ -31,13 +31,13 @@ public class IndexModel : PageModel
     public IndexModel(
         ILogger<IndexModel> logger,
         IDashboardService service,
-        // IRoleDashboardService roleDashboardService,
+        IRoleDashboardService roleDashboardService,
         UserManager<DashboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;
         _service = service;
-        // _roleDashboardService = roleDashboardService;
+        _roleDashboardService = roleDashboardService;
         _userManager = userManager;
         _config = options.Value;
     }
@@ -61,9 +61,9 @@ public class IndexModel : PageModel
         if (user == null) 
             return await _service.GetDashboardAsync(_config);
 
-        //var template = await _roleDashboardService.GetDashboardTemplateByRoleAsync(user);
-        //await _service.CreateDashboardFromAsync(template, id);
-            
+        var template = await _roleDashboardService.GetDashboardTemplateByRoleAsync(user);
+        await _service.CreateDashboardFromAsync(template, id);
+
         return await _service.GetDashboardForAsync(_config, id);
     }
 

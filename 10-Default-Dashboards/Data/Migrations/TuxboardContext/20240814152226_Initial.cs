@@ -167,7 +167,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardUserClaims",
+                name: "DashboardUserClaim",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -175,14 +175,13 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(34)", maxLength: 34, nullable: false)
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardUserClaims", x => x.Id);
+                    table.PrimaryKey("PK_DashboardUserClaim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DashboardUserClaims_DashboardUser_UserId",
+                        name: "FK_DashboardUserClaim_DashboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
                         principalTable: "DashboardUser",
@@ -528,9 +527,23 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
             migrationBuilder.InsertData(
                 schema: "dbo",
+                table: "DashboardRole",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"), "e76958ed-f385-4818-a9d6-a2713c6d1f59", "Basic", "BASIC" },
+                    { new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"), "7fe36a66-3dc5-4cac-8d99-bd77d6729240", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
                 table: "Layout",
                 columns: new[] { "LayoutId", "LayoutIndex", "TabId" },
-                values: new object[] { new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), 1, null });
+                values: new object[,]
+                {
+                    { new Guid("239c89ed-3310-40d8-9104-237659415392"), 1, null },
+                    { new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), 1, null }
+                });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -559,13 +572,21 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo",
                 table: "DashboardDefault",
                 columns: new[] { "DefaultId", "LayoutId", "PlanId" },
-                values: new object[] { new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), null });
+                values: new object[,]
+                {
+                    { new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), null },
+                    { new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("239c89ed-3310-40d8-9104-237659415392"), null }
+                });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "LayoutRow",
                 columns: new[] { "LayoutRowId", "LayoutId", "LayoutTypeId", "RowIndex" },
-                values: new object[] { new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), 4, 0 });
+                values: new object[,]
+                {
+                    { new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("239c89ed-3310-40d8-9104-237659415392"), 4, 0 },
+                    { new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("5267da05-afe4-4753-9cee-d5d32c2b068e"), 4, 0 }
+                });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -581,7 +602,21 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo",
                 table: "DashboardDefaultWidget",
                 columns: new[] { "DefaultWidgetId", "ColumnIndex", "DashboardDefaultId", "LayoutRowId", "WidgetId", "WidgetIndex" },
-                values: new object[] { new Guid("d21e94cf-86a9-4058-bb72-f269728ac8ad"), 0, new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), 0 });
+                values: new object[,]
+                {
+                    { new Guid("277f2ae4-3a29-45df-9db8-ea713a93a58a"), 1, new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), 1 },
+                    { new Guid("d21e94cf-86a9-4058-bb72-f269728ac8ad"), 0, new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), 0 }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "RoleDefaultDashboards",
+                columns: new[] { "DefaultDashboardId", "RoleId" },
+                values: new object[,]
+                {
+                    { new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250") },
+                    { new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1") }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DashboardDefault_LayoutId",
@@ -626,9 +661,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 column: "DashboardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DashboardUserClaims_UserId",
+                name: "IX_DashboardUserClaim_UserId",
                 schema: "dbo",
-                table: "DashboardUserClaims",
+                table: "DashboardUserClaim",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -722,7 +757,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "DashboardUserClaims",
+                name: "DashboardUserClaim",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
