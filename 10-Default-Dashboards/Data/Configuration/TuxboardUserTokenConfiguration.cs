@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DefaultDashboards.Data.Configuration;
 
-public class DashboardUserTokenConfiguration: IEntityTypeConfiguration<DashboardUserToken>
+public class TuxboardUserTokenConfiguration: IEntityTypeConfiguration<TuxboardUserToken>
 {
-    public void Configure(EntityTypeBuilder<DashboardUserToken> builder)
+    public void Configure(EntityTypeBuilder<TuxboardUserToken> builder)
     {
-        builder.ToTable("DashboardUserToken");
+        builder.ToTable(nameof(TuxboardUserToken));
 
         builder.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
     }

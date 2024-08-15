@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DefaultDashboards.Data.Configuration;
 
-public class DashboardUserLoginConfiguration: IEntityTypeConfiguration<DashboardUserLogin>
+public class TuxboardUserLoginConfiguration: IEntityTypeConfiguration<TuxboardUserLogin>
 {
-    public void Configure(EntityTypeBuilder<DashboardUserLogin> builder)
+    public void Configure(EntityTypeBuilder<TuxboardUserLogin> builder)
     {
-        builder.ToTable(nameof(DashboardUserLogin));
+        builder.ToTable(nameof(TuxboardUserLogin));
         builder.HasKey(l => new { l.LoginProvider, l.ProviderKey });
     }
 }

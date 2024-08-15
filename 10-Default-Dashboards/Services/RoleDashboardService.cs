@@ -10,12 +10,12 @@ namespace DefaultDashboards.Services;
 public class RoleDashboardService : IRoleDashboardService
 {
     private readonly ITuxboardRoleDbContext _context;
-    private readonly UserManager<DashboardUser> _userManager;
-    private readonly RoleManager<DashboardRole> _roleManager;
+    private readonly UserManager<TuxboardUser> _userManager;
+    private readonly RoleManager<TuxboardRole> _roleManager;
 
     public RoleDashboardService(ITuxboardRoleDbContext context,
-        UserManager<DashboardUser> userManager,
-        RoleManager<DashboardRole> roleManager)
+        UserManager<TuxboardUser> userManager,
+        RoleManager<TuxboardRole> roleManager)
     {
         _context = context;
         _userManager = userManager;
@@ -27,7 +27,7 @@ public class RoleDashboardService : IRoleDashboardService
         return await _context.DashboardExistsForAsync(userId);
     }
 
-    public async Task<DashboardDefault> GetDashboardTemplateByRoleAsync(DashboardUser user)
+    public async Task<DashboardDefault> GetDashboardTemplateByRoleAsync(TuxboardUser user)
     {
         DashboardDefault defaultDashboard = null!;
 
@@ -53,7 +53,7 @@ public class RoleDashboardService : IRoleDashboardService
         return defaultDashboard ?? await _context.GetDashboardTemplateForAsync();
     }
 
-    private async Task<string> GetRoles(DashboardUser user)
+    private async Task<string> GetRoles(TuxboardUser user)
     {
         // *COULD* have more than one role; we just want the first one.
         var roles = await _userManager.GetRolesAsync(user);

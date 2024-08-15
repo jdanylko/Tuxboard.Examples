@@ -33,7 +33,7 @@ builder.Services.AddDbContext<TuxboardRoleDbContext>(options =>
 });
 
 // Attach Identity to the new Tuxboard Context
-builder.Services.AddIdentity<DashboardUser, DashboardRole>()
+builder.Services.AddIdentity<TuxboardUser, TuxboardRole>()
     .AddEntityFrameworkStores<TuxboardRoleDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
@@ -46,10 +46,10 @@ builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
 builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
 builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
-builder.Services.AddTransient<IUserStore<DashboardUser>, DashboardUserStore>();
-builder.Services.AddTransient<IRoleStore<DashboardRole>, DashboardRoleStore>();
-builder.Services.AddTransient<SignInManager<DashboardUser>>();
-builder.Services.AddTransient<UserManager<DashboardUser>>();
+builder.Services.AddTransient<IUserStore<TuxboardUser>, TuxboardUserStore>();
+builder.Services.AddTransient<IRoleStore<TuxboardRole>, TuxboardRoleStore>();
+builder.Services.AddTransient<SignInManager<TuxboardUser>>();
+builder.Services.AddTransient<UserManager<TuxboardUser>>();
 
 var app = builder.Build();
 

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DefaultDashboards.Data.Configuration;
 
-public class DashboardRoleConfiguration: IEntityTypeConfiguration<DashboardRole>
+public class TuxboardRoleConfiguration: IEntityTypeConfiguration<TuxboardRole>
 {
-    public void Configure(EntityTypeBuilder<DashboardRole> builder)
+    public void Configure(EntityTypeBuilder<TuxboardRole> builder)
     {
-        builder.ToTable(nameof(DashboardRole));
+        builder.ToTable(nameof(TuxboardRole));
         
-        builder.HasData(new List<DashboardRole>
+        builder.HasData(new List<TuxboardRole>
         {
             new()
             {

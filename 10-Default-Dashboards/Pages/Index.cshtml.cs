@@ -22,7 +22,7 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService _service;
     private readonly IRoleDashboardService _roleDashboardService;
-    private readonly UserManager<DashboardUser> _userManager;
+    private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
     public Dashboard Dashboard { get; set; } = null!;
@@ -32,7 +32,7 @@ public class IndexModel : PageModel
         ILogger<IndexModel> logger,
         IDashboardService service,
         IRoleDashboardService roleDashboardService,
-        UserManager<DashboardUser> userManager,
+        UserManager<TuxboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;

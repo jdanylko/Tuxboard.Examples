@@ -18,12 +18,12 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardRole", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,26 +40,26 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasKey("Id");
 
-                    b.ToTable("DashboardRole", "dbo");
+                    b.ToTable("TuxboardRole", "dbo");
 
                     b.HasData(
                         new
                         {
                             Id = new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"),
-                            ConcurrencyStamp = "e76958ed-f385-4818-a9d6-a2713c6d1f59",
+                            ConcurrencyStamp = "ad2d3513-4840-4c08-b777-e503513d8dbf",
                             Name = "Basic",
                             NormalizedName = "BASIC"
                         },
                         new
                         {
                             Id = new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"),
-                            ConcurrencyStamp = "7fe36a66-3dc5-4cac-8d99-bd77d6729240",
+                            ConcurrencyStamp = "3390b918-6f91-478f-847c-1269e2abd339",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardRoleClaim", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,10 +80,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("DashboardRoleClaim", "dbo");
+                    b.ToTable("TuxboardRoleClaim", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUser", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,10 +133,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasKey("Id");
 
-                    b.ToTable("DashboardUser", "dbo");
+                    b.ToTable("TuxboardUser", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,10 +157,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DashboardUserClaim", "dbo");
+                    b.ToTable("TuxboardUserClaim", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserLogin", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -178,10 +178,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DashboardUserLogin", "dbo");
+                    b.ToTable("TuxboardUserLogin", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserRole", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserRole", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -193,10 +193,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("DashboardUserRole", "dbo");
+                    b.ToTable("TuxboardUserRole", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserToken", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserToken", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -212,7 +212,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("DashboardUserToken", "dbo");
+                    b.ToTable("TuxboardUserToken", "dbo");
                 });
 
             modelBuilder.Entity("DefaultDashboards.Models.RoleDefaultDashboard", b =>
@@ -354,7 +354,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         },
                         new
                         {
-                            DefaultWidgetId = new Guid("277f2ae4-3a29-45df-9db8-ea713a93a58a"),
+                            DefaultWidgetId = new Guid("4b3a5073-15da-405f-83a6-c4452ebb0226"),
                             ColumnIndex = 1,
                             DashboardDefaultId = new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"),
                             LayoutRowId = new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"),
@@ -838,9 +838,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.ToTable("WidgetPlan", "dbo");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardRoleClaim", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardRoleClaim", b =>
                 {
-                    b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardRole", "Role")
                         .WithMany("RoleClaims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -849,9 +849,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserClaim", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserClaim", b =>
                 {
-                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardUser", "User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -860,9 +860,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserLogin", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserLogin", b =>
                 {
-                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardUser", "User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -871,15 +871,15 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserRole", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserRole", b =>
                 {
-                    b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardUser", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -890,9 +890,9 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUserToken", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUserToken", b =>
                 {
-                    b.HasOne("DefaultDashboards.Identity.DashboardUser", "User")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardUser", "User")
                         .WithMany("Tokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -909,7 +909,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DefaultDashboards.Identity.DashboardRole", "Role")
+                    b.HasOne("DefaultDashboards.Identity.TuxboardRole", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1079,14 +1079,14 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         .HasConstraintName("FK_WidgetPlan_Widget");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardRole", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardRole", b =>
                 {
                     b.Navigation("RoleClaims");
 
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("DefaultDashboards.Identity.DashboardUser", b =>
+            modelBuilder.Entity("DefaultDashboards.Identity.TuxboardUser", b =>
                 {
                     b.Navigation("Claims");
 

@@ -1,7 +1,6 @@
 ﻿using DefaultDashboards.Data.Configuration;
 using DefaultDashboards.Identity;
 using DefaultDashboards.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
@@ -19,13 +18,13 @@ public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
     public DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
     
     // Identity
-    public DbSet<DashboardUserClaim> DashboardUserClaims { get; set; }
-    public DbSet<DashboardUserRole> DashboardUserRoles { get; set; }
-    public DbSet<DashboardUserToken> DashboardUserTokens { get; set; }
-    public DbSet<DashboardUserLogin> DashboardUserLogins { get; set; }
-    public DbSet<DashboardUser> DashboardUsers { get; set; }
-    public DbSet<DashboardRole> DashboardRoles { get; set; }
-    public DbSet<DashboardRoleClaim> DashboardRoleClaims { get; set; }
+    public DbSet<TuxboardUserClaim> TuxboardUserClaims { get; set; }
+    public DbSet<TuxboardUserRole> TuxboardUserRoles { get; set; }
+    public DbSet<TuxboardUserToken> TuxboardUserTokens { get; set; }
+    public DbSet<TuxboardUserLogin> TuxboardUserLogins { get; set; }
+    public DbSet<TuxboardUser> TuxboardUsers { get; set; }
+    public DbSet<TuxboardRole> TuxboardRoles { get; set; }
+    public DbSet<TuxboardRoleClaim> TuxboardRoleClaims { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,13 +37,12 @@ public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
         modelBuilder.ApplyConfiguration(new DashboardDefaultWidgetConfiguration());
 
         // Identity
-        modelBuilder.ApplyConfiguration(new DashboardRoleConfiguration());
-        modelBuilder.ApplyConfiguration(new DashboardRoleClaimConfiguration());
-
-        modelBuilder.ApplyConfiguration(new DashboardUserConfiguration());
-        modelBuilder.ApplyConfiguration(new DashboardUserClaimConfiguration());
-        modelBuilder.ApplyConfiguration(new DashboardUserLoginConfiguration());
-        modelBuilder.ApplyConfiguration(new DashboardUserRoleConfiguration());
-        modelBuilder.ApplyConfiguration(new DashboardUserTokenConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardRoleClaimConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardUserConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardUserClaimConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardUserLoginConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardUserRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new TuxboardUserTokenConfiguration());
     }
 }

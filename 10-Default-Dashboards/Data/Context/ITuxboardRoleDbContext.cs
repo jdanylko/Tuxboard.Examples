@@ -10,13 +10,13 @@ public interface ITuxboardRoleDbContext: ITuxDbContext
     DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
 
     // Identity
-    DbSet<DashboardUserClaim> DashboardUserClaims { get; set; }
-    DbSet<DashboardUserRole> DashboardUserRoles { get; set; }
-    DbSet<DashboardUserLogin> DashboardUserLogins { get; set; }
-    DbSet<DashboardUserToken> DashboardUserTokens { get; set; }
-    DbSet<DashboardUser> DashboardUsers { get; set; }
-    DbSet<DashboardRole> DashboardRoles { get; set; }
-    DbSet<DashboardRoleClaim> DashboardRoleClaims { get; set; }
+    DbSet<TuxboardUserClaim> TuxboardUserClaims { get; set; }
+    DbSet<TuxboardUserRole> TuxboardUserRoles { get; set; }
+    DbSet<TuxboardUserLogin> TuxboardUserLogins { get; set; }
+    DbSet<TuxboardUserToken> TuxboardUserTokens { get; set; }
+    DbSet<TuxboardUser> TuxboardUsers { get; set; }
+    DbSet<TuxboardRole> TuxboardRoles { get; set; }
+    DbSet<TuxboardRoleClaim> TuxboardRoleClaims { get; set; }
 
 
 }

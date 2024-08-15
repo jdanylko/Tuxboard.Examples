@@ -9,5 +9,5 @@ public class RoleDefaultDashboard
     public virtual Guid RoleId { get; set; }
 
     public virtual DashboardDefault DefaultDashboard  { get; set; } = default!;
-    public virtual DashboardRole Role { get; set; } = default!;
+    public virtual TuxboardRole Role { get; set; } = default!;
 }

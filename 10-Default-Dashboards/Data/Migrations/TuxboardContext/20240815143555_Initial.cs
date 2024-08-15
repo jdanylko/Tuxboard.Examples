@@ -31,47 +31,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardRole",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DashboardRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DashboardUser",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DashboardUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LayoutType",
                 schema: "dbo",
                 columns: table => new
@@ -98,6 +57,47 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Plan", x => x.PlanId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TuxboardRole",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TuxboardRole", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TuxboardUser",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TuxboardUser", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +144,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardRoleClaim",
+                name: "TuxboardRoleClaim",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -156,18 +156,18 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardRoleClaim", x => x.Id);
+                    table.PrimaryKey("PK_TuxboardRoleClaim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DashboardRoleClaim_DashboardRole_RoleId",
+                        name: "FK_TuxboardRoleClaim_TuxboardRole_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardRole",
+                        principalTable: "TuxboardRole",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardUserClaim",
+                name: "TuxboardUserClaim",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -179,18 +179,18 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardUserClaim", x => x.Id);
+                    table.PrimaryKey("PK_TuxboardUserClaim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DashboardUserClaim_DashboardUser_UserId",
+                        name: "FK_TuxboardUserClaim_TuxboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardUser",
+                        principalTable: "TuxboardUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardUserLogin",
+                name: "TuxboardUserLogin",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -201,18 +201,18 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardUserLogin", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_TuxboardUserLogin", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_DashboardUserLogin_DashboardUser_UserId",
+                        name: "FK_TuxboardUserLogin_TuxboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardUser",
+                        principalTable: "TuxboardUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardUserRole",
+                name: "TuxboardUserRole",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -221,25 +221,25 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardUserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_TuxboardUserRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_DashboardUserRole_DashboardRole_RoleId",
+                        name: "FK_TuxboardUserRole_TuxboardRole_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardRole",
+                        principalTable: "TuxboardRole",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DashboardUserRole_DashboardUser_UserId",
+                        name: "FK_TuxboardUserRole_TuxboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardUser",
+                        principalTable: "TuxboardUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DashboardUserToken",
+                name: "TuxboardUserToken",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -250,12 +250,12 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DashboardUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_TuxboardUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_DashboardUserToken_DashboardUser_UserId",
+                        name: "FK_TuxboardUserToken_TuxboardUser_UserId",
                         column: x => x.UserId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardUser",
+                        principalTable: "TuxboardUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -424,10 +424,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                         principalColumn: "DefaultId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoleDefaultDashboards_DashboardRole_RoleId",
+                        name: "FK_RoleDefaultDashboards_TuxboardRole_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "dbo",
-                        principalTable: "DashboardRole",
+                        principalTable: "TuxboardRole",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -527,16 +527,6 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
 
             migrationBuilder.InsertData(
                 schema: "dbo",
-                table: "DashboardRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"), "e76958ed-f385-4818-a9d6-a2713c6d1f59", "Basic", "BASIC" },
-                    { new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"), "7fe36a66-3dc5-4cac-8d99-bd77d6729240", "Admin", "ADMIN" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "dbo",
                 table: "Layout",
                 columns: new[] { "LayoutId", "LayoutIndex", "TabId" },
                 values: new object[,]
@@ -555,6 +545,16 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                     { 2, "col-3/col-6/col-3", "Three Columns, 50% Middle" },
                     { 3, "col-3/col-3/col-3/col-3", "Four Columns, 25%" },
                     { 4, "col-6/col-6", "Two Columns, 50%" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "TuxboardRole",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"), "ad2d3513-4840-4c08-b777-e503513d8dbf", "Basic", "BASIC" },
+                    { new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"), "3390b918-6f91-478f-847c-1269e2abd339", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -604,7 +604,7 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 columns: new[] { "DefaultWidgetId", "ColumnIndex", "DashboardDefaultId", "LayoutRowId", "WidgetId", "WidgetIndex" },
                 values: new object[,]
                 {
-                    { new Guid("277f2ae4-3a29-45df-9db8-ea713a93a58a"), 1, new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), 1 },
+                    { new Guid("4b3a5073-15da-405f-83a6-c4452ebb0226"), 1, new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), 1 },
                     { new Guid("d21e94cf-86a9-4058-bb72-f269728ac8ad"), 0, new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), 0 }
                 });
 
@@ -649,34 +649,10 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 column: "WidgetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DashboardRoleClaim_RoleId",
-                schema: "dbo",
-                table: "DashboardRoleClaim",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DashboardTab_DashboardId",
                 schema: "dbo",
                 table: "DashboardTab",
                 column: "DashboardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DashboardUserClaim_UserId",
-                schema: "dbo",
-                table: "DashboardUserClaim",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DashboardUserLogin_UserId",
-                schema: "dbo",
-                table: "DashboardUserLogin",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DashboardUserRole_RoleId",
-                schema: "dbo",
-                table: "DashboardUserRole",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Layout_TabId",
@@ -700,6 +676,30 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 name: "IX_RoleDefaultDashboards_RoleId",
                 schema: "dbo",
                 table: "RoleDefaultDashboards",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TuxboardRoleClaim_RoleId",
+                schema: "dbo",
+                table: "TuxboardRoleClaim",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TuxboardUserClaim_UserId",
+                schema: "dbo",
+                table: "TuxboardUserClaim",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TuxboardUserLogin_UserId",
+                schema: "dbo",
+                table: "TuxboardUserLogin",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TuxboardUserRole_RoleId",
+                schema: "dbo",
+                table: "TuxboardUserRole",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -753,27 +753,27 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "DashboardRoleClaim",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "DashboardUserClaim",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "DashboardUserLogin",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "DashboardUserRole",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "DashboardUserToken",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
                 name: "RoleDefaultDashboards",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardRoleClaim",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardUserClaim",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardUserLogin",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardUserRole",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardUserToken",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
@@ -789,15 +789,15 @@ namespace DefaultDashboards.Data.Migrations.TuxboardContext
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "DashboardUser",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
                 name: "DashboardDefault",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "DashboardRole",
+                name: "TuxboardRole",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "TuxboardUser",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
