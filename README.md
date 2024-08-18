@@ -21,3 +21,4 @@ The repository contains the following examples:
 - **07-Add-Widgets**<br/>Create an Add Widget dialog ([related post](https://www.danylkoweb.com/Blog/adding-widgets-with-a-tuxboard-dialog-U4))<br/><br/>
 - **08-Widget-Toolbar**<br/>Adding buttons and dropdown to a widget's header ([related post](https://www.danylkoweb.com/Blog/using-widget-toolbars-or-deleting-widgets-U6))<br/><br/>
 - **09-User-Dashboard**<br/>Create user-specific dashboards when users log in ([related post](https://www.danylkoweb.com/Blog/creating-user-specific-dashboards-U7))<br/><br/>
+- **10-Default-Dashboards**<br/>Create role-specific dashboards when a user logs in ([related post](https://www.danylkoweb.com/Blog/creating-default-dashboards-using-roles-U8))<br/><br/>
