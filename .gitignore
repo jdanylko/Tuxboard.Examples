@@ -421,3 +421,9 @@ FodyWeavers.xsd
 /09-User-Dashboard/wwwroot/lib/**/*
 /09-User-Dashboard/wwwroot/src/**/*.js
 /09-User-Dashboard/Properties/launchSettings.json
+
+/10-Default-Dashboards/wwwroot/js/**/*
+/10-Default-Dashboards/wwwroot/css/**/*
+/10-Default-Dashboards/wwwroot/lib/**/*
+/10-Default-Dashboards/wwwroot/src/**/*.js
+/10-Default-Dashboards/Properties/launchSettings.json
