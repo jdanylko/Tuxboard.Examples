@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
+using Tuxboard.Core.Domain.Dto;
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
@@ -22,6 +23,7 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService _service;
     private readonly IRoleDashboardService _roleDashboardService;
+    private readonly IWidgetRoleService _widgetRoleService;
     private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
@@ -32,12 +34,14 @@ public class IndexModel : PageModel
         ILogger<IndexModel> logger,
         IDashboardService service,
         IRoleDashboardService roleDashboardService,
+        IWidgetRoleService widgetRoleService,
         UserManager<TuxboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;
         _service = service;
         _roleDashboardService = roleDashboardService;
+        _widgetRoleService = widgetRoleService;
         _userManager = userManager;
         _config = options.Value;
     }
@@ -53,9 +57,14 @@ public class IndexModel : PageModel
         }
     }
 
+    private async Task<TuxboardUser> GetTuxboardUser(Guid id)
+    {
+        return (await _userManager.FindByIdAsync(id.ToString()))!;
+    }
+
     private async Task<Dashboard> GetDashboardByRole(Guid id)
     {
-        var user = await _userManager.FindByIdAsync(id.ToString());
+        var user = await GetTuxboardUser(id);
 
         // If we can't find the user, load the default dashboard.
         if (user == null) 
@@ -240,9 +249,26 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAddWidgetsDialog()
     {
-        var widgets = (await _service.GetWidgetsAsync())
-            .Select(r => r.ToDto())
-            .ToList();
+        List<WidgetDto> widgets = new();
+
+        var id = GetIdentity();
+        if (id != Guid.Empty)
+        {
+            var user = await GetTuxboardUser(id);
+            widgets.AddRange(
+                (await _widgetRoleService.GetWidgetsByRoleAsync(user))
+                .Select(r => r.ToDto())
+                .ToList()
+            );
+        }
+        else
+        {
+            widgets.AddRange(
+                (await _widgetRoleService.GetDefaultWidgets())
+                .Select(r => r.ToDto())
+                .ToList()
+            );
+        }
 
         return ViewComponent("addwidgetdialog", new AddWidgetModel { Widgets = widgets });
     }

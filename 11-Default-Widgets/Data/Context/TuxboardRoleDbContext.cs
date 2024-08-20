@@ -17,6 +17,8 @@ public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
 
     public DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
     
+    public DbSet<WidgetRole> WidgetRoles { get; set; }
+    
     // Identity
     public DbSet<TuxboardUserClaim> TuxboardUserClaims { get; set; }
     public DbSet<TuxboardUserRole> TuxboardUserRoles { get; set; }
@@ -31,6 +33,8 @@ public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new RoleDefaultDashboardConfiguration());
+        modelBuilder.ApplyConfiguration(new WidgetRoleConfiguration());
+
         modelBuilder.ApplyConfiguration(new DashboardLayoutConfiguration());
         modelBuilder.ApplyConfiguration(new DashboardLayoutRowConfiguration());
         modelBuilder.ApplyConfiguration(new DashboardDefaultConfiguration());

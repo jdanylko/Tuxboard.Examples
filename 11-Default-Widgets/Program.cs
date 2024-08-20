@@ -22,14 +22,14 @@ builder.Services.Configure<TuxboardConfig>(builder.Configuration.GetSection(name
 builder.Services.AddDbContext<TuxDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
-        x => x.MigrationsAssembly("10-Default-Dashboards"));
+        x => x.MigrationsAssembly("11-Default-Widgets"));
 });
 
 // Inherited...the NEW Tuxboard DbContext
 builder.Services.AddDbContext<TuxboardRoleDbContext>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
-        x => x.MigrationsAssembly("10-Default-Dashboards"));
+        x => x.MigrationsAssembly("11-Default-Widgets"));
 });
 
 // Attach Identity to the new Tuxboard Context
@@ -44,6 +44,7 @@ builder.Services.AddRazorPages();
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
+builder.Services.AddTransient<IWidgetRoleService, WidgetRoleService>();
 builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
 builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
 builder.Services.AddTransient<IUserStore<TuxboardUser>, TuxboardUserStore>();

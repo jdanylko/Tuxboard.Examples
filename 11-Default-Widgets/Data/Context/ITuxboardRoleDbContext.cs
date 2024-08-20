@@ -8,6 +8,7 @@ namespace DefaultWidgets.Data.Context;
 public interface ITuxboardRoleDbContext: ITuxDbContext
 {
     DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
+    DbSet<WidgetRole> WidgetRoles { get; set; }
 
     // Identity
     DbSet<TuxboardUserClaim> TuxboardUserClaims { get; set; }
