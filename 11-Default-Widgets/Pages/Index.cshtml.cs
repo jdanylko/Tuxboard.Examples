@@ -57,10 +57,8 @@ public class IndexModel : PageModel
         }
     }
 
-    private async Task<TuxboardUser> GetTuxboardUser(Guid id)
-    {
-        return (await _userManager.FindByIdAsync(id.ToString()))!;
-    }
+    private async Task<TuxboardUser> GetTuxboardUser(Guid id) 
+        => (await _userManager.FindByIdAsync(id.ToString()))!;
 
     private async Task<Dashboard> GetDashboardByRole(Guid id)
     {
@@ -264,7 +262,7 @@ public class IndexModel : PageModel
         else
         {
             widgets.AddRange(
-                (await _widgetRoleService.GetDefaultWidgets())
+                (await _widgetRoleService.GetDefaultWidgetsAsync())
                 .Select(r => r.ToDto())
                 .ToList()
             );

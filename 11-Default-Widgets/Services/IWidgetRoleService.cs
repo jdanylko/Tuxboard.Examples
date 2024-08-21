@@ -6,5 +6,5 @@ namespace DefaultWidgets.Services;
 public interface IWidgetRoleService
 {
     Task<List<Widget>> GetWidgetsByRoleAsync(TuxboardUser user);
-    Task<List<Widget>> GetDefaultWidgets();
+    Task<List<Widget>> GetDefaultWidgetsAsync();
 }

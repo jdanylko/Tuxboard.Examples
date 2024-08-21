@@ -24,7 +24,7 @@ public class WidgetRoleService : IWidgetRoleService
     public async Task<List<Widget>> GetWidgetsByRoleAsync(TuxboardUser user)
     {
         // Give them something at least.
-        var result = await GetDefaultWidgets();
+        var result = await GetDefaultWidgetsAsync();
 
         var roleName = await GetRoles(user);
         if (string.IsNullOrEmpty(roleName))
@@ -43,7 +43,7 @@ public class WidgetRoleService : IWidgetRoleService
             .ToListAsync();
     }
 
-    public async Task<List<Widget>> GetDefaultWidgets() =>
+    public async Task<List<Widget>> GetDefaultWidgetsAsync() =>
         // Set up your own GroupName like "Standard" or something.
         await _context.Widgets
             .Where(e => e.GroupName == "Example") 
