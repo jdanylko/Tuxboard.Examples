@@ -1,0 +1,41 @@
+﻿@model AddWidgetModel
+@{
+    var groups = Model.Widgets.GroupBy(e => e.GroupName);
+    var groupList = groups.Select(i => i.Key);
+}
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        @foreach (var groupName in groupList)
+        {
+            var normalizedGroupName = groupName.Replace(" ", "_").ToLower();
+            <button class="nav-link @(groupName == Model.Widgets.First().GroupName ? "active" : "")"
+                    id="v-pills-@(normalizedGroupName)-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-@(normalizedGroupName)" type="button" role="tab"
+                    aria-controls="v-pills-@(normalizedGroupName)" aria-selected="true">
+                @groupName
+            </button>
+        }
+    </div>
+    <div class="tab-content flex-fill" id="v-pills-tabContent">
+        @foreach (var groupName in groupList)
+        {
+            var normalizedGroupName = groupName.Replace(" ", "_").ToLower();
+            <div class="tab-pane fade@(groupName == Model.Widgets.First().GroupName ? " show active" : "")"
+                 id="v-pills-@(normalizedGroupName)" role="tabpanel" aria-labelledby="v-pills-@(normalizedGroupName)-tab" tabindex="0">
+
+                <ul class="list-group">
+                    @foreach (var widget in Model.Widgets.Where(e => e.GroupName == groupName))
+                    {
+                        <li class="list-group-item list-group-item-action" data-id="@widget.WidgetId.ToString()">
+                            <div class="d-flex w-100">
+                                <h5 class="mb-1">@widget.Title</h5>
+                            </div>
+                            <p class="mb-1 fst-italic">@widget.Description</p>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        }
+    </div>
+</div>
