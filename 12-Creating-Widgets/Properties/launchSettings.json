@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "12-Creating-Widgets": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51150;http://localhost:51151"
+    }
+  }
+}
