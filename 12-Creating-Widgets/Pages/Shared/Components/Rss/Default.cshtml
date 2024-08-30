@@ -2,7 +2,7 @@
 
 <h6>@Model.Feed.Title.Text</h6>
 <ul class="list-unstyled">
-    @foreach (var feedItem in Model.Feed.Items)
+    @foreach (var feedItem in Model.Feed.Items.Take(Model.Limit))
     {
         <li>
             <p>

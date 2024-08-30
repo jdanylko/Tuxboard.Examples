@@ -6,4 +6,5 @@ namespace DefaultWidgets.Pages.Shared.Components.Rss;
 public class RssWidgetModel : WidgetModel
 {
     public SyndicationFeed Feed { get; set; } = null!;
+    public int Limit { get; set; } = 10;
 }

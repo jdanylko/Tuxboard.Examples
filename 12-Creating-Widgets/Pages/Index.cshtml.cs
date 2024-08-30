@@ -13,8 +13,8 @@ using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Dto;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
+using Tuxboard.Core.Infrastructure.Services;
 
 namespace DefaultWidgets.Pages;
 
@@ -131,7 +131,6 @@ public class IndexModel : PageModel
             ? new OkResult()
             : new NotFoundResult();
     }
-
 
     /* Dialogs */
 
