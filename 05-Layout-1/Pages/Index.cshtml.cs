@@ -2,15 +2,12 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using System.Net;
-using Microsoft.Identity.Client;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
 using Models;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using Tuxboard.Core.Data.Context;
 using Extensions;
+using Tuxboard.Core.Infrastructure.Services;
 
 namespace Layout_1.Pages;
 
