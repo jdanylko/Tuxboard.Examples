@@ -5,10 +5,10 @@ using System.Net;
 using Add_Widgets.Pages.Shared.Components.AdvancedLayoutDialog;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
 using Models;
 using Extensions;
+using Tuxboard.Core.Infrastructure.Services;
 
 namespace Add_Widgets.Pages;
 

@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.Infrastructure.Interfaces;
 using Tuxboard.Core.Infrastructure.Models;
+using Tuxboard.Core.Infrastructure.Services;
 
 namespace DefaultDashboards.Pages;
 

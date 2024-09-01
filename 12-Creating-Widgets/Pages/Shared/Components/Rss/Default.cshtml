@@ -1,0 +1,14 @@
+﻿@model RssWidgetModel
+
+<h6>@Model.Feed.Title.Text</h6>
+<ul class="list-unstyled">
+    @foreach (var feedItem in Model.Feed.Items.Take(Model.Limit))
+    {
+        <li>
+            <p>
+                <a href="@feedItem.Links.First().Uri.ToString()" class="fw-bold">@feedItem.Title.Text</a><br />
+                @feedItem.Summary.Text
+            </p>
+        </li>
+    }
+</ul>

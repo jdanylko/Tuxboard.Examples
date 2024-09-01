@@ -433,3 +433,9 @@ FodyWeavers.xsd
 /11-Default-Widgets/wwwroot/lib/**/*
 /11-Default-Widgets/wwwroot/src/**/*.js
 /11-Default-Widgets/Properties/launchSettings.json
+
+/12-Creating-Widgets/wwwroot/js/**/*
+/12-Creating-Widgets/wwwroot/css/**/*
+/12-Creating-Widgets/wwwroot/lib/**/*
+/12-Creating-Widgets/wwwroot/src/**/*.js
+/12-Creating-Widgets/Properties/launchSettings.json

@@ -5,7 +5,7 @@
      data-id="@Model.WidgetPlacementId" draggable="true">
 
     <div class="card-header d-flex">
-        <small>@Model.GetSettingValueByName("widgettitle")</small>
+        <small>@Model.GetSettingOrDefault("widgettitle")</small>
         <div class="widget-toolbar d-flex ms-auto">
             <button condition="!Model.Collapsed" type="button"
                     class="btn btn-sm widget-state p-0" title="Minimize">

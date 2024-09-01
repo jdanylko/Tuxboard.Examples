@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Tuxboard.Core.Configuration;
 using Tuxboard.Core.Domain.Entities;
-using Tuxboard.Core.Infrastructure.Interfaces;
+using Tuxboard.Core.Infrastructure.Services;
 
 namespace SimpleDashboard.Pages;
 

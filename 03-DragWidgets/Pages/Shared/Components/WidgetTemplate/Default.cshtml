@@ -6,7 +6,7 @@
     <div class="card mb-3" data-id="@Model.WidgetPlacementId" draggable="true">
 
         <div class="card-header">
-            @Model.GetSettingValueByName("widgettitle")
+            @Model.GetSettingOrDefault("widgettitle")
         </div>
 
         <div class="card-body">
