@@ -1,6 +1,6 @@
 ﻿using Tuxboard.Core.Infrastructure.Models;
 
-namespace DefaultWidgets.Pages.Shared.Components.Table;
+namespace CreatingWidgets.Pages.Shared.Components.Table;
 
 public class TableModel : WidgetModel
 {

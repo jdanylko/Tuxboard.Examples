@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Data.Configuration;
+namespace CreatingWidgets.Data.Configuration;
 
 public class DashboardDefaultConfiguration: IEntityTypeConfiguration<DashboardDefault>
 {

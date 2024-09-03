@@ -1,6 +1,6 @@
-﻿using DefaultWidgets.Dto;
+﻿using CreatingWidgets.Dto;
 
-namespace DefaultWidgets.Pages.Shared.Components.SimpleLayoutDialog;
+namespace CreatingWidgets.Pages.Shared.Components.SimpleLayoutDialog;
 
 public class SimpleLayoutModel
 {

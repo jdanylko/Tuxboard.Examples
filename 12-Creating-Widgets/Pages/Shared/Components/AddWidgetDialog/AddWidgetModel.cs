@@ -1,6 +1,6 @@
 ﻿using Tuxboard.Core.Domain.Dto;
 
-namespace DefaultWidgets.Pages.Shared.Components.AddWidgetDialog;
+namespace CreatingWidgets.Pages.Shared.Components.AddWidgetDialog;
 
 public class AddWidgetModel
 {

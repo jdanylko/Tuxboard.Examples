@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DefaultWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
+namespace CreatingWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
 
 [ViewComponent(Name = "advancedlayoutdialog")]
 public class AdvancedLayoutDialogViewComponent : ViewComponent

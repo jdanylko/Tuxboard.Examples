@@ -1,8 +1,8 @@
-﻿using DefaultWidgets.Models;
+﻿using CreatingWidgets.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DefaultWidgets.Data.Configuration;
+namespace CreatingWidgets.Data.Configuration;
 
 public class RoleDefaultDashboardConfiguration: IEntityTypeConfiguration<RoleDefaultDashboard>
 {

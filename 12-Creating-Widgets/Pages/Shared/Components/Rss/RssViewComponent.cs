@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.Rss;
+namespace CreatingWidgets.Pages.Shared.Components.Rss;
 
 [ViewComponent(Name = "rss")]
 public class RssViewComponent : ViewComponent

@@ -1,4 +1,4 @@
-﻿namespace DefaultWidgets.Models;
+﻿namespace CreatingWidgets.Models;
 
 public class CanDeleteResponse(Guid layoutRowId, string message)
 {

@@ -1,11 +1,11 @@
 using System.Net;
 using System.Security.Claims;
-using DefaultWidgets.Extensions;
-using DefaultWidgets.Identity;
-using DefaultWidgets.Models;
-using DefaultWidgets.Pages.Shared.Components.AddWidgetDialog;
-using DefaultWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
-using DefaultWidgets.Services;
+using CreatingWidgets.Extensions;
+using CreatingWidgets.Identity;
+using CreatingWidgets.Models;
+using CreatingWidgets.Pages.Shared.Components.AddWidgetDialog;
+using CreatingWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
+using CreatingWidgets.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,7 +16,7 @@ using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Models;
 using Tuxboard.Core.Infrastructure.Services;
 
-namespace DefaultWidgets.Pages;
+namespace CreatingWidgets.Pages;
 
 public class IndexModel : PageModel
 {

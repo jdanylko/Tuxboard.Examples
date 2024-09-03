@@ -1,4 +1,4 @@
-﻿namespace DefaultWidgets.Pages.Shared.Components.Table;
+﻿namespace CreatingWidgets.Pages.Shared.Components.Table;
 
 public class Product
 {

@@ -1,7 +1,7 @@
-﻿using DefaultWidgets.Identity;
+﻿using CreatingWidgets.Identity;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Services;
+namespace CreatingWidgets.Services;
 
 public interface IWidgetRoleService
 {

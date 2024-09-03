@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.Tuxbar;
+namespace CreatingWidgets.Pages.Shared.Components.Tuxbar;
 
 [ViewComponent(Name = "tuxbar")]
 public class TuxbarViewComponent : ViewComponent

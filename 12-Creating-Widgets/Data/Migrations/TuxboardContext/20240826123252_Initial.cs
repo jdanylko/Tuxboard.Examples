@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿#nullable disable
 
-#nullable disable
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DefaultWidgets.Data.Migrations.TuxboardContext
+namespace CreatingWidgets.Data.Migrations.TuxboardContext
 {
     /// <inheritdoc />
     public partial class Initial : Migration

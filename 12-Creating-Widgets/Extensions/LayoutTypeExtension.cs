@@ -1,7 +1,7 @@
-﻿using DefaultWidgets.Dto;
+﻿using CreatingWidgets.Dto;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Extensions;
+namespace CreatingWidgets.Extensions;
 
 public static class LayoutTypeExtension
 {

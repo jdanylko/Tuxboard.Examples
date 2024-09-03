@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DefaultWidgets.Helpers;
+namespace CreatingWidgets.Helpers;
 
 [HtmlTargetElement(Attributes = nameof(Condition))]
 public class ConditionTagHelper : TagHelper

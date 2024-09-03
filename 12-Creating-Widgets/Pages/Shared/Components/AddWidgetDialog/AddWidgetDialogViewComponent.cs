@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DefaultWidgets.Pages.Shared.Components.AddWidgetDialog;
+namespace CreatingWidgets.Pages.Shared.Components.AddWidgetDialog;
 
 [ViewComponent(Name = "addwidgetdialog")]
 public class AddWidgetDialogViewComponent : ViewComponent

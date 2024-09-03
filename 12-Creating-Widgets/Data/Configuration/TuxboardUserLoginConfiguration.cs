@@ -1,8 +1,8 @@
-﻿using DefaultWidgets.Identity;
+﻿using CreatingWidgets.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DefaultWidgets.Data.Configuration;
+namespace CreatingWidgets.Data.Configuration;
 
 public class TuxboardUserLoginConfiguration: IEntityTypeConfiguration<TuxboardUserLogin>
 {
