@@ -1,10 +1,10 @@
-﻿using DefaultWidgets.Data.Context;
-using DefaultWidgets.Identity;
+﻿using CreatingWidgets.Data.Context;
+using CreatingWidgets.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Services;
+namespace CreatingWidgets.Services;
 
 public class WidgetRoleService : IWidgetRoleService
 {

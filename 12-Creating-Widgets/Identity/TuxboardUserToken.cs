@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace DefaultWidgets.Identity;
+namespace CreatingWidgets.Identity;
 
 public class TuxboardUserToken : IdentityUserToken<Guid>
 {

@@ -1,6 +1,6 @@
 ﻿using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
+namespace CreatingWidgets.Pages.Shared.Components.AdvancedLayoutDialog;
 
 public class AdvancedLayoutModel
 {

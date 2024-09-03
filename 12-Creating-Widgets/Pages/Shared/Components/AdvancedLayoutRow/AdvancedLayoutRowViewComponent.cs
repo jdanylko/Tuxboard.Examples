@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.AdvancedLayoutRow;
+namespace CreatingWidgets.Pages.Shared.Components.AdvancedLayoutRow;
 
 [ViewComponent(Name = "advancedlayoutrow")]
 public class AdvancedLayoutRowViewComponent : ViewComponent

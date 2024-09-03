@@ -1,9 +1,9 @@
-﻿using DefaultWidgets.Identity;
-using DefaultWidgets.Models;
+﻿using CreatingWidgets.Identity;
+using CreatingWidgets.Models;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Data.Context;
 
-namespace DefaultWidgets.Data.Context;
+namespace CreatingWidgets.Data.Context;
 
 public interface ITuxboardRoleDbContext: ITuxDbContext
 {

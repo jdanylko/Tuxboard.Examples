@@ -1,7 +1,7 @@
-﻿using DefaultWidgets.Dto;
+﻿using CreatingWidgets.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DefaultWidgets.Pages.Shared.Components.SimpleLayoutDialog;
+namespace CreatingWidgets.Pages.Shared.Components.SimpleLayoutDialog;
 
 [ViewComponent(Name = "simplelayoutdialog")]
 public class SimpleLayoutDialogViewComponent : ViewComponent

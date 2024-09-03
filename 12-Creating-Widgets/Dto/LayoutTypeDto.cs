@@ -1,4 +1,4 @@
-﻿namespace DefaultWidgets.Dto;
+﻿namespace CreatingWidgets.Dto;
 
 public record struct LayoutTypeDto
 {

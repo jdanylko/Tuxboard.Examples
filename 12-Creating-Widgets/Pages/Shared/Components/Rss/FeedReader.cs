@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel.Syndication;
 using System.Xml;
 
-namespace DefaultWidgets.Pages.Shared.Components.Rss;
+namespace CreatingWidgets.Pages.Shared.Components.Rss;
 
 public class FeedReader
 {

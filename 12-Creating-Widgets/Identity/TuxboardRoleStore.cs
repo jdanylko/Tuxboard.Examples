@@ -1,8 +1,8 @@
-﻿using DefaultWidgets.Data.Context;
+﻿using CreatingWidgets.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace DefaultWidgets.Identity;
+namespace CreatingWidgets.Identity;
 
 public class TuxboardRoleStore: RoleStore<TuxboardRole, TuxboardRoleDbContext, Guid, TuxboardUserRole, TuxboardRoleClaim>
 {

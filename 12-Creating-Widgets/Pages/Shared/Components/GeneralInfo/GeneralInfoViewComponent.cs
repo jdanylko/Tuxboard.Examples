@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.GeneralInfo;
+namespace CreatingWidgets.Pages.Shared.Components.GeneralInfo;
 
 [ViewComponent(Name = "generalinfo")]
 public class GeneralInfoViewComponent : ViewComponent

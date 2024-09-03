@@ -1,7 +1,7 @@
-﻿using DefaultWidgets.Identity;
+﻿using CreatingWidgets.Identity;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Models;
+namespace CreatingWidgets.Models;
 
 public class RoleDefaultDashboard
 {

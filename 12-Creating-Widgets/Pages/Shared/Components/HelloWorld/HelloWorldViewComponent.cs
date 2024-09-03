@@ -2,7 +2,7 @@
 using Tuxboard.Core.Domain.Entities;
 using Tuxboard.Core.Infrastructure.Models;
 
-namespace DefaultWidgets.Pages.Shared.Components.HelloWorld;
+namespace CreatingWidgets.Pages.Shared.Components.HelloWorld;
 
 [ViewComponent(Name = "helloworld")]
 public class HelloWorldViewComponent : ViewComponent

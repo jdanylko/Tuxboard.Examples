@@ -1,6 +1,6 @@
-using DefaultWidgets.Data.Context;
-using DefaultWidgets.Identity;
-using DefaultWidgets.Services;
+using CreatingWidgets.Data.Context;
+using CreatingWidgets.Identity;
+using CreatingWidgets.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tuxboard.Core.Configuration;

@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel.Syndication;
 using Tuxboard.Core.Infrastructure.Models;
 
-namespace DefaultWidgets.Pages.Shared.Components.Rss;
+namespace CreatingWidgets.Pages.Shared.Components.Rss;
 
 public class RssWidgetModel : WidgetModel
 {

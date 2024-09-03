@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tuxboard.Core.Domain.Entities;
 
-namespace DefaultWidgets.Pages.Shared.Components.Table;
+namespace CreatingWidgets.Pages.Shared.Components.Table;
 
 [ViewComponent(Name = "table")]
 public class TableViewComponent : ViewComponent
