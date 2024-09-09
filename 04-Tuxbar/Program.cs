@@ -11,6 +11,8 @@ builder.Configuration
     .GetSection(nameof(TuxboardConfig))
     .Bind(appConfig);
 
+builder.Services.Configure<TuxboardConfig>(builder.Configuration.GetSection(nameof(TuxboardConfig)));
+
 // Tuxboard DbContext
 builder.Services.AddDbContext<TuxDbContext>(options =>
 {
