@@ -373,69 +373,81 @@ FodyWeavers.xsd
 /01-SimpleDashboard/wwwroot/lib/**/*
 /01-SimpleDashboard/wwwroot/src/**/*.js
 /01-SimpleDashboard/Properties/launchsettings.json
+/01-SimpleDashboard/*.env
 
 /02-WidgetsExample/wwwroot/js/**/*
 /02-WidgetsExample/wwwroot/css/**/*
 /02-WidgetsExample/wwwroot/lib/**/*
 /02-WidgetsExample/wwwroot/src/**/*.js
 /02-WidgetsExample/Properties/launchsettings.json
+/02-WidgetsExample/*.env
 
 /03-DragWidgets/wwwroot/js/**/*
 /03-DragWidgets/wwwroot/css/**/*
 /03-DragWidgets/wwwroot/lib/**/*
 /03-DragWidgets/wwwroot/src/**/*.js
 /03-DragWidgets/Properties/launchSettings.json
+/03-DragWidgets/*.env
 
 /04-Tuxbar/wwwroot/js/**/*
 /04-Tuxbar/wwwroot/css/**/*
 /04-Tuxbar/wwwroot/lib/**/*
 /04-Tuxbar/wwwroot/src/**/*.js
 /04-Tuxbar/Properties/launchSettings.json
+/04-Tuxbar/*.env
 
 /05-Layout-1/wwwroot/js/**/*
 /05-Layout-1/wwwroot/css/**/*
 /05-Layout-1/wwwroot/lib/**/*
 /05-Layout-1/wwwroot/src/**/*.js
 /05-Layout-1/Properties/launchSettings.json
+/05-Layout-1/*.env
 
 /06-Layout-2/wwwroot/js/**/*
 /06-Layout-2/wwwroot/css/**/*
 /06-Layout-2/wwwroot/lib/**/*
 /06-Layout-2/wwwroot/src/**/*.js
 /06-Layout-2/Properties/launchSettings.json
+/06-Layout-2/*.env
 
 /07-Add-Widgets/wwwroot/js/**/*
 /07-Add-Widgets/wwwroot/css/**/*
 /07-Add-Widgets/wwwroot/lib/**/*
 /07-Add-Widgets/wwwroot/src/**/*.js
 /07-Add-Widgets/Properties/launchSettings.json
+/07-Add-Widgets/*.env
 
 /08-Widget-Toolbar/wwwroot/js/**/*
 /08-Widget-Toolbar/wwwroot/css/**/*
 /08-Widget-Toolbar/wwwroot/lib/**/*
 /08-Widget-Toolbar/wwwroot/src/**/*.js
 /08-Widget-Toolbar/Properties/launchSettings.json
+/08-Widget-Toolbar/*.env
 
 /09-User-Dashboard/wwwroot/js/**/*
 /09-User-Dashboard/wwwroot/css/**/*
 /09-User-Dashboard/wwwroot/lib/**/*
 /09-User-Dashboard/wwwroot/src/**/*.js
 /09-User-Dashboard/Properties/launchSettings.json
+/09-User-Dashboard/*.env
 
 /10-Default-Dashboards/wwwroot/js/**/*
 /10-Default-Dashboards/wwwroot/css/**/*
 /10-Default-Dashboards/wwwroot/lib/**/*
 /10-Default-Dashboards/wwwroot/src/**/*.js
 /10-Default-Dashboards/Properties/launchSettings.json
+/10-Default-Dashboards/*.env
 
 /11-Default-Widgets/wwwroot/js/**/*
 /11-Default-Widgets/wwwroot/css/**/*
 /11-Default-Widgets/wwwroot/lib/**/*
 /11-Default-Widgets/wwwroot/src/**/*.js
 /11-Default-Widgets/Properties/launchSettings.json
+/11-Default-Widgets/*.env
 
 /12-Creating-Widgets/wwwroot/js/**/*
 /12-Creating-Widgets/wwwroot/css/**/*
 /12-Creating-Widgets/wwwroot/lib/**/*
 /12-Creating-Widgets/wwwroot/src/**/*.js
 /12-Creating-Widgets/Properties/launchSettings.json
+/12-Creating-Widgets/*.env
