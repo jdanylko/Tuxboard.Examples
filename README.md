@@ -24,3 +24,23 @@ The repository contains the following examples:
 - **10-Default-Dashboards**<br/>Create role-specific dashboards when a user logs in ([related post](https://www.danylkoweb.com/Blog/creating-default-dashboards-using-roles-U8))<br/><br/>
 - **11-Default-Widgets**<br/>Create role-specific widgets ([related post](https://www.danylkoweb.com/Blog/creating-default-widgets-using-roles-UA))<br/><br/>
 - **12-Creating-Widgets**<br/>Create various types of widgets (coming soon)<br/><br/>
+
+## Running Examples in Docker containers
+
+Each example has a Dockerfile that can be used to build a Docker image that can be used to run the examples in a Docker container.
+
+Here is how to run these examples, using the Simple Dashboard as an example.
+
+
+1. Set an environment variable TUXBOARDCONFIG__CONNECTIONSTRING. On Linux/Mac terminals, this would be like this, replacing the IP address, database name, username and password of your SQL Server database: `export TUXBOARDCONFIG__CONNECTIONSTRING='Data Source=IP_ADDRESS;Initial Catalog=DATABASE_NAME;Integrated Security=false;MultipleActiveResultSets=True;TrustServerCertificate=True;User Id=USERNAME;Password=PASSWORD'`
+2. Go into the 01-SampleDashboard folder and create a new file called development.env containing the following:
+```
+TUXBOARDCONFIG__CONNECTIONSTRING=CONNECTION STRING FROM STEP 2
+ASPNETCORE_ENVIRONMENT=Development
+```
+3. Go into the 01-SimpleDashboard folder and run the following command `docker build -t simpledashboard -f Dockerfile .`
+4. Run `dotnet ef migrations add InitialCreate` to initial the database migrations.
+5. Run `dotnet ef database update` to apply the database migrations to the database.
+6. Run the docker container with the following command `docker run --name dash -d --env-file development.env -p 8080:8080 simpledashboard`
+
+To run a different example, delete the database created in step #3 and run steps #2 - #6 changing the name of the docker container from simpledashboard to another name to match the example.
