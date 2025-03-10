@@ -1,0 +1,52 @@
+﻿@model Tuxboard.Core.Domain.Entities.WidgetPlacement
+
+<!-- Widgets -->
+<div condition="Model.UseTemplate" class="card mb-3 @(Model.Collapsed ? "collapsed": string.Empty)"
+     data-id="@Model.WidgetPlacementId" draggable="true">
+
+    <div class="card-header d-flex">
+        <small class="widget-title">@Model.GetSettingOrDefault("widgettitle")</small>
+        <div class="widget-toolbar d-flex ms-auto">
+            <button condition="!Model.Collapsed" type="button"
+                    class="btn btn-sm widget-state p-0" title="Minimize">
+                <i class="fa-solid fa-window-minimize"></i>
+            </button>
+            <button condition="Model.Collapsed" type="button"
+                    class="btn btn-sm widget-state p-0" title="Restore">
+                <i class="fa-regular fa-window-maximize"></i>
+            </button>
+            @*
+            <!-- Approach 1 -->
+            <button type="button" class="btn btn-sm remove-widget p-0" title="Remove Widget">
+            <i class="fa-solid fa-xmark"></i>
+            </button>
+            *@
+            <!-- Approach 2 -->
+            <div class="dropdown">
+                <button class="btn btn-sm px-1 p-0 dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                        type="button" aria-expanded="false" title="Widget Options">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <button class="dropdown-item remove-widget btn btn-sm" type="button">
+                            <small>Remove</small>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div>
+             @await Component.InvokeAsync(Model.Widget.Name, Model)
+        </div>
+    </div>
+
+</div>
+
+@if (!Model.UseTemplate)
+{
+    @await Component.InvokeAsync(Model.Widget.Name, Model)
+}

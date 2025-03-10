@@ -1,0 +1,43 @@
+﻿@model List<Tuxboard.Core.Domain.Dto.WidgetDto>
+@{
+    var groups = Model.GroupBy(e => e.GroupName);
+    var groupList = groups.Select(i => i.Key);
+}
+<div class="row">
+
+    <div class="col-3">
+        <div class="list-group" id="list-tab" role="tablist">
+            @foreach (var groupName in groupList)
+            {
+                <a class="list-group-item list-group-item-action @(groupName == Model.First().GroupName ? "active" : "")" 
+                   id="list-@groupName-list" data-toggle="list" href="#@groupName" 
+                   role="tab" aria-controls="@groupName">@groupName</a>
+            }
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content widget-list" id="nav-tabContent">
+            @foreach (var groupName in groupList)
+            {
+                <div role="tabpanel" class="tab-pane @(groupName == Model.First().GroupName ? "show active":"")" id="@groupName" aria-labelledby="list-@groupName-list">
+                    <h5>@groupName Widgets</h5>
+                    @foreach (var widget in Model.Where(e => e.GroupName == groupName))
+                    {
+                        <a href="javascript:void(0);" data-id="@widget.WidgetId" class="list-group-item list-group-item-action widget-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@widget.Title</h5>
+                                <span class="text-success">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                            </div>
+                            <p class="mb-1">@widget.Description</p>
+                        </a>
+                    }
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
