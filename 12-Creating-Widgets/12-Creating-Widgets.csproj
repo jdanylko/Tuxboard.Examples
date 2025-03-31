@@ -19,10 +19,10 @@
     </PackageReference>
     <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
-    <PackageReference Include="Tuxboard.Core" Version="1.7.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Data\Migrations\TuxboardContext\" />
     <Folder Include="Properties\" />
     <Folder Include="wwwroot\css\" />

@@ -6,5 +6,5 @@ namespace CreatingWidgets.Services;
 public interface IRoleDashboardService
 {
     Task<DashboardDefault> GetDashboardTemplateByRoleAsync(TuxboardUser user);
-    Task<bool> DashboardExistsForAsync(Guid userId);
+    //Task<bool> DashboardExistsForAsync(Guid userId);
 }
