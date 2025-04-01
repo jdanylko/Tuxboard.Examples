@@ -18,7 +18,7 @@ builder.Configuration
 builder.Services.Configure<TuxboardConfig>(builder.Configuration.GetSection(nameof(TuxboardConfig)));
 
 // Base DbContext
-builder.Services.AddDbContext<TuxDbContext<int>>(options =>
+builder.Services.AddDbContext<TuxDbContext<Guid>>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
         x => x.MigrationsAssembly("12-Creating-Widgets"));
@@ -41,8 +41,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
-builder.Services.AddTransient<IDashboardService<int>, DashboardService<int>>();
-builder.Services.AddTransient<ITuxDbContext<int>, TuxDbContext<int>>();
+builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
+builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 
 builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
 builder.Services.AddTransient<IWidgetRoleService, WidgetRoleService>();

@@ -21,18 +21,18 @@ namespace CreatingWidgets.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService<int> _service;
+    private readonly IDashboardService<Guid> _service;
     private readonly IRoleDashboardService _roleDashboardService;
     private readonly IWidgetRoleService _widgetRoleService;
     private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
-    public Dashboard<int> Dashboard { get; set; } = null!;
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
     public bool HasDashboard => Dashboard != null;
 
     public IndexModel(
         ILogger<IndexModel> logger,
-        IDashboardService<int> service,
+        IDashboardService<Guid> service,
         IRoleDashboardService roleDashboardService,
         IWidgetRoleService widgetRoleService,
         UserManager<TuxboardUser> userManager,
@@ -49,18 +49,18 @@ public class IndexModel : PageModel
     public async Task OnGet()
     {
         var id = GetIdentity();
-        if (id.HasValue)
+        if (id != Guid.Empty)
         {
-            Dashboard = await _service.DashboardExistsForAsync(id.Value)
-                ? await _service.GetDashboardForAsync(_config, id.Value)
-                : await GetDashboardByRole(id.Value);
+            Dashboard = await _service.DashboardExistsForAsync(id)
+                ? await _service.GetDashboardForAsync(_config, id)
+                : await GetDashboardByRole(id);
         }
     }
 
-    private async Task<TuxboardUser> GetTuxboardUser(int id) 
+    private async Task<TuxboardUser> GetTuxboardUser(Guid id) 
         => (await _userManager.FindByIdAsync(id.ToString()))!;
 
-    private async Task<Dashboard<int>> GetDashboardByRole(int id)
+    private async Task<Dashboard<Guid>> GetDashboardByRole(Guid id)
     {
         var user = await GetTuxboardUser(id);
 
@@ -74,12 +74,12 @@ public class IndexModel : PageModel
         return await _service.GetDashboardForAsync(_config, id);
     }
 
-    private int? GetIdentity()
+    private Guid GetIdentity()
     {
         var claim = User?.FindFirst(ClaimTypes.NameIdentifier);
         return claim != null 
-            ? Int32.Parse(claim.Value)
-            : null;
+            ? new Guid(claim.Value)
+            : Guid.Empty;
     }
     
     /* Postbacks */
@@ -101,7 +101,7 @@ public class IndexModel : PageModel
     {
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -110,7 +110,7 @@ public class IndexModel : PageModel
     {
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
 
         // Use this as a way to identify a widget placement IN A DASHBOARD.
         var placement = dashboard.GetCurrentTab().GetWidgetPlacements()
@@ -139,7 +139,7 @@ public class IndexModel : PageModel
     {
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
@@ -153,7 +153,7 @@ public class IndexModel : PageModel
     {
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
 
         // Since we only have a single layout for this example, we can grab the first one.
         var tab = dashboard.GetCurrentTab();
@@ -167,7 +167,7 @@ public class IndexModel : PageModel
         }
 
         // Refresh
-        dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        dashboard = await _service.GetDashboardForAsync(_config, id);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -180,7 +180,7 @@ public class IndexModel : PageModel
 
         var layoutRows = new List<LayoutRow>();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         if (layouts != null)
         {
@@ -227,7 +227,7 @@ public class IndexModel : PageModel
 
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -249,9 +249,9 @@ public class IndexModel : PageModel
         List<WidgetDto> widgets = new();
 
         var id = GetIdentity();
-        if (id.HasValue)
+        if (id == Guid.Empty)
         {
-            var user = await GetTuxboardUser(id.Value);
+            var user = await GetTuxboardUser(id);
             widgets.AddRange(
                 (await _widgetRoleService.GetWidgetsByRoleAsync(user))
                 .Select(r => r.ToDto())
@@ -274,7 +274,7 @@ public class IndexModel : PageModel
     {
         var id = GetIdentity();
 
-        var dashboard = await _service.GetDashboardForAsync(_config, id.GetValueOrDefault());
+        var dashboard = await _service.GetDashboardForAsync(_config, id);
 
         var baseWidget = await _service.GetWidgetAsync(request.WidgetId);
 
