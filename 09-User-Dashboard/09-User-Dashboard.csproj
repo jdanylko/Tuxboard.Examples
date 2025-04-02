@@ -28,4 +28,8 @@
     <PackageReference Include="Tuxboard.Core" Version="1.9.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\TuxboardContext\" />
+  </ItemGroup>
+
 </Project>

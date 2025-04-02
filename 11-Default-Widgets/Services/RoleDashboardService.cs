@@ -22,11 +22,6 @@ public class RoleDashboardService : IRoleDashboardService
         _roleManager = roleManager;
     }
 
-    public async Task<bool> DashboardExistsForAsync(Guid userId)
-    {
-        return await _context.DashboardExistsForAsync(userId);
-    }
-
     public async Task<DashboardDefault> GetDashboardTemplateByRoleAsync(TuxboardUser user)
     {
         DashboardDefault defaultDashboard = null!;
