@@ -6,7 +6,7 @@ namespace _09_User_Dashboard.Pages.Shared.Components.TuxboardTemplate;
 [ViewComponent(Name = "tuxboardtemplate")]
 public class TuxboardTemplateViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(Dashboard model)
+    public IViewComponentResult Invoke(Dashboard<Guid> model)
     {
         return model == null
             ? Content(string.Empty)

@@ -12,14 +12,14 @@ namespace DragWidgets.Web.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService _service;
+    private readonly IDashboardService<Guid> _service;
     private readonly TuxboardConfig _config;
 
-    public Dashboard Dashboard { get; set; } = null!;
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
 
     public IndexModel(
         ILogger<IndexModel> logger,
-        IDashboardService service,
+        IDashboardService<Guid> service,
         IOptions<TuxboardConfig> options)
     {
         _logger = logger;

@@ -21,18 +21,18 @@ namespace CreatingWidgets.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService _service;
+    private readonly IDashboardService<Guid> _service;
     private readonly IRoleDashboardService _roleDashboardService;
     private readonly IWidgetRoleService _widgetRoleService;
     private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
-    public Dashboard Dashboard { get; set; } = null!;
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
     public bool HasDashboard => Dashboard != null;
 
     public IndexModel(
         ILogger<IndexModel> logger,
-        IDashboardService service,
+        IDashboardService<Guid> service,
         IRoleDashboardService roleDashboardService,
         IWidgetRoleService widgetRoleService,
         UserManager<TuxboardUser> userManager,
@@ -60,7 +60,7 @@ public class IndexModel : PageModel
     private async Task<TuxboardUser> GetTuxboardUser(Guid id) 
         => (await _userManager.FindByIdAsync(id.ToString()))!;
 
-    private async Task<Dashboard> GetDashboardByRole(Guid id)
+    private async Task<Dashboard<Guid>> GetDashboardByRole(Guid id)
     {
         var user = await GetTuxboardUser(id);
 
@@ -78,7 +78,7 @@ public class IndexModel : PageModel
     {
         var claim = User?.FindFirst(ClaimTypes.NameIdentifier);
         return claim != null 
-            ? new Guid(claim.Value) 
+            ? new Guid(claim.Value)
             : Guid.Empty;
     }
     
@@ -249,7 +249,7 @@ public class IndexModel : PageModel
         List<WidgetDto> widgets = new();
 
         var id = GetIdentity();
-        if (id != Guid.Empty)
+        if (id == Guid.Empty)
         {
             var user = await GetTuxboardUser(id);
             widgets.AddRange(
