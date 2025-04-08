@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncWidgets.Data.Migrations.TuxboardContext
 {
     [DbContext(typeof(TuxboardRoleDbContext))]
-    [Migration("20250310021324_Initial")]
+    [Migration("20250408143413_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -49,14 +49,14 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         new
                         {
                             Id = new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"),
-                            ConcurrencyStamp = "f2e40897-e008-4a71-9af1-9fa3b42ffcfe",
+                            ConcurrencyStamp = "c7ac190b-3e14-459f-8ff4-3bb0ceca56ba",
                             Name = "Basic",
                             NormalizedName = "BASIC"
                         },
                         new
                         {
                             Id = new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"),
-                            ConcurrencyStamp = "eda93cef-b4ab-4c52-a1ee-83389d8221a0",
+                            ConcurrencyStamp = "d11a22f1-8151-4e64-bbd6-33f6ba42aeac",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -260,11 +260,10 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                     b.ToTable("WidgetRole", "dbo");
                 });
 
-            modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Dashboard", b =>
+            modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Dashboard<System.Guid>", b =>
                 {
                     b.Property<Guid>("DashboardId")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
                         .IsUnicode(false)
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -273,8 +272,6 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .HasColumnType("int");
 
                     b.Property<Guid?>("UserId")
-                        .HasMaxLength(36)
-                        .IsUnicode(false)
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DashboardId");
@@ -372,7 +369,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         },
                         new
                         {
-                            DefaultWidgetId = new Guid("f10bfa1e-c4f0-497b-9139-152748f08af0"),
+                            DefaultWidgetId = new Guid("16805827-2014-4365-833a-07fab85fdf08"),
                             ColumnIndex = 1,
                             DashboardDefaultId = new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"),
                             LayoutRowId = new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"),
@@ -1004,13 +1001,11 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
 
             modelBuilder.Entity("Tuxboard.Core.Domain.Entities.DashboardTab", b =>
                 {
-                    b.HasOne("Tuxboard.Core.Domain.Entities.Dashboard", "Dashboard")
+                    b.HasOne("Tuxboard.Core.Domain.Entities.Dashboard<System.Guid>", null)
                         .WithMany("Tabs")
                         .HasForeignKey("DashboardId")
-                        .IsRequired()
-                        .HasConstraintName("FK_DashboardTab_Dashboard");
-
-                    b.Navigation("Dashboard");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Layout", b =>
@@ -1134,7 +1129,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Dashboard", b =>
+            modelBuilder.Entity("Tuxboard.Core.Domain.Entities.Dashboard<System.Guid>", b =>
                 {
                     b.Navigation("Tabs");
                 });

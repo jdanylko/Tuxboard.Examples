@@ -21,9 +21,9 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                 schema: "dbo",
                 columns: table => new
                 {
-                    DashboardId = table.Column<Guid>(type: "uniqueidentifier", unicode: false, maxLength: 36, nullable: false, defaultValueSql: "(newid())"),
-                    SelectedTab = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", unicode: false, maxLength: 36, nullable: true)
+                    DashboardId = table.Column<Guid>(type: "uniqueidentifier", unicode: false, nullable: false, defaultValueSql: "(newid())"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SelectedTab = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,11 +136,12 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                 {
                     table.PrimaryKey("PK_DashboardTab", x => x.TabId);
                     table.ForeignKey(
-                        name: "FK_DashboardTab_Dashboard",
+                        name: "FK_DashboardTab_Dashboard_DashboardId",
                         column: x => x.DashboardId,
                         principalSchema: "dbo",
                         principalTable: "Dashboard",
-                        principalColumn: "DashboardId");
+                        principalColumn: "DashboardId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -580,8 +581,8 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"), "f2e40897-e008-4a71-9af1-9fa3b42ffcfe", "Basic", "BASIC" },
-                    { new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"), "eda93cef-b4ab-4c52-a1ee-83389d8221a0", "Admin", "ADMIN" }
+                    { new Guid("31c3df95-fdc6-4fb5-82ab-0436ea93c1b1"), "c7ac190b-3e14-459f-8ff4-3bb0ceca56ba", "Basic", "BASIC" },
+                    { new Guid("7e69eb1f-07c0-46a1-b4e8-86f56386c250"), "d11a22f1-8151-4e64-bbd6-33f6ba42aeac", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -631,8 +632,8 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                 columns: new[] { "DefaultWidgetId", "ColumnIndex", "DashboardDefaultId", "LayoutRowId", "WidgetId", "WidgetIndex" },
                 values: new object[,]
                 {
-                    { new Guid("d21e94cf-86a9-4058-bb72-f269728ac8ad"), 0, new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), 0 },
-                    { new Guid("f10bfa1e-c4f0-497b-9139-152748f08af0"), 1, new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), 1 }
+                    { new Guid("16805827-2014-4365-833a-07fab85fdf08"), 1, new Guid("1623f469-d9f0-400c-8a4c-b4366233f485"), new Guid("62487409-221b-40ff-a62b-fc3046b97ccb"), new Guid("ee84443b-7ee7-4754-bb3c-313cc0da6039"), 1 },
+                    { new Guid("d21e94cf-86a9-4058-bb72-f269728ac8ad"), 0, new Guid("0d96a18e-90b8-4a9f-9df1-126653d68fe6"), new Guid("d58afcd2-2007-4fd0-87a9-93c85c667f3f"), new Guid("c9a9db53-14ca-4551-87e7-f9656f39a396"), 0 }
                 });
 
             migrationBuilder.InsertData(

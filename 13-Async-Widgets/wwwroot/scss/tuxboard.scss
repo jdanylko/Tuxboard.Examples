@@ -194,7 +194,6 @@ $rowLayoutDialog-placeholder-color: #eacece;
 .placeholder {
     background-color: $rowLayoutDialog-placeholder-color;
     border: 1px dashed red !important;
-    /* padding: 15px; */
     width: 100%;
     display: block;
     top: 0;
@@ -223,6 +222,11 @@ $rowLayoutDialog-placeholder-color: #eacece;
 /* Remove dropdown caret */
 .card-header .dropdown-toggle::after {
     content: none;
+}
+
+/* Widget loading */
+.overlay {
+    opacity: .8;
 }
 
 

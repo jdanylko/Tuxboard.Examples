@@ -5,7 +5,7 @@ using Tuxboard.Core.Data.Context;
 
 namespace AsyncWidgets.Data.Context;
 
-public interface ITuxboardRoleDbContext: ITuxDbContext
+public interface ITuxboardRoleDbContext: ITuxDbContext<Guid>
 {
     DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
     DbSet<WidgetRole> WidgetRoles { get; set; }
