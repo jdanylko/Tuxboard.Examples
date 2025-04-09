@@ -21,6 +21,8 @@ export class TuxboardService extends BaseService {
 
     private tuxSetWidgetStateUrl: string = "?handler=SetWidgetState";
 
+    private tuxGetWidgetUrl: string = "?handler=GetWidget";
+
     constructor(debugParam: boolean = false) {
         super(debugParam);
     }
@@ -267,5 +269,27 @@ export class TuxboardService extends BaseService {
             });
 
         return fetch(request)
+    }
+
+    public getWidget = async (widgetPlacementId: string, collapsed: boolean) => {
+
+        var postData = {
+            WidgetPlacementId: widgetPlacementId,
+            Collapsed: collapsed
+        };
+
+        const request = new Request(this.tuxGetWidgetUrl,
+            {
+                method: "post",
+                body: JSON.stringify(postData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': this.getToken(),
+                }
+            });
+
+        return await fetch(request)
+            .then(this.validateResponse)
+            .then(this.readResponseAsText);
     }
 }

@@ -131,6 +131,13 @@ public class IndexModel : PageModel
             ? new OkResult()
             : new NotFoundResult();
     }
+    
+    public async Task<IActionResult> OnPostGetWidgetAsync([FromBody] WidgetRequest request)
+    {
+        var widget = await _service.GetWidgetPlacementAsync(request.WidgetPlacementId);
+
+        return ViewComponent(widget.Widget.Name);
+    }
 
     /* Dialogs */
 

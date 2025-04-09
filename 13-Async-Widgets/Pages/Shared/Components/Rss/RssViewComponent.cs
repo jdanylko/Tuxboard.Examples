@@ -8,8 +8,6 @@ public class RssViewComponent : ViewComponent
 {
     public IViewComponentResult Invoke(WidgetPlacement placement)
     {
-        Thread.Sleep(1000);
-
         var rssFeed = new Uri("https://stackoverflow.blog/feed");
 
         var feed = new FeedReader(rssFeed).Get();

@@ -8,8 +8,6 @@ public class GeneralInfoViewComponent : ViewComponent
 {
     public IViewComponentResult Invoke(WidgetPlacement placement)
     {
-        Thread.Sleep(2000);
-
         var infoViewModel = new GeneralInfoModel
         {
             Placement = placement,

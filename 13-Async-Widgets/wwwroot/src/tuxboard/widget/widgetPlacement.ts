@@ -8,7 +8,8 @@ import {
     defaultWidgetSelector,
     hideElement,
     staticAttribute,
-    showElement
+    showElement,
+    defaultWidgetHeaderSelector
 } from "../common";
 import { WidgetProperties } from "../dto/WidgetProperties";
 
@@ -32,11 +33,47 @@ export class WidgetPlacement {
     getSelector = () => `${this.selector}[${this.getAttributeName()}='${this.placementId}']`;
 
     getDom = (): HTMLElement => document.querySelector(this.getSelector());
-    getOverlay = (): HTMLElement => this.getDom().querySelector(this.widgetOverlaySelector);
+    getOverlay = (): HTMLElement => this.getDom().querySelector(defaultGeneralOverlaySelector);
+    // ** Added **
+    getHeader = () => this.getDom().querySelector(defaultWidgetHeaderSelector);
 
+    // ** Added **
+    isLoading = () => this.getDom().querySelector(this.widgetOverlaySelector).classList.contains("show");
     isCollapsed = () => this.getDom().classList.contains(collapsedToggleSelector);
     isStatic = () => this.getDom().getAttribute(staticAttribute) === "true";
     getBody = () => this.getDom().querySelector(defaultWidgetBodySelector);
+
+    // ** Added **
+    showLoader = () => {
+        this.hideHeader();
+        this.hideBody();
+        this.showOverlay();
+    }
+
+    // ** Added **
+    hideLoader = () => {
+        this.showHeader();
+        this.showBody();
+        this.hideOverlay();
+    }
+
+    // ** Added **
+    showHeader = () => {
+        const header = this.getHeader();
+        if (header) {
+            header.classList.remove('d-none');
+            header.classList.add('d-flex');
+        }
+    }
+
+    // ** Added **
+    hideHeader = () => {
+        const header = this.getHeader();
+        if (header) {
+            header.classList.remove('d-flex');
+            header.classList.add('d-none');
+        }
+    }
 
     hideBody = () => {
         const body = this.getBody();

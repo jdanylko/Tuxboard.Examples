@@ -15,7 +15,8 @@ import {
     isWidgetOrColumn,
     noPeriod,
     collapsedToggleSelector,
-    defaultWidgetBodySelector
+    defaultWidgetBodySelector,
+    defaultGeneralOverlaySelector
 } from "./common";
 import { PlacementItem } from "./dto/PlacementItem";
 import { DragWidgetInfo } from "./dto/dragWidgetInfo";
@@ -24,6 +25,7 @@ import { LayoutRow } from "./models/LayoutRow";
 import { Tab } from "./models/tab";
 import { TuxboardService } from "./services/TuxboardService";
 import { WidgetCollection } from "./widget/widgetCollection";
+import { WidgetPlacement } from './widget/widgetPlacement';
 
 export class Tuxboard {
 
@@ -42,9 +44,11 @@ export class Tuxboard {
 
     getWidget = (id: string) => document.querySelector(`${defaultWidgetSelector}[${dataIdAttribute}='${id}']`) as HTMLDivElement;
 
-    public initialize = () => {
+    public initialize = async () => {
         this.attachWidgetToolbarEvents();
         this.attachDragAndDropEvents();
+        // ** Added **
+        await this.updateWidgets();
     }
 
     public getWidgetsByTab = (tab: Tab) => tab.getLayout().getWidgetPlacements();
@@ -78,11 +82,44 @@ export class Tuxboard {
                         const widgetList = new WidgetCollection(column.getDom(), index, layoutRowId)
                             .getWidgets();
                         if (widgetList.length > 0) {
-                            widgets.push(widgetList);
+                            widgetList.forEach(widget => {
+                                widgets.push(widget);
+                            });
                         }
                     })
             })
         return widgets;
+    }
+
+    // ** Added **
+    updateWidgets = async () => {
+        const widgets = this.getWidgets();
+        await Promise.all(widgets.map(async (widget) => {
+            this.updateWidget(widget)
+        }));
+    }
+
+    // ** Added **
+    updateWidget = async (widget: WidgetPlacement) => {
+        if (!widget) return;
+        const id = widget.getPlacementId();
+        const collapsed = widget.isCollapsed();
+
+        widget.showLoader();
+
+        await this.service.getWidget(id, collapsed)
+            .then((data: string) => {
+                if (data) {
+                    widget.hideLoader();
+                    const body = widget.getDom().querySelector(defaultWidgetBodySelector);
+                    if (body) {
+                        body.innerHTML = data;
+                    }
+                }
+            })
+            .catch(err => {
+
+            });
     }
 
     getService = () => this.service;
@@ -146,10 +183,12 @@ export class Tuxboard {
             widget.classList.add(collapsedToggleSelector);
             widgetStateButton.setAttribute('title', 'Restore');
             i.setAttribute('class', 'fa-regular fa-window-maximize');
+            widget.querySelector(defaultWidgetBodySelector).setAttribute('hidden', '');
         } else {
             widget.classList.remove(collapsedToggleSelector);
             widgetStateButton.setAttribute('title', 'Minimize');
             i.setAttribute('class', 'fa-solid fa-window-minimize');
+            widget.querySelector(defaultWidgetBodySelector).removeAttribute('hidden');
         }
     }
 
