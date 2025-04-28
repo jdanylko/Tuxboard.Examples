@@ -1,7 +1,7 @@
-@import 'theme.scss';
+@use 'theme';
 
 /**************
-  Stock site.css
+  Stock (default) site.css
 **************/
 
 html {
@@ -28,20 +28,20 @@ body {
 **************/
 
 .column {
-    background: $column-bg;
+    background: theme.$column-bg;
     min-height: 200px;
     float: left;
     padding: 10px;
 
     .placeholder {
-        border: 1px dashed $column-placeholder;
+        border: 1px dashed theme.$column-placeholder;
         margin-bottom: 10px;
-        background: $column-placeholder;
+        background: theme.$column-placeholder;
     }
 }
 
 .column.over {
-    border: 2px dashed $column-placeholder-hover;
+    border: 2px dashed theme.$column-placeholder-hover;
 }
 
 .column {
@@ -139,40 +139,27 @@ body {
     }
 }
 
-/* Advanced Layout Dialog */
-
-$spacingBetweenColumns: 2px;
-
-$rowLayoutDialog-hover-color: #CCC; /* column layout: border color */
-$rowLayoutDialog-column-bg: #999; /* column layout: bg color */
-$rowLayoutDialog-column-text: #FFF; /* column layout: text color */
-$rowLayoutDialog-column-title-bg: #FFF; /* column title: background */
-$rowLayoutDialog-column-title-text: #000; /* column title: text color */
-$rowLayoutDialog-column-title-border: #888; /* column title: border color */
-$rowLayoutDialog-column-border: #808080;
-$rowLayoutDialog-placeholder-color: #eacece;
-
 /*
     Fix spacing between each row
     remove spacing between middle columns
 */
 .row-layout-row > .row.no-gutters [class*='col']:not(:first-child):not(:last-child) {
-    padding-left: $spacingBetweenColumns;
-    padding-right: $spacingBetweenColumns;
+    padding-left: theme.$spacingBetweenColumns;
+    padding-right: theme.$spacingBetweenColumns;
 }
 
 /*
     remove right padding from last column
 */
 .row-layout-row > .row.no-gutters [class*='col']:last-child {
-    padding-left: $spacingBetweenColumns
+    padding-left: theme.$spacingBetweenColumns
 }
 
 /*
     remove right padding from last column
 */
 .row-layout-row > .row.no-gutters [class*='col']:first-child {
-    padding-right: $spacingBetweenColumns
+    padding-right: theme.$spacingBetweenColumns
 }
 
 .handle:hover {
@@ -187,12 +174,12 @@ $rowLayoutDialog-placeholder-color: #eacece;
     width: 100%;
 
     .over {
-        border: 1px dashed $rowLayoutDialog-column-bg
+        border: 1px dashed theme.$rowLayoutDialog-column-bg
     }
 }
 
 .placeholder {
-    background-color: $rowLayoutDialog-placeholder-color;
+    background-color: theme.$rowLayoutDialog-placeholder-color;
     border: 1px dashed red !important;
     width: 100%;
     display: block;
@@ -206,13 +193,13 @@ $rowLayoutDialog-placeholder-color: #eacece;
     div {
 
         .content-container {
-            background-color: $rowLayoutDialog-column-bg;
+            background-color: theme.$rowLayoutDialog-column-bg;
 
             span {
                 font-size: 12px;
-                background: $rowLayoutDialog-column-title-bg;
-                color: $rowLayoutDialog-column-title-text;
-                border: 1px solid $rowLayoutDialog-column-title-border;
+                background: theme.$rowLayoutDialog-column-title-bg;
+                color: theme.$rowLayoutDialog-column-title-text;
+                border: 1px solid theme.$rowLayoutDialog-column-title-border;
                 padding: 0 0.5em;
             }
         }
