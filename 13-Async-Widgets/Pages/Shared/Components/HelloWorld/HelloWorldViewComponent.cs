@@ -9,8 +9,6 @@ public class HelloWorldViewComponent : ViewComponent
 {
     public IViewComponentResult Invoke(WidgetPlacement placement)
     {
-        var widgetModel = new WidgetModel { Placement = placement };
-
-        return View(widgetModel);
+        return View(new WidgetModel { Placement = placement });
     }
 }
