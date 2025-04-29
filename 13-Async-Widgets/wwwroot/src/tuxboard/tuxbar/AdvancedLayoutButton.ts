@@ -5,6 +5,8 @@ import { AdvancedLayoutDialog } from "../dialog/advancedLayout/AdvancedLayoutDia
 
 export class AdvancedLayoutButton extends TuxbarButton {
 
+    private dialog: AdvancedLayoutDialog = null;
+
     constructor(tb: Tuxbar, sel: string) {
 
         super(tb, sel);
@@ -16,15 +18,17 @@ export class AdvancedLayoutButton extends TuxbarButton {
 
     onClick = (ev: MouseEvent) => {
 
-        const dialog = new AdvancedLayoutDialog(
-            defaultAdvancedLayoutDialogSelector,
-            this.tuxBar.getTuxboard());
+        if (!this.dialog) {
+            this.dialog = new AdvancedLayoutDialog(
+                defaultAdvancedLayoutDialogSelector,
+                this.tuxBar.getTuxboard());
+        }
 
-        if (dialog) {
-            dialog.getDom().removeEventListener("hide.bs.modal", () => this.hideAdvancedLayout(dialog), false);
-            dialog.getDom().addEventListener("hide.bs.modal", () => this.hideAdvancedLayout(dialog), false);
+        if (this.dialog) {
+            this.dialog.getDom().removeEventListener("hide.bs.modal", () => this.hideAdvancedLayout(this.dialog), false);
+            this.dialog.getDom().addEventListener("hide.bs.modal", () => this.hideAdvancedLayout(this.dialog), false);
 
-            dialog.showDialog();
+            this.dialog.showDialog();
         }
     }
 

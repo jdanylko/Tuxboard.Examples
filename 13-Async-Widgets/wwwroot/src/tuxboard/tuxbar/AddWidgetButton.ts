@@ -5,6 +5,8 @@ import { AddWidgetDialog } from "../dialog/addWidget/AddWidgetDialog";
 
 export class AddWidgetButton extends TuxbarButton {
 
+    private dialog: AddWidgetDialog = null;
+
     constructor(tb: Tuxbar, sel: string) {
 
         super(tb, sel);
@@ -16,15 +18,17 @@ export class AddWidgetButton extends TuxbarButton {
 
     onClick = (ev: MouseEvent) => {
 
-        const dialog = new AddWidgetDialog(
-            defaultAddWidgetDialogSelector,
-            this.tuxBar.getTuxboard());
+        if (!this.dialog) {
+            this.dialog = new AddWidgetDialog(
+                defaultAddWidgetDialogSelector,
+                this.tuxBar.getTuxboard());
+        }
 
-        if (dialog) {
-            dialog.getDom().removeEventListener("hide.bs.modal", () => this.refresh(dialog), false);
-            dialog.getDom().addEventListener("hide.bs.modal", () => this.refresh(dialog), false);
+        if (this.dialog) {
+            this.dialog.getDom().removeEventListener("hide.bs.modal", () => this.refresh(this.dialog), false);
+            this.dialog.getDom().addEventListener("hide.bs.modal", () => this.refresh(this.dialog), false);
 
-            dialog.showDialog();
+            this.dialog.showDialog();
         }
     };
 

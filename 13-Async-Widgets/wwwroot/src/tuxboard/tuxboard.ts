@@ -108,7 +108,7 @@ export class Tuxboard {
         widget.showLoader();
 
         await this.service.getWidget(id, collapsed)
-            .then( (data: string) => {
+            .then((data: string) => {
                 if (data) {
                     widget.hideLoader();
                     const body = widget.getDom().querySelector(defaultWidgetBodySelector);

@@ -5,6 +5,7 @@ import { SimpleLayoutDialog } from "../dialog/simpleLayout/simpleLayoutDialog";
 
 export class SimpleLayoutButton extends TuxbarButton {
 
+    private dialog: SimpleLayoutDialog = null;
     constructor(tb: Tuxbar, sel: string) {
 
         super(tb, sel);
@@ -16,15 +17,17 @@ export class SimpleLayoutButton extends TuxbarButton {
 
     onClick = (ev: MouseEvent) => {
 
-        const dialog = new SimpleLayoutDialog(
-            defaultSimpleLayoutDialogSelector,
-            this.tuxBar.getTuxboard());
+        if (!this.dialog) {
+            this.dialog = new SimpleLayoutDialog(
+                defaultSimpleLayoutDialogSelector,
+                this.tuxBar.getTuxboard());
+        }
 
-        if (dialog) {
-            dialog.getDom().removeEventListener("hide.bs.modal", () => this.hideSimpleLayout(dialog), false);
-            dialog.getDom().addEventListener("hide.bs.modal", () => this.hideSimpleLayout(dialog), false);
+        if (this.dialog) {
+            this.dialog.getDom().removeEventListener("hide.bs.modal", () => this.hideSimpleLayout(this.dialog), false);
+            this.dialog.getDom().addEventListener("hide.bs.modal", () => this.hideSimpleLayout(this.dialog), false);
 
-            dialog.showDialog();
+            this.dialog.showDialog();
         }
     }
 
