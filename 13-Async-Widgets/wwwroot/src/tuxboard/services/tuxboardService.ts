@@ -271,7 +271,7 @@ export class TuxboardService extends BaseService {
         return fetch(request)
     }
 
-    public getWidget = async (widgetPlacementId: string, collapsed: boolean) => {
+    public getWidget = (widgetPlacementId: string, collapsed: boolean) => {
 
         var postData = {
             WidgetPlacementId: widgetPlacementId,
@@ -288,7 +288,7 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return await fetch(request)
+        return fetch(request)
             .then(this.validateResponse)
             .then(this.readResponseAsText);
     }

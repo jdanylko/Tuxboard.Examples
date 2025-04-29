@@ -95,7 +95,7 @@ export class Tuxboard {
     updateWidgets = async () => {
         const widgets = this.getWidgets();
         await Promise.all(widgets.map(async (widget) => {
-            this.updateWidget(widget)
+            await this.updateWidget(widget)
         }));
     }
 
@@ -108,7 +108,7 @@ export class Tuxboard {
         widget.showLoader();
 
         await this.service.getWidget(id, collapsed)
-            .then((data: string) => {
+            .then( (data: string) => {
                 if (data) {
                     widget.hideLoader();
                     const body = widget.getDom().querySelector(defaultWidgetBodySelector);
@@ -124,18 +124,19 @@ export class Tuxboard {
 
     getService = () => this.service;
 
-    refresh = () => {
-        this.service.refresh()
-            .then((data: string) => {
-                this.updateDashboard(data);
+    refresh = async () => {
+        await this.service.refresh()
+            .then(async (data: string) => {
+                await this.updateDashboard(data);
             })
     }
 
-    updateDashboard = (data: string) => {
+    updateDashboard = async (data: string) => {
         if (data) {
             document.querySelector(defaultDashboardSelector).innerHTML = data;
             this.attachWidgetToolbarEvents();
             this.attachDragAndDropEvents();
+            await this.updateWidgets();
         }
     }
 

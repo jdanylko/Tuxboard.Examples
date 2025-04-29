@@ -7,5 +7,5 @@ ready(async () => {
     dashboard.initialize();
 
     const tuxbar = new Tuxbar(dashboard, defaultTuxbarSelector);
-    await tuxbar.initialize();
+    tuxbar.initialize();
 })
