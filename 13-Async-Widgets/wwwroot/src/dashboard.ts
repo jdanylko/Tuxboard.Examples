@@ -4,7 +4,7 @@ import { Tuxboard } from "./tuxboard/tuxboard";
 
 ready(async () => {
     const dashboard = new Tuxboard();
-    dashboard.initialize();
+    await dashboard.initialize();
 
     const tuxbar = new Tuxbar(dashboard, defaultTuxbarSelector);
     tuxbar.initialize();
