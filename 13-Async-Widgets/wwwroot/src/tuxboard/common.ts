@@ -16,6 +16,8 @@ export const defaultWidgetTitleSelector = ".card-title";
 export const defaultWidgetBodySelector = ".card-body";
 export const defaultGeneralOverlaySelector = ".overlay";
 export const defaultLoadingSelector = ".loading-status";
+export const defaultWidgetErrorMessage = 'Could not load widget';
+export const defaultwidgetErrorTemplate = `<h6 class="text-center">${defaultWidgetErrorMessage}</h6>`;
 
 // Widget Settings
 export const defaultWidgetSettingsSelector = ".widget-settings";

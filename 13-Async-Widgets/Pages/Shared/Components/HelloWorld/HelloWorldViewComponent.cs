@@ -9,6 +9,7 @@ public class HelloWorldViewComponent : ViewComponent
 {
     public IViewComponentResult Invoke(WidgetPlacement placement)
     {
+        Thread.Sleep(1500);
         return View(new WidgetModel { Placement = placement });
     }
 }

@@ -44,11 +44,11 @@ export class Tuxboard {
 
     getWidget = (id: string) => document.querySelector(`${defaultWidgetSelector}[${dataIdAttribute}='${id}']`) as HTMLDivElement;
 
-    public initialize = async () => {
+    public initialize = () => {
         this.attachWidgetToolbarEvents();
         this.attachDragAndDropEvents();
         // ** Added **
-        await this.updateWidgets();
+        this.updateWidgets();
     }
 
     public getWidgetsByTab = (tab: Tab) => tab.getLayout().getWidgetPlacements();
@@ -91,23 +91,19 @@ export class Tuxboard {
         return widgets;
     }
 
-    // ** Added **
-    updateWidgets = async () => {
-        const widgets = this.getWidgets();
-        await Promise.all(widgets.map(async (widget) => {
-            await this.updateWidget(widget)
-        }));
-    }
+    updateWidgets = () => 
+        this.getWidgets().map((widget) => {
+            this.updateWidget(widget)
+        });
 
-    // ** Added **
-    updateWidget = async (widget: WidgetPlacement) => {
+    updateWidget = (widget: WidgetPlacement) => {
         if (!widget) return;
         const id = widget.getPlacementId();
         const collapsed = widget.isCollapsed();
 
         widget.showLoader();
 
-        await this.service.getWidget(id, collapsed)
+        this.service.getWidget(id, collapsed)
             .then((data: string) => {
                 if (data) {
                     widget.hideLoader();
@@ -118,25 +114,26 @@ export class Tuxboard {
                 }
             })
             .catch(err => {
-
+                widget.hideLoader();
+                widget.showError();
             });
     }
 
     getService = () => this.service;
 
-    refresh = async () => {
-        await this.service.refresh()
-            .then(async (data: string) => {
-                await this.updateDashboard(data);
+    refresh = () => {
+        this.service.refresh()
+            .then((data: string) => {
+                this.updateDashboard(data);
             })
     }
 
-    updateDashboard = async (data: string) => {
+    updateDashboard = (data: string) => {
         if (data) {
             document.querySelector(defaultDashboardSelector).innerHTML = data;
             this.attachWidgetToolbarEvents();
             this.attachDragAndDropEvents();
-            await this.updateWidgets();
+            this.updateWidgets();
         }
     }
 

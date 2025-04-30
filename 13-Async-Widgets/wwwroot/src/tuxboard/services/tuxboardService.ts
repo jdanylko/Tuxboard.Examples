@@ -53,6 +53,7 @@ export class TuxboardService extends BaseService {
             .catch(this.logError);
     }
 
+    /* Added */
     public refresh = () => {
 
         const request = new Request(this.tuxRefreshUrl,

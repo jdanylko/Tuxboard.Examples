@@ -9,7 +9,8 @@ import {
     hideElement,
     staticAttribute,
     showElement,
-    defaultWidgetHeaderSelector
+    defaultWidgetHeaderSelector,
+    defaultwidgetErrorTemplate
 } from "../common";
 import { WidgetProperties } from "../dto/WidgetProperties";
 
@@ -64,6 +65,11 @@ export class WidgetPlacement {
             header.classList.remove('d-none');
             header.classList.add('d-flex');
         }
+    }
+
+    // ** Added **
+    showError = () => {
+        this.getBody().innerHTML = defaultwidgetErrorTemplate;
     }
 
     // ** Added **
