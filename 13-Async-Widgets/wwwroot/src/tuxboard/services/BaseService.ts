@@ -6,7 +6,7 @@
         this.debug = debugParam;
     }
 
-    protected validateResponse(response:Response) {
+    protected validateResponse = (response:Response) => {
         // console.log(response);
         if (!response.ok) {
             const status = `${response.status} - ${response.statusText}`;
@@ -20,16 +20,16 @@
         return response.json();
     }
 
-    protected readResponseAsText(response:Response) {
+    protected readResponseAsText = (response:Response) => {
         // console.log(response);
         return response.text();
     }
 
-    protected logError(error:Error) {
+    protected logError = (error:Error) => {
         // console.log("Issue w/ fetch call: \n", error);
     }
 
-    protected getToken(): string {
+    protected getToken = (): string => {
         const token = document.querySelector('input[name="__RequestVerificationToken"]');
         return (token) ? token.getAttribute("value") : "";
     }
