@@ -8,9 +8,9 @@ using Tuxboard.Core.Data.Context;
 
 namespace CreatingWidgets.Data.Context;
 
-public class TuxboardRoleDbContext : TuxDbContext, ITuxboardRoleDbContext
+public class TuxboardRoleDbContext : TuxDbContext<Guid>, ITuxboardRoleDbContext
 {
-    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext> options, IOptions<TuxboardConfig> config)
+    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext<Guid>> options, IOptions<TuxboardConfig> config)
         : base(options, config)
     {
     }

@@ -16,7 +16,7 @@ builder.Configuration
 builder.Services.Configure<TuxboardConfig>(builder.Configuration.GetSection(nameof(TuxboardConfig)));
 
 // Tuxboard DbContext
-builder.Services.AddDbContext<TuxDbContext>(options =>
+builder.Services.AddDbContext<TuxDbContext<Guid>>(options =>
 {
     options.UseSqlServer(appConfig.ConnectionString,
         x => x.MigrationsAssembly("09-User-Dashboard"));
@@ -33,8 +33,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
-builder.Services.AddTransient<IDashboardService, DashboardService>();
-builder.Services.AddTransient<ITuxDbContext, TuxDbContext>();
+builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
+builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 
 var app = builder.Build();
 

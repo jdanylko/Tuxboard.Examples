@@ -20,17 +20,17 @@ namespace DefaultDashboards.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService _service;
+    private readonly IDashboardService<Guid> _service;
     private readonly IRoleDashboardService _roleDashboardService;
     private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
-    public Dashboard Dashboard { get; set; } = null!;
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
     public bool HasDashboard => Dashboard != null;
 
     public IndexModel(
         ILogger<IndexModel> logger,
-        IDashboardService service,
+        IDashboardService<Guid> service,
         IRoleDashboardService roleDashboardService,
         UserManager<TuxboardUser> userManager,
         IOptions<TuxboardConfig> options)
@@ -53,7 +53,7 @@ public class IndexModel : PageModel
         }
     }
 
-    private async Task<Dashboard> GetDashboardByRole(Guid id)
+    private async Task<Dashboard<Guid>> GetDashboardByRole(Guid id)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
 
