@@ -1,0 +1,219 @@
+@use 'theme';
+
+/**************
+  Stock (default) site.css
+**************/
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/**************
+  Tuxboard styles
+**************/
+
+.column {
+    background: theme.$column-bg;
+    min-height: 200px;
+    float: left;
+    padding: 10px;
+
+    .placeholder {
+        border: 1px dashed theme.$column-placeholder;
+        margin-bottom: 10px;
+        background: theme.$column-placeholder;
+    }
+}
+
+.column.over {
+    border: 2px dashed theme.$column-placeholder-hover;
+}
+
+.column {
+    .card {
+        .card-header {
+            padding: 0;
+            padding-left: 1rem;
+            padding-right: 0.5rem;
+            cursor: move;
+
+            nav.navbar {
+                padding-bottom: 0
+            }
+        }
+    }
+}
+
+.card-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows .3s ease-in-out, opacity .1s, padding .1s;
+    opacity: 1;
+}
+
+.card.collapsed > .card-body {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    padding: 0;
+    transition: grid-template-rows .3s ease-in-out, opacity .1s, padding .1s;
+}
+
+.card-body > div {
+    overflow: hidden;
+}
+
+.card-header.over {
+    opacity: .2;
+    outline: 2px dashed black;
+}
+
+/* Tuxbar */
+
+.tuxbar {
+    margin-bottom: 15px;
+    margin-top: 15px
+}
+
+/* Simple Layout Dialog */
+
+.layout-list * {
+    margin: 0;
+    padding: 0;
+}
+
+.layout-list {
+
+    li {
+        margin-bottom: 10px;
+        list-style: none;
+        display: inline;
+        float: left;
+        margin-right: 15px;
+        font-size: 10px;
+        padding: 10px;
+        border: 1px solid #DDD;
+
+        &:hover {
+            background-color: #EDEDED;
+            cursor: pointer
+        }
+
+        &.selected {
+            background-color: #D1E8FC
+        }
+
+        > .preview-table {
+            display: table;
+            width: 125px;
+            border-collapse: collapse;
+            margin: 0 auto;
+
+            > .preview-row {
+                border: 1px solid #777;
+                display: table-row-group;
+
+                div {
+                    background-color: #999;
+                    height: 80px;
+                    color: #FFF;
+                    display: table-cell;
+                    border: 1px solid #CCC;
+                }
+            }
+        }
+    }
+}
+
+/*
+    Fix spacing between each row
+    remove spacing between middle columns
+*/
+.row-layout-row > .row.no-gutters [class*='col']:not(:first-child):not(:last-child) {
+    padding-left: theme.$spacingBetweenColumns;
+    padding-right: theme.$spacingBetweenColumns;
+}
+
+/*
+    remove right padding from last column
+*/
+.row-layout-row > .row.no-gutters [class*='col']:last-child {
+    padding-left: theme.$spacingBetweenColumns
+}
+
+/*
+    remove right padding from last column
+*/
+.row-layout-row > .row.no-gutters [class*='col']:first-child {
+    padding-right: theme.$spacingBetweenColumns
+}
+
+.handle:hover {
+    cursor: move
+}
+
+.row-layout-item {
+    display: flex;
+    padding: .2em;
+    margin: 5px auto;
+    user-select: none;
+    width: 100%;
+
+    .over {
+        border: 1px dashed theme.$rowLayoutDialog-column-bg
+    }
+}
+
+.placeholder {
+    background-color: theme.$rowLayoutDialog-placeholder-color;
+    border: 1px dashed red !important;
+    width: 100%;
+    display: block;
+    top: 0;
+    right: 0;
+}
+
+.row-column-layout {
+    padding: 2px;
+
+    div {
+
+        .content-container {
+            background-color: theme.$rowLayoutDialog-column-bg;
+
+            span {
+                font-size: 12px;
+                background: theme.$rowLayoutDialog-column-title-bg;
+                color: theme.$rowLayoutDialog-column-title-text;
+                border: 1px solid theme.$rowLayoutDialog-column-title-border;
+                padding: 0 0.5em;
+            }
+        }
+    }
+}
+
+/* Remove dropdown caret */
+.card-header .dropdown-toggle::after {
+    content: none;
+}
+
+/* Widget loading */
+.overlay {
+    opacity: .8;
+}
+
+

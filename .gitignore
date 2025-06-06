@@ -451,3 +451,11 @@ FodyWeavers.xsd
 /12-Creating-Widgets/wwwroot/src/**/*.js
 /12-Creating-Widgets/Properties/launchSettings.json
 /12-Creating-Widgets/*.env
+
+/13-Async-Widgets/wwwroot/js/**/*
+/13-Async-Widgets/wwwroot/css/**/*
+/13-Async-Widgets/wwwroot/lib/**/*
+/13-Async-Widgets/wwwroot/src/**/*.js
+/13-Async-Widgets/Properties/launchSettings.json
+/13-Async-Widgets/*.env
+
