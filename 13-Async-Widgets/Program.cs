@@ -37,7 +37,6 @@ builder.Services.AddIdentity<TuxboardUser, TuxboardRole>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
@@ -55,11 +54,7 @@ builder.Services.AddTransient<UserManager<TuxboardUser>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
