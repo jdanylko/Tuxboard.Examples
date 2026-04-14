@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "13-Async-Widgets": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:65494;http://localhost:65495"
+    }
+  }
+}

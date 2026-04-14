@@ -10,7 +10,7 @@ using Tuxboard.Core.Data.Context;
 
 namespace _09UserDashboard.Data.Migrations.TuxboardContext
 {
-    [DbContext(typeof(TuxDbContext))]
+    [DbContext(typeof(TuxDbContext<Guid>))]
     partial class TuxDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

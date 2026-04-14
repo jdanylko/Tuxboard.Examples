@@ -11,7 +11,7 @@ using Tuxboard.Core.Data.Context;
 
 namespace _09UserDashboard.Data.Migrations.TuxboardContext
 {
-    [DbContext(typeof(TuxDbContext))]
+    [DbContext(typeof(TuxDbContext<Guid>))]
     [Migration("20240715134702_Initial")]
     partial class Initial
     {

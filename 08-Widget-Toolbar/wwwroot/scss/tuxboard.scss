@@ -1,4 +1,4 @@
-@import 'theme.scss';
+@use 'theme.scss';
 
 /**************
   Stock site.css
@@ -28,20 +28,20 @@ body {
 **************/
 
 .column {
-    background: $column-bg;
+    background: theme.$column-bg;
     min-height: 200px;
     float: left;
     padding: 10px;
 
     .placeholder {
-        border: 1px dashed $column-placeholder;
+        border: 1px dashed theme.$column-placeholder;
         margin-bottom: 10px;
-        background: $column-placeholder;
+        background: theme.$column-placeholder;
     }
 }
 
 .column.over {
-    border: 2px dashed $column-placeholder-hover;
+    border: 2px dashed theme.$column-placeholder-hover;
 }
 
 .column {

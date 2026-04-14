@@ -2,14 +2,9 @@
 
 namespace WidgetToolbar.Pages
 {
-    public class PrivacyModel : PageModel
+    public class PrivacyModel(ILogger<PrivacyModel> logger) : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
-
-        public PrivacyModel(ILogger<PrivacyModel> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<PrivacyModel> _logger = logger;
 
         public void OnGet()
         {

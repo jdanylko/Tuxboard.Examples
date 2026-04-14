@@ -12,32 +12,25 @@ using Tuxboard.Core.Infrastructure.Services;
 
 namespace Add_Widgets.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel(
+    ILogger<IndexModel> logger,
+    IDashboardService<Guid> service,
+    IOptions<TuxboardConfig> options)
+    : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService _service;
-    private readonly TuxboardConfig _config;
+    private readonly ILogger<IndexModel> _logger = logger;
+    private readonly TuxboardConfig _config = options.Value;
 
-    public Dashboard Dashboard { get; set; } = null!;
-
-    public IndexModel(
-        ILogger<IndexModel> logger,
-        IDashboardService service,
-        IOptions<TuxboardConfig> options)
-    {
-        _logger = logger;
-        _service = service;
-        _config = options.Value;
-    }
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
 
     public async Task OnGet()
     {
-        Dashboard = await _service.GetDashboardAsync(_config);
+        Dashboard = await service.GetDashboardAsync(_config);
     }
 
     public async Task<IActionResult> OnPostSaveWidgetPosition([FromBody] PlacementParameter model)
     {
-        var placement = await _service.SaveWidgetPlacementAsync(model);
+        var placement = await service.SaveWidgetPlacementAsync(model);
 
         if (placement == null)
         {
@@ -50,7 +43,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostRefresh()
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -60,11 +53,11 @@ public class IndexModel : PageModel
     /* Simple Layout Dialog */
     public async Task<IActionResult> OnPostSimpleLayoutDialog()
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
-        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutTypes = await service.GetLayoutTypesAsync();
         var result = layoutTypes.Select(e => e.ToDto(currentLayout.LayoutTypeId)).ToList();
 
         return ViewComponent("simplelayoutdialog", result);
@@ -72,7 +65,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostSaveSimpleLayoutAsync([FromBody] SimpleLayoutRequest request)
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         // Since we only have a single layout for this example, we can grab the first one.
         var tab = dashboard.GetCurrentTab();
@@ -82,11 +75,11 @@ public class IndexModel : PageModel
         var currentLayoutRow = layouts?.LayoutRows?.FirstOrDefault();
         if (currentLayoutRow != null)
         {
-            await _service.ChangeLayoutRowToAsync(currentLayoutRow, request.LayoutTypeId);
+            await service.ChangeLayoutRowToAsync(currentLayoutRow, request.LayoutTypeId);
         }
 
         // Refresh
-        dashboard = await _service.GetDashboardAsync(_config);
+        dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -97,14 +90,14 @@ public class IndexModel : PageModel
     {
         var layoutRows = new List<LayoutRow>();
 
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         if (layouts != null)
         {
             layoutRows.AddRange(layouts.LayoutRows.ToList());
         }
 
-        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutTypes = await service.GetLayoutTypesAsync();
 
         return ViewComponent("advancedlayoutdialog", new AdvancedLayoutModel
         {
@@ -115,7 +108,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostGetLayoutTypeAsync([FromBody] LayoutTypeRequest request)
     {
-        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutTypes = await service.GetLayoutTypesAsync();
         var layoutType = layoutTypes.FirstOrDefault(e => e.LayoutTypeId == request.Id);
 
         return ViewComponent("advancedlayoutrow", new LayoutRow
@@ -129,7 +122,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostSaveAdvancedLayoutAsync([FromBody] AdvancedLayoutRequest request)
     {
-        await _service.SaveLayoutAsync(request.TabId, request.LayoutList
+        await service.SaveLayoutAsync(request.TabId, request.LayoutList
             .Select(e =>
                 new LayoutOrder
                 {
@@ -142,14 +135,14 @@ public class IndexModel : PageModel
             .ToList());
 
 
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
 
     public async Task<IActionResult> OnPostCanDeleteLayoutRowAsync([FromBody] CanDeleteRequest request)
     {
-        var result = await _service.CanDeleteLayoutRowAsync(request.TabId, request.LayoutRowId);
+        var result = await service.CanDeleteLayoutRowAsync(request.TabId, request.LayoutRowId);
 
         return result
             ? new OkObjectResult(new CanDeleteResponse(request.LayoutRowId, string.Empty))
@@ -161,7 +154,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAddWidgetsDialog()
     {
-        var widgets = (await _service.GetWidgetsAsync())
+        var widgets = (await service.GetWidgetsAsync())
             .Select(r=> r.ToDto())
             .ToList();
 
@@ -170,9 +163,9 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAddWidgetAsync([FromBody] AddWidgetRequest request)
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
-        var baseWidget = await _service.GetWidgetAsync(request.WidgetId);
+        var baseWidget = await service.GetWidgetAsync(request.WidgetId);
 
         var layoutRow = dashboard.GetFirstLayoutRow();
         if (layoutRow != null)
@@ -180,7 +173,7 @@ public class IndexModel : PageModel
             var placement = layoutRow.CreateFromWidget(baseWidget);
             // placement object can be set to any other layout row chosen;
             // default is first layout row, first column.
-            await _service.AddWidgetPlacementAsync(placement);
+            await service.AddWidgetPlacementAsync(placement);
         }
 
         return new OkResult();

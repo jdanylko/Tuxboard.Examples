@@ -6,21 +6,12 @@ using Tuxboard.Core.Domain.Entities;
 
 namespace CreatingWidgets.Services;
 
-public class WidgetRoleService : IWidgetRoleService
+public class WidgetRoleService(
+    ITuxboardRoleDbContext context,
+    UserManager<TuxboardUser> userManager,
+    RoleManager<TuxboardRole> roleManager)
+    : IWidgetRoleService
 {
-    private readonly ITuxboardRoleDbContext _context;
-    private readonly UserManager<TuxboardUser> _userManager;
-    private readonly RoleManager<TuxboardRole> _roleManager;
-
-    public WidgetRoleService(ITuxboardRoleDbContext context,
-        UserManager<TuxboardUser> userManager,
-        RoleManager<TuxboardRole> roleManager)
-    {
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
     public async Task<List<Widget>> GetWidgetsByRoleAsync(TuxboardUser user)
     {
         // Give them something at least.
@@ -32,11 +23,11 @@ public class WidgetRoleService : IWidgetRoleService
             return result;
         }
 
-        var role = await _roleManager.FindByNameAsync(roleName);
+        var role = await roleManager.FindByNameAsync(roleName);
         if (role == null)
             return result;
 
-        return await _context.WidgetRoles
+        return await context.WidgetRoles
             .Include(e=> e.Widget)
             .Where(e => e.RoleId == role.Id)
             .Select(r=> r.Widget)
@@ -45,14 +36,14 @@ public class WidgetRoleService : IWidgetRoleService
 
     public async Task<List<Widget>> GetDefaultWidgetsAsync() =>
         // Set up your own GroupName like "Standard" or something.
-        await _context.Widgets
+        await context.Widgets
             .Where(e => e.GroupName == "Example") 
             .ToListAsync();
 
     private async Task<string> GetRoles(TuxboardUser user)
     {
         // *COULD* have more than one role; we just want the first one.
-        var roles = await _userManager.GetRolesAsync(user);
+        var roles = await userManager.GetRolesAsync(user);
         return (roles.Count == 1
             ? roles.FirstOrDefault()
             : string.Empty)!;

@@ -9,32 +9,25 @@ using Tuxboard.Core.Infrastructure.Services;
 
 namespace Tuxbar.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel(
+    ILogger<IndexModel> logger,
+    IDashboardService<Guid> service,
+    IOptions<TuxboardConfig> options)
+    : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService _service;
-    private readonly TuxboardConfig _config;
+    private readonly ILogger<IndexModel> _logger = logger;
+    private readonly TuxboardConfig _config = options.Value;
 
-    public Dashboard Dashboard { get; set; } = null!;
-
-    public IndexModel(
-        ILogger<IndexModel> logger,
-        IDashboardService service,
-        IOptions<TuxboardConfig> options)
-    {
-        _logger = logger;
-        _service = service;
-        _config = options.Value;
-    }
+    public Dashboard<Guid> Dashboard { get; set; } = null!;
 
     public async Task OnGet()
     {
-        Dashboard = await _service.GetDashboardAsync(_config);
+        Dashboard = await service.GetDashboardAsync(_config);
     }
 
     public async Task<IActionResult> OnPostSaveWidgetPosition([FromBody] PlacementParameter model)
     {
-        var placement = await _service.SaveWidgetPlacementAsync(model);
+        var placement = await service.SaveWidgetPlacementAsync(model);
 
         if (placement == null)
         {
@@ -47,7 +40,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostRefresh()
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
