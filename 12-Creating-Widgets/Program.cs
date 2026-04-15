@@ -44,14 +44,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
 builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
 builder.Services.AddTransient<IWidgetRoleService, WidgetRoleService>();
-builder.Services.AddTransient<ITuxDbContext, TuxDbContext<Guid>>();
+builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
 builder.Services.AddTransient<IUserStore<TuxboardUser>, TuxboardUserStore>();
 builder.Services.AddTransient<IRoleStore<TuxboardRole>, TuxboardRoleStore>();
 builder.Services.AddTransient<SignInManager<TuxboardUser>>();
 builder.Services.AddTransient<UserManager<TuxboardUser>>();
 
-var app = builder.Build();
+    var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

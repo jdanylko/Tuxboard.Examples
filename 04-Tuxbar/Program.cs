@@ -25,7 +25,7 @@ builder.Services.AddRazorPages();
 
 // For Dependency Injection
 builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
-builder.Services.AddTransient<ITuxDbContext, TuxDbContext<Guid>>();
+builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 
 var app = builder.Build();
 
