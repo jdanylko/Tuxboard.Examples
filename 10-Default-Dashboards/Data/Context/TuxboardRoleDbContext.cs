@@ -8,13 +8,9 @@ using Tuxboard.Core.Data.Context;
 
 namespace DefaultDashboards.Data.Context;
 
-public class TuxboardRoleDbContext : TuxDbContext<Guid>, ITuxboardRoleDbContext
+public class TuxboardRoleDbContext(DbContextOptions<TuxDbContext<Guid>> options, IOptions<TuxboardConfig> config)
+    : TuxDbContext<Guid>(options, config), ITuxboardRoleDbContext
 {
-    public TuxboardRoleDbContext(DbContextOptions<TuxDbContext<Guid>> options, IOptions<TuxboardConfig> config)
-        : base(options, config)
-    {
-    }
-
     public DbSet<RoleDefaultDashboard> RoleDefaultDashboards { get; set; }
     
     // Identity
@@ -25,6 +21,9 @@ public class TuxboardRoleDbContext : TuxDbContext<Guid>, ITuxboardRoleDbContext
     public DbSet<TuxboardUser> TuxboardUsers { get; set; }
     public DbSet<TuxboardRole> TuxboardRoles { get; set; }
     public DbSet<TuxboardRoleClaim> TuxboardRoleClaims { get; set; }
+    
+    public async Task<bool> DashboardExistsForAsync(Guid userId) => 
+        await RoleDefaultDashboards.AnyAsync(rdd => rdd.Role.UserRoles.Any(Uri => Uri.UserId == userId));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

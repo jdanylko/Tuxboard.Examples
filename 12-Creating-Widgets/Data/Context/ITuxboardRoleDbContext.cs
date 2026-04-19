@@ -18,6 +18,5 @@ public interface ITuxboardRoleDbContext: ITuxDbContext<Guid>
     DbSet<TuxboardUser> TuxboardUsers { get; set; }
     DbSet<TuxboardRole> TuxboardRoles { get; set; }
     DbSet<TuxboardRoleClaim> TuxboardRoleClaims { get; set; }
-
-
+    Task<bool> DashboardExistsForAsync(Guid userId);
 }

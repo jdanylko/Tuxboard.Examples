@@ -7,20 +7,14 @@ using Tuxboard.Core.Domain.Entities;
 
 namespace DefaultWidgets.Services;
 
-public class RoleDashboardService : IRoleDashboardService
+public class RoleDashboardService(
+    ITuxboardRoleDbContext context,
+    UserManager<TuxboardUser> userManager,
+    RoleManager<TuxboardRole> roleManager)
+    : IRoleDashboardService
 {
-    private readonly ITuxboardRoleDbContext _context;
-    private readonly UserManager<TuxboardUser> _userManager;
-    private readonly RoleManager<TuxboardRole> _roleManager;
-
-    public RoleDashboardService(ITuxboardRoleDbContext context,
-        UserManager<TuxboardUser> userManager,
-        RoleManager<TuxboardRole> roleManager)
-    {
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
+    public async Task<bool> DashboardExistsForAsync(Guid userId) => 
+        await context.DashboardExistsForAsync(userId);
 
     public async Task<DashboardDefault> GetDashboardTemplateByRoleAsync(TuxboardUser user)
     {
@@ -29,29 +23,29 @@ public class RoleDashboardService : IRoleDashboardService
         var roleName = await GetRoles(user);
         if (string.IsNullOrEmpty(roleName))
         {
-            defaultDashboard = await _context.GetDashboardTemplateForAsync();
+            defaultDashboard = await context.GetDashboardTemplateForAsync();
         }
 
-        var role = await _roleManager.FindByNameAsync(roleName);
+        var role = await roleManager.FindByNameAsync(roleName);
         if (role == null)
-            return defaultDashboard ?? await _context.GetDashboardTemplateForAsync();
+            return defaultDashboard ?? await context.GetDashboardTemplateForAsync();
 
-        var roleDashboard = await _context.RoleDefaultDashboards
+        var roleDashboard = await context.RoleDefaultDashboards
             .FirstOrDefaultAsync(e => e.RoleId == role.Id);
         if (roleDashboard != null)
         {
             defaultDashboard =
-                (await _context.GetDashboardDefaultAsync(roleDashboard.DefaultDashboardId))
+                (await context.GetDashboardDefaultAsync(roleDashboard.DefaultDashboardId))
                 ?? null!;
         }
 
-        return defaultDashboard ?? await _context.GetDashboardTemplateForAsync();
+        return defaultDashboard ?? await context.GetDashboardTemplateForAsync();
     }
 
     private async Task<string> GetRoles(TuxboardUser user)
     {
         // *COULD* have more than one role; we just want the first one.
-        var roles = await _userManager.GetRolesAsync(user);
+        var roles = await userManager.GetRolesAsync(user);
         return (roles.Count == 1
             ? roles.FirstOrDefault()
             : string.Empty)!;

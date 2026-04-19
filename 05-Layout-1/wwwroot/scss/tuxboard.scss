@@ -1,4 +1,4 @@
-@import 'theme.scss';
+@use 'theme.scss';
 
 /**************
   Stock site.css
@@ -28,20 +28,20 @@ body {
 **************/
 
 .column {
-    background: $column-bg;
+    background: theme.$column-bg;
     min-height: 200px;
     float: left;
     padding: 10px;
 
     .placeholder {
-        border: 1px dashed $column-placeholder;
+        border: 1px dashed theme.$column-placeholder;
         margin-bottom: 10px;
-        background: $column-placeholder;
+        background: theme.$column-placeholder;
     }
 }
 
 .column.over {
-    border: 2px dashed $column-placeholder-hover;
+    border: 2px dashed theme.$column-placeholder-hover;
 }
 
 .column {
@@ -88,15 +88,15 @@ body {
         margin-right: 15px;
         font-size: 10px;
         padding: 10px;
-        border: 1px solid #DDD;
+        border: 1px solid theme.$layout-list-item-border;
 
         &:hover {
-            background-color: #EDEDED;
+            background-color: theme.$layout-list-item-bg-hover;
             cursor: pointer
         }
 
         &.selected {
-            background-color: #D1E8FC
+            background-color: theme.$layout-list-item-selected;
         }
 
         > .preview-table {
@@ -106,15 +106,15 @@ body {
             margin: 0 auto;
 
             > .preview-row {
-                border: 1px solid #777;
+                border: 1px solid theme.$layout-list-item-preview-row-border;
                 display: table-row-group;
 
                 div {
-                    background-color: #999;
+                    background-color: theme.$layout-list-item-preview-row-bg;
                     height: 80px;
-                    color: #FFF;
+                    color: theme.$layout-list-item-preview-row-color;
                     display: table-cell;
-                    border: 1px solid #CCC;
+                    border: 1px solid theme.$layout-list-item-preview-row-inner-border;
                 }
             }
         }

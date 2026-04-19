@@ -11,32 +11,25 @@ using Tuxboard.Core.Infrastructure.Services;
 
 namespace Layout_1.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel(
+    ILogger<IndexModel> logger,
+    IDashboardService<Guid> service,
+    IOptions<TuxboardConfig> options)
+    : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-    private readonly IDashboardService<Guid> _service;
-    private readonly TuxboardConfig _config;
+    private readonly ILogger<IndexModel> _logger = logger;
+    private readonly TuxboardConfig _config = options.Value;
 
     public Dashboard<Guid> Dashboard { get; set; } = null!;
 
-    public IndexModel(
-        ILogger<IndexModel> logger,
-        IDashboardService<Guid> service,
-        IOptions<TuxboardConfig> options)
-    {
-        _logger = logger;
-        _service = service;
-        _config = options.Value;
-    }
-
     public async Task OnGet()
     {
-        Dashboard = await _service.GetDashboardAsync(_config);
+        Dashboard = await service.GetDashboardAsync(_config);
     }
 
     public async Task<IActionResult> OnPostSaveWidgetPosition([FromBody] PlacementParameter model)
     {
-        var placement = await _service.SaveWidgetPlacementAsync(model);
+        var placement = await service.SaveWidgetPlacementAsync(model);
 
         if (placement == null)
         {
@@ -49,7 +42,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostRefresh()
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -57,11 +50,11 @@ public class IndexModel : PageModel
     /* Dialogs */
     public async Task<IActionResult> OnPostSimpleLayoutDialog()
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
         var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
         var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
-        var layoutTypes = await _service.GetLayoutTypesAsync();
+        var layoutTypes = await service.GetLayoutTypesAsync();
         var result = layoutTypes.Select(e => e.ToDto(currentLayout.LayoutTypeId)).ToList();
 
         return ViewComponent("simplelayoutdialog", result);
@@ -69,7 +62,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostSaveSimpleLayoutAsync([FromBody] SimpleLayoutRequest request)
     {
-        var dashboard = await _service.GetDashboardAsync(_config);
+        var dashboard = await service.GetDashboardAsync(_config);
 
         // Since we only have a single layout for this example, we can grab the first one.
         var tab = dashboard.GetCurrentTab();
@@ -79,11 +72,11 @@ public class IndexModel : PageModel
         var currentLayoutRow = layouts?.LayoutRows?.FirstOrDefault();
         if (currentLayoutRow != null)
         {
-            await _service.ChangeLayoutRowToAsync(currentLayoutRow, request.LayoutTypeId);
+            await service.ChangeLayoutRowToAsync(currentLayoutRow, request.LayoutTypeId);
         }
 
         // Refresh
-        dashboard = await _service.GetDashboardAsync(_config);
+        dashboard = await service.GetDashboardAsync(_config);
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
