@@ -65,7 +65,7 @@ public class IndexModel(
     {
         var claim = User?.FindFirst(ClaimTypes.NameIdentifier);
         return claim != null 
-            ? new Guid(claim.Value) 
+            ? new Guid(claim.Value)
             : Guid.Empty;
     }
     
@@ -236,7 +236,7 @@ public class IndexModel(
         List<WidgetDto> widgets = new();
 
         var id = GetIdentity();
-        if (id != Guid.Empty)
+        if (id == Guid.Empty)
         {
             var user = await GetTuxboardUser(id);
             widgets.AddRange(
