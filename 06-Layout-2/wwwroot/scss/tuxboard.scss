@@ -88,15 +88,15 @@ body {
         margin-right: 15px;
         font-size: 10px;
         padding: 10px;
-        border: 1px solid #DDD;
+        border: 1px solid theme.$layout-list-item-border;
 
         &:hover {
-            background-color: #EDEDED;
+            background-color: theme.$layout-list-item-bg-hover;
             cursor: pointer
         }
 
         &.selected {
-            background-color: #D1E8FC
+            background-color: theme.$layout-list-item-selected;
         }
 
         > .preview-table {
@@ -106,15 +106,15 @@ body {
             margin: 0 auto;
 
             > .preview-row {
-                border: 1px solid #777;
+                border: 1px solid theme.$layout-list-item-preview-row-border;
                 display: table-row-group;
 
                 div {
-                    background-color: #999;
+                    background-color: theme.$layout-list-item-preview-row-bg;
                     height: 80px;
-                    color: #FFF;
+                    color: theme.$layout-list-item-preview-row-color;
                     display: table-cell;
-                    border: 1px solid #CCC;
+                    border: 1px solid theme.$layout-list-item-preview-row-inner-border;
                 }
             }
         }
@@ -123,38 +123,27 @@ body {
 
 /* Advanced Layout Dialog */
 
-$spacingBetweenColumns: 2px;
-
-$rowLayoutDialog-hover-color: #CCC; /* column layout: border color */
-$rowLayoutDialog-column-bg: #999; /* column layout: bg color */
-$rowLayoutDialog-column-text: #FFF; /* column layout: text color */
-$rowLayoutDialog-column-title-bg: #FFF; /* column title: background */
-$rowLayoutDialog-column-title-text: #000; /* column title: text color */
-$rowLayoutDialog-column-title-border: #888; /* column title: border color */
-$rowLayoutDialog-column-border: #808080;
-$rowLayoutDialog-placeholder-color: #eacece;
-
 /*
     Fix spacing between each row
     remove spacing between middle columns
 */
 .row-layout-row > .row.no-gutters [class*='col']:not(:first-child):not(:last-child) {
-    padding-left: $spacingBetweenColumns;
-    padding-right: $spacingBetweenColumns;
+    padding-left: theme.$spacingBetweenColumns;
+    padding-right: theme.$spacingBetweenColumns;
 }
 
 /*
     remove right padding from last column
 */
 .row-layout-row > .row.no-gutters [class*='col']:last-child {
-    padding-left: $spacingBetweenColumns
+    padding-left: theme.$spacingBetweenColumns;
 }
 
 /*
     remove right padding from last column
 */
 .row-layout-row > .row.no-gutters [class*='col']:first-child {
-    padding-right: $spacingBetweenColumns
+    padding-right: theme.$spacingBetweenColumns;
 }
 
 .handle:hover {
@@ -169,13 +158,13 @@ $rowLayoutDialog-placeholder-color: #eacece;
     width: 100%;
 
     .over {
-        border: 1px dashed $rowLayoutDialog-column-bg
+        border: 1px dashed theme.$rowLayoutDialog-column-bg
     }
 }
 
 .placeholder {
-    background-color: $rowLayoutDialog-placeholder-color;
-    border: 1px dashed red !important;
+    background-color: theme.$rowLayoutDialog-placeholder-color;
+    border: 1px dashed theme.$rowLayoutDialog-placeholder-border !important;
     /* padding: 15px; */
     width: 100%;
     display: block;
@@ -189,13 +178,13 @@ $rowLayoutDialog-placeholder-color: #eacece;
     div {
 
         .content-container {
-            background-color: $rowLayoutDialog-column-bg;
+            background-color: theme.$rowLayoutDialog-column-bg;
 
             span {
                 font-size: 12px;
-                background: $rowLayoutDialog-column-title-bg;
-                color: $rowLayoutDialog-column-title-text;
-                border: 1px solid $rowLayoutDialog-column-title-border;
+                background: theme.$rowLayoutDialog-column-title-bg;
+                color: theme.$rowLayoutDialog-column-title-text;
+                border: 1px solid theme.$rowLayoutDialog-column-title-border;
                 padding: 0 0.5em;
             }
         }
