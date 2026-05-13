@@ -20,25 +20,22 @@ namespace DefaultWidgets.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService<Guid> _service;
     private readonly IRoleDashboardService _roleDashboardService;
     private readonly IWidgetRoleService _widgetRoleService;
     private readonly UserManager<TuxboardUser> _userManager;
     private readonly TuxboardConfig _config;
 
-    public Dashboard<Guid> Dashboard { get; set; } = null!;
+    public Dashboard<Guid>? Dashboard { get; set; }
     public bool HasDashboard => Dashboard != null;
 
     public IndexModel(
-        ILogger<IndexModel> logger,
         IDashboardService<Guid> service,
         IRoleDashboardService roleDashboardService,
         IWidgetRoleService widgetRoleService,
         UserManager<TuxboardUser> userManager,
         IOptions<TuxboardConfig> options)
     {
-        _logger = logger;
         _service = service;
         _roleDashboardService = roleDashboardService;
         _widgetRoleService = widgetRoleService;
@@ -57,10 +54,10 @@ public class IndexModel : PageModel
         }
     }
 
-    private async Task<TuxboardUser> GetTuxboardUser(Guid id) 
-        => (await _userManager.FindByIdAsync(id.ToString()))!;
+    private async Task<TuxboardUser?> GetTuxboardUser(Guid id) 
+        => await _userManager.FindByIdAsync(id.ToString());
 
-    private async Task<Dashboard<Guid>> GetDashboardByRole(Guid id)
+    private async Task<Dashboard<Guid>?> GetDashboardByRole(Guid id)
     {
         var user = await GetTuxboardUser(id);
 
@@ -111,9 +108,11 @@ public class IndexModel : PageModel
         var id = GetIdentity();
 
         var dashboard = await _service.GetDashboardForAsync(_config, id);
+        if (dashboard == null)
+            return new NotFoundResult();
 
         // Use this as a way to identify a widget placement IN A DASHBOARD.
-        var placement = dashboard.GetCurrentTab().GetWidgetPlacements()
+        var placement = dashboard.GetCurrentTab()?.GetWidgetPlacements()
             .FirstOrDefault(e => e.WidgetPlacementId == request.WidgetId);
 
         if (placement == null)
@@ -141,11 +140,17 @@ public class IndexModel : PageModel
         var id = GetIdentity();
 
         var dashboard = await _service.GetDashboardForAsync(_config, id);
-        var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
+        if (dashboard == null)
+            return new NotFoundResult();
+
+        var layouts = dashboard.GetCurrentTab()?.GetLayouts().FirstOrDefault();
         var currentLayout = layouts?.LayoutRows.FirstOrDefault();
 
         var layoutTypes = await _service.GetLayoutTypesAsync();
-        var result = layoutTypes.Select(e => e.ToDto(currentLayout!.LayoutTypeId)).ToList();
+        if (currentLayout == null)
+            return new NotFoundResult();
+
+        var result = layoutTypes.Select(e => e.ToDto(currentLayout.LayoutTypeId)).ToList();
 
         return ViewComponent("simplelayoutdialog", result);
     }
@@ -155,10 +160,12 @@ public class IndexModel : PageModel
         var id = GetIdentity();
 
         var dashboard = await _service.GetDashboardForAsync(_config, id);
+        if (dashboard == null)
+            return new NotFoundResult();
 
         // Since we only have a single layout for this example, we can grab the first one.
         var tab = dashboard.GetCurrentTab();
-        var layouts = tab.GetLayouts().FirstOrDefault();
+        var layouts = tab?.GetLayouts().FirstOrDefault();
 
         // LayoutRows have a LayoutType. If we change the LayoutType, the LayoutRow will update on next reload.
         var currentLayoutRow = layouts?.LayoutRows?.FirstOrDefault();
@@ -169,6 +176,8 @@ public class IndexModel : PageModel
 
         // Refresh
         dashboard = await _service.GetDashboardForAsync(_config, id);
+        if (dashboard == null)
+            return new NotFoundResult();
 
         return ViewComponent("tuxboardtemplate", dashboard);
     }
@@ -182,7 +191,10 @@ public class IndexModel : PageModel
         var layoutRows = new List<LayoutRow>();
 
         var dashboard = await _service.GetDashboardForAsync(_config, id);
-        var layouts = dashboard.GetCurrentTab().GetLayouts().FirstOrDefault();
+        if (dashboard == null)
+            return new NotFoundResult();
+
+        var layouts = dashboard.GetCurrentTab()?.GetLayouts().FirstOrDefault();
         if (layouts != null)
         {
             layoutRows.AddRange(layouts.LayoutRows.ToList());
@@ -201,6 +213,8 @@ public class IndexModel : PageModel
     {
         var layoutTypes = await _service.GetLayoutTypesAsync();
         var layoutType = layoutTypes.FirstOrDefault(e => e.LayoutTypeId == request.Id);
+        if (layoutType == null)
+            return new NotFoundResult();
 
         return ViewComponent("advancedlayoutrow", new LayoutRow
         {
@@ -253,11 +267,14 @@ public class IndexModel : PageModel
         if (id != Guid.Empty)
         {
             var user = await GetTuxboardUser(id);
-            widgets.AddRange(
-                (await _widgetRoleService.GetWidgetsByRoleAsync(user))
-                .Select(r => r.ToDto())
-                .ToList()
-            );
+            if (user != null)
+            {
+                widgets.AddRange(
+                    (await _widgetRoleService.GetWidgetsByRoleAsync(user))
+                    .Select(r => r.ToDto())
+                    .ToList()
+                );
+            }
         }
         else
         {
@@ -276,11 +293,13 @@ public class IndexModel : PageModel
         var id = GetIdentity();
 
         var dashboard = await _service.GetDashboardForAsync(_config, id);
+        if (dashboard == null)
+            return new NotFoundResult();
 
         var baseWidget = await _service.GetWidgetAsync(request.WidgetId);
 
         var layoutRow = dashboard.GetFirstLayoutRow();
-        if (layoutRow != null)
+        if (layoutRow != null && baseWidget != null)
         {
             var placement = layoutRow.CreateFromWidget(baseWidget);
             // placement object can be set to any other layout row chosen;

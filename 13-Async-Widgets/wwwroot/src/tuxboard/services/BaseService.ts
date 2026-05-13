@@ -26,7 +26,7 @@
     }
 
     protected logError = (error:Error) => {
-        // console.log("Issue w/ fetch call: \n", error);
+        console.error("Issue w/ fetch call: \n", error);
     }
 
     protected getToken = (): string => {

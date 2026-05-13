@@ -27,7 +27,7 @@ export class TuxboardService extends BaseService {
         super(debugParam);
     }
 
-    public saveWidgetPlacement = (ev: Event, dragInfo: DragWidgetInfo) => {
+    public saveWidgetPlacement = async (ev: Event, dragInfo: DragWidgetInfo) => {
 
         const postData = {
             PlacementId: dragInfo.placementId,
@@ -48,13 +48,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            return this.validateResponse(response);
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
     /* Added */
-    public refresh = () => {
+    public refresh = async () => {
 
         const request = new Request(this.tuxRefreshUrl,
             {
@@ -65,13 +68,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public getSimpleLayoutDialog = () => {
+    public getSimpleLayoutDialog = async () => {
 
         const request = new Request(this.tuxSimpleLayoutDialogUrl,
             {
@@ -82,13 +88,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public saveSimpleLayout = (layoutRowId: string, newLayoutTypeId) => {
+    public saveSimpleLayout = async (layoutRowId: string, newLayoutTypeId) => {
 
         const postData = {
             LayoutRowId: layoutRowId,
@@ -104,13 +113,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public getAdvancedLayoutDialog = () => {
+    public getAdvancedLayoutDialog = async () => {
 
         const request = new Request(this.tuxAdvancedLayoutDialogUrl,
             {
@@ -121,13 +133,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public getLayoutType = (typeId: number) => {
+    public getLayoutType = async (typeId: number) => {
 
         var postData = {
             id: typeId
@@ -143,13 +158,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public saveAdvancedLayout = (model: LayoutModel) => {
+    public saveAdvancedLayout = async (model: LayoutModel) => {
 
         var postData =
         {
@@ -167,13 +185,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public canDeleteLayoutRow = (tabId: string, layoutRowId: string) => {
+    public canDeleteLayoutRow = async (tabId: string, layoutRowId: string) => {
 
         var postData =
         {
@@ -194,7 +215,7 @@ export class TuxboardService extends BaseService {
         return fetch(request);
     }
 
-    public getAddWidgetDialog = () => {
+    public getAddWidgetDialog = async () => {
 
         const request = new Request(this.tuxAddWidgetDialogUrl,
             {
@@ -205,13 +226,16 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
-    public addWidget = (widgetId:string) => {
+    public addWidget = async (widgetId:string) => {
 
         var postData = {
             WidgetId: widgetId
@@ -227,10 +251,13 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText)
-            .catch(this.logError);
+        try {
+            const response = await fetch(request);
+            this.validateResponse(response);
+            return response.text();
+        } catch (err) {
+            this.logError(err);
+        }
     }
 
     public removeWidget = (widgetId:string) => {
@@ -272,7 +299,7 @@ export class TuxboardService extends BaseService {
         return fetch(request)
     }
 
-    public getWidget = (widgetPlacementId: string, collapsed: boolean) => {
+    public getWidget = async (widgetPlacementId: string, collapsed: boolean) => {
 
         var postData = {
             WidgetPlacementId: widgetPlacementId,
@@ -289,8 +316,8 @@ export class TuxboardService extends BaseService {
                 }
             });
 
-        return fetch(request)
-            .then(this.validateResponse)
-            .then(this.readResponseAsText);
+        const response = await fetch(request);
+        this.validateResponse(response);
+        return response.text();
     }
 }

@@ -24,7 +24,7 @@ public class RoleDashboardService : IRoleDashboardService
 
     public async Task<DashboardDefault> GetDashboardTemplateByRoleAsync(TuxboardUser user)
     {
-        DashboardDefault defaultDashboard = null!;
+        DashboardDefault? defaultDashboard = null;
 
         var roleName = await GetRoles(user);
         if (string.IsNullOrEmpty(roleName))
@@ -34,18 +34,17 @@ public class RoleDashboardService : IRoleDashboardService
 
         var role = await _roleManager.FindByNameAsync(roleName);
         if (role == null)
-            return defaultDashboard ?? await _context.GetDashboardTemplateForAsync();
+            return (defaultDashboard ?? await _context.GetDashboardTemplateForAsync())!;
 
         var roleDashboard = await _context.RoleDefaultDashboards
             .FirstOrDefaultAsync(e => e.RoleId == role.Id);
         if (roleDashboard != null)
         {
             defaultDashboard =
-                (await _context.GetDashboardDefaultAsync(roleDashboard.DefaultDashboardId))
-                ?? null!;
+                await _context.GetDashboardDefaultAsync(roleDashboard.DefaultDashboardId);
         }
 
-        return defaultDashboard ?? await _context.GetDashboardTemplateForAsync();
+        return (defaultDashboard ?? await _context.GetDashboardTemplateForAsync())!;
     }
 
     private async Task<string> GetRoles(TuxboardUser user)

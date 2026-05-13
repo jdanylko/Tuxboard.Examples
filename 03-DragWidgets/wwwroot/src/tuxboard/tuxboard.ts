@@ -1,4 +1,4 @@
-﻿import {
+import {
     dataId,
     defaultColumnSelector,
     defaultDashboardSelector,
@@ -189,7 +189,8 @@ export class Tuxboard {
         }
 
         this.service.saveWidgetPlacement(ev, this.dragInfo)
-            .then((result) => console.log("Saved."));
+            .then((result) => console.log("Saved."))
+            .catch((err: Error) => console.error("Issue w/ fetch call: \n", err));
 
         ev.dataTransfer.clearData();
     }

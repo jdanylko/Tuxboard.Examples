@@ -14,17 +14,14 @@ export class RefreshButton extends TuxbarButton {
         element?.addEventListener("click", this.onClick, false);
     }
 
-    onClick = (ev: MouseEvent) => {
+    onClick = async (ev: MouseEvent) => {
 
         const spinner = this.tuxBar.get(defaultTuxbarSpinnerSelector) as TuxbarSpinner;
         spinner?.show();
 
-        try
-        {
-            this.tuxBar.getTuxboard().refresh();
-        }
-        finally
-        {
+        try {
+            await this.tuxBar.getTuxboard().refresh();
+        } finally {
             spinner?.hide();
         }
     }

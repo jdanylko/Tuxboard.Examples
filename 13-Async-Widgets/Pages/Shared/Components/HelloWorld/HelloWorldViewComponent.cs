@@ -7,9 +7,6 @@ namespace AsyncWidgets.Pages.Shared.Components.HelloWorld;
 [ViewComponent(Name = "helloworld")]
 public class HelloWorldViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(WidgetPlacement placement)
-    {
-        Thread.Sleep(1500);
-        return View(new WidgetModel { Placement = placement });
-    }
+    public IViewComponentResult Invoke(WidgetPlacement placement) => 
+        View(new WidgetModel { Placement = placement });
 }

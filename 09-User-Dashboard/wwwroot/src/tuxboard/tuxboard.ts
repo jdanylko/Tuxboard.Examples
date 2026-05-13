@@ -1,4 +1,4 @@
-﻿import * as bootstrap from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import {
     dataIdAttribute,
     defaultColumnSelector,
@@ -97,31 +97,28 @@ export class Tuxboard {
     updateDashboard = (data: string) => {
         if (data) {
             document.querySelector(defaultDashboardSelector).innerHTML = data;
-            this.attachWidgetToolbarEvents();
             this.attachDragAndDropEvents();
         }
     }
 
     /* Widget Toolbar Events */
 
+    private handleWidgetToolbarClick = (ev: Event) => {
+        const target = ev.target as HTMLElement;
+
+        const removeBtn = target.closest(defaultWidgetRemoveWidgetSelector);
+        if (removeBtn) { this.removeWidget(ev); return; }
+
+        const dropdownBtn = target.closest(defaultDropdownInWidgetHeaderSelector) as HTMLButtonElement;
+        if (dropdownBtn) { bootstrap.Dropdown.getOrCreateInstance(dropdownBtn).toggle(); return; }
+
+        const stateBtn = target.closest(defaultWidgetStateSelector);
+        if (stateBtn) { this.setWidgetState(ev); return; }
+    }
+
     attachWidgetToolbarEvents = () => {
-
-        this.dashboard.querySelectorAll(defaultWidgetRemoveWidgetSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', (ev: Event) => this.removeWidget(ev))
-            });
-
-        // Grab all dropdown-toggles from inside a widget's header and build them.
-        document.querySelectorAll(defaultDropdownInWidgetHeaderSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', () => bootstrap.Dropdown.getOrCreateInstance(item).toggle());
-            });
-
-        // Grab all mimimize/maximize buttons and assign onClicks
-        document.querySelectorAll(defaultWidgetStateSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', (ev: Event) => { this.setWidgetState(ev) });
-            });
+        this.dashboard.removeEventListener('click', this.handleWidgetToolbarClick);
+        this.dashboard.addEventListener('click', this.handleWidgetToolbarClick);
     }
 
     setWidgetState = (ev: Event) => {
@@ -286,7 +283,8 @@ export class Tuxboard {
         }
 
         this.service.saveWidgetPlacement(ev, this.dragInfo)
-            .then((result) => console.log("Saved."));
+            .then((result) => console.log("Saved."))
+            .catch((err: Error) => console.error("Issue w/ fetch call: \n", err));
 
         ev.dataTransfer.clearData();
     }

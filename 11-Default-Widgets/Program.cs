@@ -41,15 +41,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
-builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
-builder.Services.AddTransient<IRoleDashboardService, RoleDashboardService>();
-builder.Services.AddTransient<IWidgetRoleService, WidgetRoleService>();
-builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
-builder.Services.AddTransient<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
-builder.Services.AddTransient<IUserStore<TuxboardUser>, TuxboardUserStore>();
-builder.Services.AddTransient<IRoleStore<TuxboardRole>, TuxboardRoleStore>();
-builder.Services.AddTransient<SignInManager<TuxboardUser>>();
-builder.Services.AddTransient<UserManager<TuxboardUser>>();
+builder.Services.AddScoped<IDashboardService<Guid>, DashboardService<Guid>>();
+builder.Services.AddScoped<IRoleDashboardService, RoleDashboardService>();
+builder.Services.AddScoped<IWidgetRoleService, WidgetRoleService>();
+builder.Services.AddScoped<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
+builder.Services.AddScoped<ITuxboardRoleDbContext, TuxboardRoleDbContext>();
+builder.Services.AddScoped<IUserStore<TuxboardUser>, TuxboardUserStore>();
+builder.Services.AddScoped<IRoleStore<TuxboardRole>, TuxboardRoleStore>();
+builder.Services.AddScoped<SignInManager<TuxboardUser>>();
+builder.Services.AddScoped<UserManager<TuxboardUser>>();
 
 var app = builder.Build();
 
@@ -70,6 +70,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -1,4 +1,4 @@
-﻿import * as bootstrap from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import {
     dataIdAttribute,
     defaultColumnSelector,
@@ -91,47 +91,41 @@ export class Tuxboard {
         return widgets;
     }
 
-    updateWidgets = () => 
-        this.getWidgets().map((widget) => {
-            this.updateWidget(widget)
-        });
+    updateWidgets = () =>
+        Promise.all(this.getWidgets().map((widget) => this.updateWidget(widget)));
 
-    updateWidget = (widget: WidgetPlacement) => {
+    updateWidget = async (widget: WidgetPlacement) => {
         if (!widget) return;
         const id = widget.getPlacementId();
         const collapsed = widget.isCollapsed();
 
         widget.showLoader();
 
-        this.service.getWidget(id, collapsed)
-            .then((data: string) => {
-                if (data) {
-                    widget.hideLoader();
-                    const body = widget.getDom().querySelector(defaultWidgetBodySelector);
-                    if (body) {
-                        body.innerHTML = data;
-                    }
-                }
-            })
-            .catch(err => {
+        try {
+            const data = await this.service.getWidget(id, collapsed);
+            if (data) {
                 widget.hideLoader();
-                widget.showError();
-            });
+                const body = widget.getDom().querySelector(defaultWidgetBodySelector);
+                if (body) {
+                    body.innerHTML = data;
+                }
+            }
+        } catch (err) {
+            widget.hideLoader();
+            widget.showError();
+        }
     }
 
     getService = () => this.service;
 
-    refresh = () => {
-        this.service.refresh()
-            .then((data: string) => {
-                this.updateDashboard(data);
-            })
+    refresh = async () => {
+        const data = await this.service.refresh();
+        this.updateDashboard(data);
     }
 
     updateDashboard = (data: string) => {
         if (data) {
             document.querySelector(defaultDashboardSelector).innerHTML = data;
-            this.attachWidgetToolbarEvents();
             this.attachDragAndDropEvents();
             this.updateWidgets();
         }
@@ -139,24 +133,22 @@ export class Tuxboard {
 
     /* Widget Toolbar Events */
 
+    private handleWidgetToolbarClick = (ev: Event) => {
+        const target = ev.target as HTMLElement;
+
+        const removeBtn = target.closest(defaultWidgetRemoveWidgetSelector);
+        if (removeBtn) { this.removeWidget(ev); return; }
+
+        const dropdownBtn = target.closest(defaultDropdownInWidgetHeaderSelector) as HTMLButtonElement;
+        if (dropdownBtn) { bootstrap.Dropdown.getOrCreateInstance(dropdownBtn).toggle(); return; }
+
+        const stateBtn = target.closest(defaultWidgetStateSelector);
+        if (stateBtn) { this.setWidgetState(ev); return; }
+    }
+
     attachWidgetToolbarEvents = () => {
-
-        this.dashboard.querySelectorAll(defaultWidgetRemoveWidgetSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', (ev: Event) => this.removeWidget(ev))
-            });
-
-        // Grab all dropdown-toggles from inside a widget's header and build them.
-        document.querySelectorAll(defaultDropdownInWidgetHeaderSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', () => bootstrap.Dropdown.getOrCreateInstance(item).toggle());
-            });
-
-        // Grab all mimimize/maximize buttons and assign onClicks
-        document.querySelectorAll(defaultWidgetStateSelector)
-            .forEach((item: HTMLButtonElement) => {
-                item.addEventListener('click', (ev: Event) => { this.setWidgetState(ev) });
-            });
+        this.dashboard.removeEventListener('click', this.handleWidgetToolbarClick);
+        this.dashboard.addEventListener('click', this.handleWidgetToolbarClick);
     }
 
     setWidgetState = (ev: Event) => {
@@ -323,7 +315,8 @@ export class Tuxboard {
         }
 
         this.service.saveWidgetPlacement(ev, this.dragInfo)
-            .then((result) => console.log("Saved."));
+            .then((result) => console.log("Saved."))
+            .catch((err: Error) => console.error("Issue w/ fetch call: \n", err));
 
         ev.dataTransfer.clearData();
     }

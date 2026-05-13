@@ -33,8 +33,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 // For Dependency Injection
-builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
-builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
+builder.Services.AddScoped<IDashboardService<Guid>, DashboardService<Guid>>();
+builder.Services.AddScoped<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 
 var app = builder.Build();
 
@@ -55,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -8,18 +8,15 @@ namespace WidgetsExample.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     private readonly IDashboardService<Guid> _service;
     private readonly TuxboardConfig _config;
 
-    public Dashboard<Guid> Dashboard { get; set; } = null!;
+    public Dashboard<Guid>? Dashboard { get; set; }
 
     public IndexModel(
-        ILogger<IndexModel> logger,
         IDashboardService<Guid> service,
         IOptions<TuxboardConfig> options)
     {
-        _logger = logger;
         _service = service;
         _config = options.Value;
     }
