@@ -6,6 +6,7 @@ This is a **sequential tutorial repository** for [Tuxboard](https://github.com/j
 
 - Each project is a self-contained ASP.NET Core 8 Razor Pages app with its own SQL Server database, EF Core migrations, and front-end build pipeline.
 - When asked to make changes, **stay in the specific project folder** unless explicitly told otherwise.
+- Projects are **not back-ported** — each folder is a snapshot of that tutorial step.
 
 ---
 
@@ -30,10 +31,15 @@ For .NET:
 dotnet build
 dotnet run
 
+# Full solution build (use --no-incremental to surface all warnings)
+dotnet build Tuxboard.Examples.sln --no-incremental
+
 # EF Core migrations (run from project folder)
 dotnet ef migrations add <MigrationName>
 dotnet ef database update
 ```
+
+> **Gulp build quirk:** Running multiple sequential `gulp build` calls via `&&` in PowerShell tends to hang. Run each project's build as a separate process: `cmd /c "cd /d <ProjectFolder> && npx gulp build"`.
 
 ---
 
@@ -58,7 +64,7 @@ The key pattern in the later examples (12+) is a **two-phase render**:
 
 1. **Server (OnGet):** The `TuxboardTemplate` view component renders the dashboard shell. Each widget renders only its outer `.card` frame (via the `WidgetTemplate` view component) with an empty `.card-body` and a visible `.overlay` spinner. This is controlled by `WidgetPlacement.UseTemplate == true`.
 
-2. **Client (initialize):** `Tuxboard.updateWidgets()` calls `Promise.all(widgets.map(w => updateWidget(w)))` — all widgets fire concurrently. Each calls `OnPostGetWidget` with the placement ID, which returns `ViewComponent(widget.Widget.Name, placement)` — the actual widget HTML — injected into `.card-body`.
+2. **Client (initialize):** `Tuxboard.updateWidgets()` calls `Promise.all(widgets.map(w => updateWidget(w)))` — all widgets fire concurrently. Each calls `OnPostGetWidget` with the placement ID, which returns `ViewComponent(widget.Widget.Name, new { placement = widget })` — the actual widget HTML — injected into `.card-body`.
 
 If `WidgetPlacement.UseTemplate == false`, the widget ViewComponent is rendered server-side inline (no async loading).
 
@@ -117,7 +123,8 @@ public class HelloWorldViewComponent : ViewComponent
 - The `Name` in `[ViewComponent(Name = "...")]` must **exactly match** the value stored in the `Widget.Name` database column.
 - The view is always `Default.cshtml` in the same folder.
 - Widget ViewComponents receive a `WidgetPlacement` parameter.
-- `OnPostGetWidgetAsync` in `Index.cshtml.cs` calls `ViewComponent(widget.Widget.Name)` to dynamically invoke the correct component.
+- `OnPostGetWidgetAsync` in `Index.cshtml.cs` must pass the placement as a named argument: `return ViewComponent(widget.Widget.Name, new { placement = widget })`. Omitting the second argument causes `null` to be passed to `Invoke`, breaking all widget renders.
+- For async widgets, implement `InvokeAsync(WidgetPlacement placement)` (not `Invoke`). Use `await Task.Delay(...)` — never `Thread.Sleep(...)`, which blocks the thread pool.
 
 ### Widget GroupName
 
@@ -142,6 +149,29 @@ The `data-id` attribute carries entity GUIDs throughout the DOM and is reference
 
 `BaseService` → `TuxboardService`. All service methods are `async/await` returning `Promise<string>` (HTML fragments) or `Promise<Response>`. Use `try/catch` in service methods; do not use `.then().catch()` chains.
 
+- `logError` in `BaseService` must actively call `console.error(...)` — never leave it commented out, or errors will be silently swallowed.
+- `logError` is a `protected` method on `BaseService`. The `Tuxboard` class does **not** extend `BaseService`, so `.catch(this.logError)` inside `tuxboard.ts` is a TypeScript error. Use an inline arrow: `.catch((err: Error) => console.error("Issue w/ fetch call: \n", err))`.
+
+### Widget Toolbar Event Delegation
+
+Do **not** use `querySelectorAll` + `addEventListener` on each toolbar button call — this accumulates duplicate listeners on every re-render. Instead, use a single delegated listener on the dashboard container stored as a named class field so it can be properly removed and re-added:
+
+```typescript
+private handleWidgetToolbarClick = (e: Event) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest<HTMLButtonElement>(".toolbar-button");
+    if (!button) return;
+    // handle button...
+};
+
+attachToolbarEvents() {
+    this.dashboard.removeEventListener("click", this.handleWidgetToolbarClick);
+    this.dashboard.addEventListener("click", this.handleWidgetToolbarClick);
+}
+```
+
+Anonymous functions cannot be removed via `removeEventListener` — always store the handler as a named field.
+
 ### Razor Conditional Rendering
 
 The `condition=""` attribute is a custom tag helper used throughout `.cshtml` files:
@@ -157,14 +187,19 @@ Later projects (09+) use a fully custom ASP.NET Identity implementation:
 - `TuxboardUser`, `TuxboardRole` extend the Identity base classes
 - Custom stores (`TuxboardUserStore`, `TuxboardRoleStore`) are registered as `Transient`
 - `TuxboardRoleDbContext` handles both Tuxboard tables and Identity tables in one context
+- Projects 09–13 **must** include `app.UseAuthentication()` **before** `app.UseAuthorization()` in the middleware pipeline. Without it, Identity cookies are never read and logins silently fail even though auth services are registered.
+
+#### Razor Pages Authorization Constraint
+
+`[Authorize]` and `[AllowAnonymous]` **cannot** be applied to individual Razor Page handler methods (`OnGet`, `OnPost`, etc.) — this produces MVC1001 warnings and has no effect. They only work at the page model **class** level. To conditionally protect behavior without restricting `OnGet`, use `User.Identity.IsAuthenticated` checks inside the handler.
 
 ### DI Registration Pattern
 
-All services are registered as `Transient`:
+All services are registered as **`AddScoped`** (not `AddTransient` — scoped is correct for EF Core `DbContext`-backed services within a request):
 
 ```csharp
-builder.Services.AddTransient<IDashboardService<Guid>, DashboardService<Guid>>();
-builder.Services.AddTransient<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
+builder.Services.AddScoped<IDashboardService<Guid>, DashboardService<Guid>>();
+builder.Services.AddScoped<ITuxDbContext<Guid>, TuxDbContext<Guid>>();
 ```
 
 ### Docker
