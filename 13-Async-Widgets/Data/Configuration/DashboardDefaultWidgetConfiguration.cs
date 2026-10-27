@@ -12,7 +12,7 @@ public class DashboardDefaultWidgetConfiguration: IEntityTypeConfiguration<Dashb
         {
             new()
             {
-                DefaultWidgetId = Guid.NewGuid(),
+                DefaultWidgetId = new Guid("16805827-2014-4365-833A-07FAB85FDF08"),
                 DashboardDefaultId = new Guid("1623F469-D9F0-400C-8A4C-B4366233F485"),
                 LayoutRowId = new Guid("62487409-221B-40FF-A62B-FC3046B97CCB"),
                 WidgetId = new Guid("EE84443B-7EE7-4754-BB3C-313CC0DA6039"),

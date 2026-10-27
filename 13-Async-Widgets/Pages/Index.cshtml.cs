@@ -136,7 +136,7 @@ public class IndexModel : PageModel
     {
         var widget = await _service.GetWidgetPlacementAsync(request.WidgetPlacementId);
 
-        return ViewComponent(widget.Widget.Name);
+        return ViewComponent(widget.Widget.Name, new { placement = widget });
     }
 
     /* Dialogs */
