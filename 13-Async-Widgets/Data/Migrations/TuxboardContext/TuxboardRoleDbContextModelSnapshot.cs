@@ -18,7 +18,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "8.0.14")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -262,8 +262,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                     b.Property<Guid>("DashboardId")
                         .ValueGeneratedOnAdd()
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SelectedTab")
                         .HasColumnType("int");
@@ -282,8 +281,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LayoutId")
                         .HasMaxLength(36)
@@ -320,8 +318,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ColumnIndex")
                         .HasColumnType("int");
@@ -381,8 +378,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DashboardId")
                         .HasMaxLength(36)
@@ -411,8 +407,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("LayoutIndex")
                         .HasColumnType("int");
@@ -447,8 +442,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("LayoutId")
                         .HasMaxLength(36)
@@ -561,8 +555,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("CanDelete")
                         .HasColumnType("bit");
@@ -662,8 +655,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DefaultValue")
                         .IsRequired()
@@ -728,8 +720,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SettingIndex")
                         .HasColumnType("int");
@@ -765,8 +756,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Collapsed")
                         .HasColumnType("bit");
@@ -808,8 +798,7 @@ namespace AsyncWidgets.Data.Migrations.TuxboardContext
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Value")
                         .IsRequired()
